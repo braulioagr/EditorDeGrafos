@@ -125,7 +125,7 @@ namespace EditorDeGrafos
         }
         #endregion
 
-        #region 
+        #region Metodos
 
         /**
          * Este metodo es el que se encarga de diujar el nodp
@@ -158,5 +158,38 @@ namespace EditorDeGrafos
         }
 
         #endregion
+
+        public Arista aristaSoporte()
+        {
+            Arista puntero;
+            puntero = null;
+            foreach (Arista arista in this.aristas)
+            {
+                if (!arista.Arriba.Equals(this))
+                {
+                    puntero = arista;
+                }
+            }
+            return puntero;
+        }
+
+        public string[] Pesos()
+        {
+            string[] pesos;
+            pesos = new string[this.aristas.Count + 1];
+            int i;
+            i = 1;
+            pesos[0] = this.nombre;
+            foreach (Arista busca in this.aristas)
+            {
+                pesos[i] = busca.Peso.ToString();
+                if (busca.Peso == int.MaxValue)
+                {
+                    pesos[i] = "∞";
+                }
+                i++;
+            }
+            return pesos;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EditorDeGrafos
 {
-    partial class PendientesyCut
+    partial class PendientesYAislados
     {
         /// <summary>
         /// Required designer variable.
@@ -35,7 +35,7 @@
             // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(117, 100);
+            this.Cerrar.Location = new System.Drawing.Point(177, 137);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 0;
@@ -49,20 +49,22 @@
             this.dataGridCut.ColumnHeadersVisible = false;
             this.dataGridCut.Location = new System.Drawing.Point(12, 12);
             this.dataGridCut.Name = "dataGridCut";
-            this.dataGridCut.Size = new System.Drawing.Size(285, 82);
+            this.dataGridCut.RowHeadersVisible = false;
+            this.dataGridCut.Size = new System.Drawing.Size(403, 119);
             this.dataGridCut.TabIndex = 1;
             // 
-            // PendientesyCut
+            // PendientesYAislados
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 135);
+            this.ClientSize = new System.Drawing.Size(427, 172);
             this.ControlBox = false;
             this.Controls.Add(this.dataGridCut);
             this.Controls.Add(this.Cerrar);
-            this.Name = "PendientesyCut";
-            this.Text = "PendientesyCut";
+            this.Name = "PendientesYAislados";
+            this.Text = "Soportes y Pendientes";
             this.Load += new System.EventHandler(this.PendientesyCut_Load);
+            this.Resize += new System.EventHandler(this.PendientesYAislados_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCut)).EndInit();
             this.ResumeLayout(false);
 

@@ -81,13 +81,19 @@
     <Compile Include="MatrizDeAdyacencia.Designer.cs">
       <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
     </Compile>
-    <Compile Include="MetodosAuxiliares.cs" />
-    <Compile Include="Nodo.cs" />
-    <Compile Include="PendientesyCut.cs">
+    <Compile Include="MatrizDeIncidencia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PendientesyCut.Designer.cs">
-      <DependentUpon>PendientesyCut.cs</DependentUpon>
+    <Compile Include="MatrizDeIncidencia.Designer.cs">
+      <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MetodosAuxiliares.cs" />
+    <Compile Include="Nodo.cs" />
+    <Compile Include="PendientesYAislados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PendientesYAislados.Designer.cs">
+      <DependentUpon>PendientesYAislados.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,8 +118,11 @@
     <EmbeddedResource Include="MatrizDeAdyacencia.resx">
       <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PendientesyCut.resx">
-      <DependentUpon>PendientesyCut.cs</DependentUpon>
+    <EmbeddedResource Include="MatrizDeIncidencia.resx">
+      <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PendientesYAislados.resx">
+      <DependentUpon>PendientesYAislados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

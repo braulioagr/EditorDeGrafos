@@ -90,8 +90,15 @@ namespace EditorDeGrafos
             {
                 pen.CustomEndCap = new AdjustableArrowCap(5, 5);
             }
-            g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);
+            if(p1.Equals(p2))
+            {
 
+                g.DrawBezier(pen, arriba.Pc.X - 15, arriba.Pc.Y - 15, arriba.Pc.X - 20, arriba.Pc.Y - 60, arriba.Pc.X + 20, arriba.Pc.Y - 60, arriba.Pc.X + 15, arriba.Pc.Y - 15);
+            }
+            else
+            {
+                g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);
+            }
         }
         public void dibujaArista(Graphics g, Color color, bool dirigido)
         {

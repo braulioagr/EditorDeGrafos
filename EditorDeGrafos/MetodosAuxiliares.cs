@@ -158,6 +158,20 @@ namespace EditorDeGrafos
             return aristas;
         }
 
+        public static bool nodoEnLista(List<Nodo> nombres, Nodo busqueda)
+        {
+            bool band;
+            band = false;
+            foreach (Nodo nodo in nombres)
+            {
+                if (nodo.Equals(busqueda))
+                {
+                    band = true;
+                    break;
+                }
+            }
+            return band;
+        }
         #endregion
 
     }

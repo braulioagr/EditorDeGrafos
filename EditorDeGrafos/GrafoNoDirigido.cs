@@ -115,9 +115,56 @@ namespace EditorDeGrafos
             }
             return 0;
         }
+
+        public override List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
+        {
+            List<Nodo> cuts;
+            cuts = new List<Nodo>();
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this));
+                }
+                if (MetodosAuxiliares.nodoEnLista(pendientes, nodo))
+                {
+                    nodo.dibujaNodo(g, Color.Blue);
+                    cuts.Add(nodo.Aristas[0].Arriba);
+                }
+                else if (MetodosAuxiliares.nodoEnLista(aislados, nodo))
+                {
+                    nodo.dibujaNodo(g, Color.Yellow);
+                }
+                else
+                {
+                    nodo.dibujaNodo(g);
+                }
+            }
+            foreach (Nodo nodo in pendientes)
+            {
+                nodo.aristaSoporte().dibujaArista(g, Color.Green, false);
+            }
+            foreach (Nodo nodo in cuts)
+            {
+                nodo.dibujaNodo(g, Color.Red);
+            }
+            return cuts;
+        }
+
         #endregion
 
         #region Metodos de Grafo
+
+        #region Pendientes
+        /**
+         * Este metodo es el encargado de buscar los nodos pendientes 
+         *      en el grafo no dirigido el cual se basa en el concepto
+         *      de que si un nodo solo tiene una arista y esa arista
+         *      no apunta asi mismo es un nodo pendiente.
+         *      
+         * @return Retorna una lista de nodos los cuales corresponden
+         *         a pendientes encontrados
+         */
         public override List<Nodo> nodosPendientes()
         {
             List<Nodo> pendientes;
@@ -131,9 +178,103 @@ namespace EditorDeGrafos
                         pendientes.Add(nodo);
                     }
                 }
+                else if (nodo.Aristas.Count == 2)
+                {
+                    if (nodo.Aristas[0].Arriba.Equals(nodo) || nodo.Aristas[1].Arriba.Equals(nodo))
+                    {
+                        pendientes.Add(nodo);
+                    }
+                }
             }
             return pendientes;
         }
+
+        /**
+         * Este metodo es el encargado de buscar los nodos aislados 
+         *      en el grafo no dirigido el cual se basa en el concepto
+         *      de que si un nodo solo tiene no tiene aristas o si la
+         *      tiene y esta aputa a si mismo es un nodo aislado
+         *      
+         * @return Retorna una lista de nodos los cuales corresponden
+         *         a aislados encontrados
+         */
+        public override List<Nodo> nodosAislados()
+        {
+
+            List<Nodo> aislados;
+            aislados = new List<Nodo>();
+            foreach (Nodo nodo in this)
+            {
+                if (nodo.Aristas.Count == 0)
+                {
+                    aislados.Add(nodo);
+                }
+                else if(nodo.Aristas.Count == 1)
+                {
+                    if (nodo.Aristas[0].Arriba.Equals(nodo))
+                    {
+                        aislados.Add(nodo);
+                    }
+                }
+            }
+            return aislados;
+        }
+        #endregion
+
+        #region Matriz de Adyacencia
+
+        public override Grafo matrizAdyacencia()
+        {
+            Grafo grafo = new GrafoNoDirigido(this, true);
+            Arista arista;
+            arista = base.buscaArista();
+            foreach (Nodo busca in grafo)
+            {
+                busca.Aristas.Clear();
+            }
+            foreach (Nodo nodo in grafo)
+            {
+                foreach (Nodo nodo2 in grafo)
+                {
+                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, nodo2.Pc, nodo.TamNodo / 2),
+                                        MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                        arista.AnchoLinea, arista.ColorLinea, nodo2);
+                    nodo.Aristas.Add(arista);
+                }
+            }
+            string origen, destino;
+            foreach (Nodo nodo in grafo)
+            {
+                origen = nodo.Nombre;
+                foreach (Arista arista2 in nodo.Aristas)
+                {
+                    destino = arista2.Arriba.Nombre;
+                    arista2.Peso = relacion(origen, destino);
+                }
+            }
+
+            return grafo;
+        }
+        protected override int relacion(string origen, string destino)
+        {
+            foreach (Nodo busca in this)
+            {
+                if (busca.Nombre.Equals(origen))
+                {
+                    foreach (Arista buscando in busca.Aristas)
+                    {
+                        if (buscando.Arriba.Nombre.Equals(destino))
+                        {
+                            return 1;
+                        }
+                    }
+                    break;
+                }
+            }
+            return 0;
+        }
+        #endregion
+
         #endregion
 
     }

@@ -276,13 +276,13 @@ namespace EditorDeGrafos
          */
         public void DibujaGrafo(Graphics g)
         {
-            foreach (Nodo np in this)
+            foreach (Nodo nodo in this)
             {
-                foreach (Arista arista in np.Aristas)
+                foreach (Arista arista in nodo.Aristas)
                 {
                     arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this));
                 }
-                np.dibujaNodo(g);
+                nodo.dibujaNodo(g);
             }
         }
 
@@ -443,7 +443,7 @@ namespace EditorDeGrafos
             this.Clear();
         }
 
-        public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes)
+        public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
         {
             return null;
         }
@@ -453,10 +453,17 @@ namespace EditorDeGrafos
         #endregion
 
         #region Metodos Virtuales
-        public virtual List<Nodo> nodosPendientes()
-        {
-            return null;
-        }
+
+        #region Pendientes & Aislados
+        public virtual List<Nodo> nodosPendientes() { return null; }
+        public virtual List<Nodo> nodosAislados() { return null; }
+        #endregion
+
+        #region Matriz
+        public virtual Grafo matrizAdyacencia() { return null; }
+        protected virtual int relacion(string origen, string destino) { return 0; }
+        #endregion
+
         #endregion
 
         #endregion
