@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace EditorDeGrafos
 {
+        [Serializable]
     class Grafo : List <Nodo>
     {
 
@@ -76,6 +77,23 @@ namespace EditorDeGrafos
             }
         }
 
+        public List<Arista> LAristas
+        {
+            get
+            {
+                List<Arista> aristas;
+                aristas = new List<Arista>();
+                foreach (Nodo nodo in this)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        aristas.Add(arista);
+                    }
+                }
+                aristas = aristas.OrderBy(arista => arista.Id).ToList();
+                return aristas;
+            }
+        }
         #endregion
 
         #region Metodos
@@ -248,7 +266,7 @@ namespace EditorDeGrafos
 
         #region Operaciones Escenciales
 
-        public void InsertaArista(Point p1, Point p2, int peso, int AnchoLinea, Color colorLinea)
+        public void InsertaArista(Point p1, Point p2, int peso, int AnchoLinea, Color colorLinea,int id)
         {
             Nodo np1, np2;
             Point pi1, pi2;
@@ -260,7 +278,7 @@ namespace EditorDeGrafos
                 {
                     pi1 = MetodosAuxiliares.PuntoInterseccion(p1, p2, this[0].TamNodo / 2);
                     pi2 = MetodosAuxiliares.PuntoInterseccion(p2, p1, this[0].TamNodo / 2);
-                    arista = new Arista(peso, pi1, pi2, AnchoLinea, colorLinea, np2);
+                    arista = new Arista(peso, pi1, pi2, AnchoLinea, colorLinea, np2,id);
                     np1.Aristas.Add(arista);
                 }
             }
@@ -280,7 +298,7 @@ namespace EditorDeGrafos
             {
                 foreach (Arista arista in nodo.Aristas)
                 {
-                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this));
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),this.ponderado);
                 }
                 nodo.dibujaNodo(g);
             }
@@ -459,11 +477,70 @@ namespace EditorDeGrafos
         public virtual List<Nodo> nodosAislados() { return null; }
         #endregion
 
-        #region Matriz
-        public virtual Grafo matrizAdyacencia() { return null; }
-        protected virtual int relacion(string origen, string destino) { return 0; }
+        #region Matriz de Incidencia
+
+        public Grafo matrizIncidencia()
+        {
+            Grafo grafo = new GrafoNoDirigido(this, true);
+            Arista arista;
+            int id;
+            id = 0;
+            arista = this.buscaArista();
+            foreach (Nodo busca in grafo)
+            {
+                busca.Aristas.Clear();
+            }
+            foreach (Nodo nodo in grafo)
+            {
+                foreach (Nodo nodo2 in grafo)
+                {
+                    id++;
+                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, nodo2.Pc, nodo.TamNodo / 2),
+                                        MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                        arista.AnchoLinea, arista.ColorLinea, nodo2, id);
+                    nodo.Aristas.Add(arista);
+                }
+            }
+            string origen, destino;
+            foreach (Nodo nodo in grafo)
+            {
+                origen = nodo.Nombre;
+                foreach (Arista arista2 in nodo.Aristas)
+                {
+                    destino = arista2.Arriba.Nombre;
+                    arista2.Peso = relacion(origen, destino);
+                }
+            }
+
+            return grafo;
+        }
+
+        private int relacion(string origen, string destino)
+        {
+            foreach (Nodo busca in this)
+            {
+                if (busca.Nombre.Equals(origen))
+                {
+                    foreach (Arista buscando in busca.Aristas)
+                    {
+                        if (buscando.Arriba.Nombre.Equals(destino))
+                        {
+                            return 1;
+                        }
+                    }
+                    break;
+                }
+            }
+            return 0;
+        }
+
         #endregion
 
+        #endregion
+
+
+        #region Matriz de Adyacencia
+        public virtual int[,] matrizDeAdyacencia() { return null; }
         #endregion
 
         #endregion

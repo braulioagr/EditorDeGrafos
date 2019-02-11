@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EditorDeGrafos
 {
+    [Serializable]
     class GrafoDirigido : Grafo
     {
 
@@ -30,7 +31,7 @@ namespace EditorDeGrafos
                 nodo = new Nodo(n.Nombre, n.Pe, n.Pc, n.ColorFuera, n.BrushRelleno, n.BrushName, n.TamNodo, n.TamLetra, n.AnchoContorno, n.Fuente);
                 foreach (Arista a in n.Aristas)
                 {
-                    arista = new Arista(a.Peso, a.P1, a.P2, a.AnchoLinea, a.ColorLinea, a.Arriba);
+                    arista = new Arista(a.Peso, a.P1, a.P2, a.AnchoLinea, a.ColorLinea, a.Arriba,a.Id);
                     nodo.Aristas.Add(arista);
                 }
                 this.Add(nodo);
@@ -94,6 +95,50 @@ namespace EditorDeGrafos
                 }
             }
             return 0;
+        }
+        #endregion
+        #region Matriz de Adyacencia
+
+        public override int[,] matrizDeAdyacencia()
+        {
+            int[,] matriz;
+            int i;
+            List<Arista> aristas;
+            aristas = base.LAristas;
+            matriz = new int[this.Count, aristas.Count];
+            for (i = 0; i < this.Count; i++)
+            {
+                for (int j = 0; j < aristas.Count; j++)
+                {
+                    matriz[i, j] = 0;
+                }
+            }
+            i = 0;
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    matriz[i, arista.Id - 1] = 1;
+                    matriz[this.encuentraIndice(arista.Arriba), arista.Id - 1] = -1;
+                }
+                i++;
+            }
+            return matriz;
+        }
+
+        private int encuentraIndice(Nodo nodo)
+        {
+            int j;
+            j = 0;
+            for (int i = 0; i < this.Count; i++)
+            {
+                if (nodo.Equals(this[i]))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            return j;
         }
         #endregion
     }

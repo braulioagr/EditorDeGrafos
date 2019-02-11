@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EditorDeGrafos
 {
+    [Serializable]
     class GrafoNoDirigido : Grafo
     {
 
@@ -31,7 +32,7 @@ namespace EditorDeGrafos
                 nodo = new Nodo(n.Nombre, n.Pe, n.Pc, n.ColorFuera, n.BrushRelleno, n.BrushName, n.TamNodo, n.TamLetra, n.AnchoContorno, n.Fuente);
                 foreach (Arista a in n.Aristas)
                 {
-                    arista = new Arista(a.Peso, a.P1, a.P2, a.AnchoLinea, a.ColorLinea, a.Arriba);
+                    arista = new Arista(a.Peso, a.P1, a.P2, a.AnchoLinea, a.ColorLinea, a.Arriba,a.Id);
                     nodo.Aristas.Add(arista);
                 }
                 this.Add(nodo);
@@ -124,7 +125,7 @@ namespace EditorDeGrafos
             {
                 foreach (Arista arista in nodo.Aristas)
                 {
-                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this));
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),ponderado);
                 }
                 if (MetodosAuxiliares.nodoEnLista(pendientes, nodo))
                 {
@@ -222,56 +223,28 @@ namespace EditorDeGrafos
         #endregion
 
         #region Matriz de Adyacencia
-
-        public override Grafo matrizAdyacencia()
+        public override int[,] matrizDeAdyacencia()
         {
-            Grafo grafo = new GrafoNoDirigido(this, true);
-            Arista arista;
-            arista = base.buscaArista();
-            foreach (Nodo busca in grafo)
+            int[,] matriz;
+            int i;
+            matriz = new int[this.Count,base.Aristas/2];
+            for(i = 0 ; i < this.Count ; i++ )
             {
-                busca.Aristas.Clear();
-            }
-            foreach (Nodo nodo in grafo)
-            {
-                foreach (Nodo nodo2 in grafo)
+                for (int j = 0; j < base.Aristas / 2; j++)
                 {
-                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, nodo2.Pc, nodo.TamNodo / 2),
-                                        MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo.Pc, nodo.TamNodo / 2),
-                                        arista.AnchoLinea, arista.ColorLinea, nodo2);
-                    nodo.Aristas.Add(arista);
+                    matriz[i, j] = 0;
                 }
             }
-            string origen, destino;
-            foreach (Nodo nodo in grafo)
+            i = 0;
+            foreach (Nodo nodo in this)
             {
-                origen = nodo.Nombre;
-                foreach (Arista arista2 in nodo.Aristas)
+                foreach (Arista arista in nodo.Aristas)
                 {
-                    destino = arista2.Arriba.Nombre;
-                    arista2.Peso = relacion(origen, destino);
+                    matriz[i, arista.Id-1] = 1;
                 }
+                i++;
             }
-
-            return grafo;
-        }
-        protected override int relacion(string origen, string destino)
-        {
-            foreach (Nodo busca in this)
-            {
-                if (busca.Nombre.Equals(origen))
-                {
-                    foreach (Arista buscando in busca.Aristas)
-                    {
-                        if (buscando.Arriba.Nombre.Equals(destino))
-                        {
-                            return 1;
-                        }
-                    }
-                    break;
-                }
-            }
-            return 0;
+            return matriz;
         }
         #endregion
 

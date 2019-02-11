@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace EditorDeGrafos
 {
+    [Serializable]
     class Arista
     {
         #region Variables de instancia
         private int peso;
+        private int id;
         private Point p1;
         private Point p2;
         private int anchoLinea;
@@ -31,7 +33,7 @@ namespace EditorDeGrafos
          *         @param Color colorLinea Color con la que
          *                      se dibuja la linea
          */
-        public Arista(int p, Point p1, Point p2, int anchoLinea, Color colorLinea, Nodo arriba)
+        public Arista(int p, Point p1, Point p2, int anchoLinea, Color colorLinea, Nodo arriba, int id)
         {
             this.Peso = p;
             this.p1 = p1;
@@ -39,6 +41,7 @@ namespace EditorDeGrafos
             this.anchoLinea = anchoLinea;
             this.colorLinea = colorLinea;
             this.arriba = arriba;
+            this.id = id;
         }
         #endregion
 
@@ -73,6 +76,12 @@ namespace EditorDeGrafos
             set { peso = value; }
             get { return peso; }
         }
+
+        public int Id
+        {
+            set { id = value; }
+            get { return id; }
+        }
         #endregion
 
         #region Metodos
@@ -83,7 +92,7 @@ namespace EditorDeGrafos
          *            @param bool dirigido Bandera qye indica si el grafo al que pertenece la arista
          *                                 es dirigido o no.
          */
-        public void dibujaArista(Graphics g, bool dirigido)
+        public void dibujaArista(Graphics g, bool dirigido,bool ponderado)
         {
             Pen pen = new Pen(ColorLinea, anchoLinea);
             if (dirigido)
@@ -99,6 +108,15 @@ namespace EditorDeGrafos
             {
                 g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);
             }
+            if (ponderado)
+            {
+                g.DrawString("e" + id.ToString() + ": " + this.peso.ToString(), new Font("Times New Roman", 10), new SolidBrush(pen.Color), (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+            }
+            else
+            {
+                g.DrawString("e" + id.ToString(), new Font("Times New Roman", 10), new SolidBrush(pen.Color), (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+            }
+
         }
         public void dibujaArista(Graphics g, Color color, bool dirigido)
         {

@@ -19,7 +19,8 @@ namespace EditorDeGrafos
         #region Variables de Instancia
 
         #region Variables Elementales
-        private int num;
+        private int numNodos;
+        private int numAristas;
         private int opcion;
         private int tamNodo;
         private int altoName;
@@ -79,13 +80,13 @@ namespace EditorDeGrafos
             this.tamName = 6;
             this.nombre = "A";
             this.directorio = Environment.CurrentDirectory + @"..\Grafos";
-            this.num = 1;
+            this.numNodos = 1;
+            this.numAristas = 0;
             this.bandFinal = false;
             this.band = false;
             this.bandNombre = false;
             this.bandArista = false;
             #endregion
-
 
             #region Estructuras
             this.colorRelleno = this.BackColor;
@@ -118,19 +119,85 @@ namespace EditorDeGrafos
             #region Archivo
 
             IFormatter formater = new BinaryFormatter();
+            Stream stream;
             switch (e.ClickedItem.AccessibleName)
             {
                 case "Abrir":
+                    #region Abrir Grafo
+                    openFileGrafo = new OpenFileDialog();
+                    openFileGrafo.Filter = "(*.grafo) | *.grafo";
+                    openFileGrafo.FilterIndex = 2;
+                    openFileGrafo.RestoreDirectory = true;
+                    openFileGrafo.InitialDirectory = directorio;
+                    if (openFileGrafo.ShowDialog() == DialogResult.OK)
+                    {
+                        stream = new FileStream(openFileGrafo.FileName, FileMode.Open,
+                            FileAccess.Read, FileShare.None);
+                        grafo = (Grafo)formater.Deserialize(stream);
+                        if (grafo.Count > 0)
+                        {
+                            nodo = grafo[0];
+                            nombre = grafo[grafo.Count - 1].Nombre;
+                            try
+                            {
+                                numNodos = Int32.Parse(nombre);
+                            }
+                            catch (FormatException)
+                            {
+                                char aux = nombre[0];
+                                numNodos = aux - 64;
+                            }
+                            numNodos++;
+                            nombre = ConvierteNombre(numNodos);
+                            /*this.pref.Dispose();
+                            if (grafo.buscaArista(ref arista))
+                            {
+                                this.pref = new Preferencias(nodo.AnchoContorno, nodo.TamNodo, nodo.TamLetra,
+                                                                arista.AnchoLinea, arista.ColorLinea, nodo.ColorFuera,
+                                                                nodo.BrushRelleno, nodo.Brushnombre);
+                            }
+                            else
+                            {
+                                this.pref = new Preferencias(nodo.AnchoContorno, nodo.TamNodo, nodo.TamLetra,
+                                                                1, Color.Black, nodo.ColorFuera,
+                                                                nodo.BrushRelleno, nodo.Brushnombre);
+                            }*/
+                        }
+                        /*else
+                        {
+                            this.pref = new Preferencias(anchoLineaN, tamNodo, altonombre,
+                                                         anchoLineaA, colorLinea, colorContorno,
+                                                         colorRelleno, colorLetra);
+                        }
+                        PreferenciasBack(pref);*/
+                        stream.Close();
+                        this.habilitaOpcionesGrafo();
+                        if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                        {
+                            this.habilitaOpcionesGrafoDirigido();
+                        }
+                        else
+                        {
+                            if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                            {
+                                this.habilitaOpcionesGrafoNoDirigido();
+                            }
+                        }
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                #endregion
                 break;
                 case "Guardar":
-                saveFileGrafo.Filter = "(*.grafo) | *.grafo";
-                saveFileGrafo.InitialDirectory = directorio;
-                if (saveFileGrafo.ShowDialog() == DialogResult.OK)
-                {
-                    Stream stream = new FileStream(saveFileGrafo.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
-                    formater.Serialize(stream, grafo);
-                    stream.Close();
-                }
+                    #region Gurdar Grafo
+                    saveFileGrafo.Filter = "(*.grafo) | *.grafo";
+                    saveFileGrafo.InitialDirectory = directorio;
+                    if (saveFileGrafo.ShowDialog() == DialogResult.OK)
+                    {
+                        stream = new FileStream(saveFileGrafo.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                        formater.Serialize(stream, grafo);
+                        stream.Close();
+                    }
+                    #endregion
                 break;
             }
             #endregion
@@ -176,8 +243,23 @@ namespace EditorDeGrafos
 
         private void MetodosTool_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            bool banderita;
+            banderita = true;
             #region Toolbar Metodos
-
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "GrafoNull":
+                    if (!typeof(GrafoNoDirigido).IsInstanceOfType(grafo) && !typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                    {
+                        MessageBox.Show("El grafo no tiene aristas por lo tanto es nulo","Grafo nulo");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El grafo tiene aristas por lo tanto no es nulo", "Grafo no nulo");
+                    }
+                    banderita = false;
+                break;
+            }
             #region GrafoDirigido
             if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
             {
@@ -191,11 +273,13 @@ namespace EditorDeGrafos
                 this.NoDirigido_Clicked(sender, e);
             }
             #endregion
-
             #region Grafo
             else
             {
-                MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");
+                if (banderita)
+                {
+                    MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");
+                }
             }
             #endregion
             
@@ -214,10 +298,36 @@ namespace EditorDeGrafos
                     grados.Dispose();
                 break;
                 case "MAdyacencia":
+                    #region Matriz de Adyacencia
+                    MatrizDeAdyacencia matrizA;
+                    matrizA = new MatrizDeAdyacencia(grafo.matrizDeAdyacencia(),grafo.Count,grafo.Aristas,grafo);
+                    matrizA.ShowDialog();
+                    matrizA.Dispose();
+                    #endregion
                 break;
                 case "MIncidencia":
+                    #region Matriz de Adyacencia
+                    MatrizDeIncidencia matrizI;
+                    matrizI = new MatrizDeIncidencia(grafo.matrizIncidencia());
+                    matrizI.ShowDialog();
+                    matrizI.Dispose();
+                    #endregion
                 break;
                 case "LAdyacencia":
+                    #region Lista Adyacencia
+                    ListaDeAdyacencia lista;
+                    lista = new ListaDeAdyacencia(this.grafo);
+                    lista.ShowDialog();
+                    lista.Dispose();
+                    #endregion
+                    break;
+                case "TamOrd":
+                    #region Tamaño y Orden
+                    TamañoYOrden tamOrd;
+                    tamOrd = new TamañoYOrden(grafo.Count, grafo.Aristas);
+                    tamOrd.ShowDialog();
+                    tamOrd.Dispose();
+                    #endregion
                 break;
             }
             #endregion
@@ -239,12 +349,18 @@ namespace EditorDeGrafos
                 case "MAdyacencia":
                     #region Matriz de Adyacencia
                     MatrizDeAdyacencia matrizA;
-                    matrizA = new MatrizDeAdyacencia(grafo.matrizAdyacencia());
+                    matrizA = new MatrizDeAdyacencia(grafo.matrizDeAdyacencia(),grafo.Count,grafo.Aristas/2,grafo);
                     matrizA.ShowDialog();
                     matrizA.Dispose();
                     #endregion
                 break;
                 case "MIncidencia":
+                    #region Matriz de Adyacencia
+                    MatrizDeIncidencia matrizI;
+                    matrizI = new MatrizDeIncidencia(grafo.matrizIncidencia());
+                    matrizI.ShowDialog();
+                    matrizI.Dispose();
+                    #endregion
                 break;
                 case "LAdyacencia":
                     #region Lista Adyacencia
@@ -273,6 +389,14 @@ namespace EditorDeGrafos
                         MessageBox.Show("El grafo no tiene nodos pendientes","Sin Pendientes");
                     }
                     this.EditorDeGrafos_Paint(this, null);//Borra los nodos cuts & pendientes
+                    #endregion
+                    break;
+                case "TamOrd":
+                    #region Tamaño y Orden
+                    TamañoYOrden tamOrd;
+                    tamOrd = new TamañoYOrden(grafo.Count, grafo.Aristas);
+                    tamOrd.ShowDialog();
+                    tamOrd.Dispose();
                     #endregion
                 break;
             }
@@ -314,8 +438,8 @@ namespace EditorDeGrafos
                         /*this.restauraConfiguracion();
                         PreferenciasBack(pref);*/
                         grafo = new Grafo();
-                        num = 1;
-                        nombre = ConvierteNombre(num);
+                        numNodos = 1;
+                        nombre = ConvierteNombre(numNodos);
                         this.deshabititaOpciones();
                     }
                 break;
@@ -335,7 +459,7 @@ namespace EditorDeGrafos
                     pe.X = p1.X - (tamNodo / 2);
                     pe.Y = p1.Y - (tamNodo / 2);
                     nodo = new Nodo(nombre, pe, p1, penNodo.Color, brushRelleno.Color, brushName.Color, tamNodo, altoName, anchoLineaN, fuente);
-                    if (num == 27)
+                    if (numNodos == 27)
                     {
                         bandNombre = true;
                         grafo.Tipo = true;
@@ -390,6 +514,7 @@ namespace EditorDeGrafos
                     if (grafo.Aristas == 0)
                     {
                         this.grafo = new Grafo(this.grafo);
+                        this.numAristas = 0;
                         this.habilitaOpcionesGrafo();
                     }
                     bandFinal = false;
@@ -474,17 +599,19 @@ namespace EditorDeGrafos
                         }
                         if (!p1.Equals(p2))
                         {
+                            numAristas++;
                             this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color);
-                            this.grafo.InsertaArista(this.p2, this.p1, 0, this.anchoLineaA, this.penArista.Color);
+                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color, numAristas);
+                            this.grafo.InsertaArista(this.p2, this.p1, 0, this.anchoLineaA, this.penArista.Color,numAristas);
                             band = false;
                             bandFinal = true;
                             bandArista = false;
                         }
                         else
                         {
+                            numAristas++;
                             this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color);
+                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
                             band = false;
                             bandFinal = true;
                             bandArista = false;
@@ -514,16 +641,18 @@ namespace EditorDeGrafos
                         }
                         if (!p1.Equals(p2))
                         {
+                            numAristas++;
                             this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color);
+                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
                             band = false;
                             bandFinal = true;
                             bandArista = false;
                         }
                         else
                         {
+                            numAristas++;
                             this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color);
+                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
                             band = false;
                             bandFinal = true;
                             bandArista = false;
@@ -585,8 +714,8 @@ namespace EditorDeGrafos
                             gAux.DrawEllipse(this.penNodo, pe.X + (anchoLineaN / 2), pe.Y + (anchoLineaN / 2),
                                           tamNodo - (anchoLineaN / 2), tamNodo - (anchoLineaN / 2));
                             gAux.DrawString(this.nombre.ToString(), font, brushName, pe.X + (tamNodo / 2) - tamName, pe.Y + (tamNodo / 2) - tamName);
-                            num++;
-                            this.nombre = ConvierteNombre(num);
+                            numNodos++;
+                            this.nombre = ConvierteNombre(numNodos);
                             if (bandNombre)
                             {
                                 grafo.CambiaNombre();
@@ -628,13 +757,13 @@ namespace EditorDeGrafos
         public string ConvierteNombre(int n)
         {
             string cad;
-            if (num >= 27 || grafo.Tipo)
+            if (numNodos >= 27 || grafo.Tipo)
             {
-                cad = num.ToString();
+                cad = numNodos.ToString();
             }
             else
             {
-                cad = ((char)(num + 64)).ToString();
+                cad = ((char)(numNodos + 64)).ToString();
             }
             return cad;
         }

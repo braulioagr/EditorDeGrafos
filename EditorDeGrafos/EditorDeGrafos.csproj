@@ -75,17 +75,17 @@
     <Compile Include="ListaDeAdyacencia.Designer.cs">
       <DependentUpon>ListaDeAdyacencia.cs</DependentUpon>
     </Compile>
-    <Compile Include="MatrizDeAdyacencia.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MatrizDeAdyacencia.Designer.cs">
-      <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
-    </Compile>
     <Compile Include="MatrizDeIncidencia.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MatrizDeIncidencia.Designer.cs">
       <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MatrizDeAdyacencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MatrizDeAdyacencia.Designer.cs">
+      <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
     </Compile>
     <Compile Include="MetodosAuxiliares.cs" />
     <Compile Include="Nodo.cs" />
@@ -115,11 +115,11 @@
     <EmbeddedResource Include="ListaDeAdyacencia.resx">
       <DependentUpon>ListaDeAdyacencia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MatrizDeAdyacencia.resx">
-      <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MatrizDeIncidencia.resx">
       <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MatrizDeAdyacencia.resx">
+      <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PendientesYAislados.resx">
       <DependentUpon>PendientesYAislados.cs</DependentUpon>

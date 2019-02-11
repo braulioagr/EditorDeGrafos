@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EditorDeGrafos
 {
+    [Serializable]
     class Nodo
     {
 
