@@ -7,9 +7,14 @@ C:\Users\braul\Desktop\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Pr
 C:\Users\braul\Desktop\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.GenerateResource.Cache
 C:\Users\braul\Desktop\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe
 C:\Users\braul\Desktop\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe.config
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.pdb
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csprojResolveAssemblyReference.cache
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.EditorDeGrafos.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosDir.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosNoDir.resources
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GrafoSecundario.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.ListaDeAdyacencia.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.MatrizDeIncidencia.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.MatrizDeAdyacencia.resources
@@ -17,8 +22,5 @@ C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Properties.Resources.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.TamañoYOrden.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.GenerateResource.Cache
-C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe.config
-C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe
-C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.pdb
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb

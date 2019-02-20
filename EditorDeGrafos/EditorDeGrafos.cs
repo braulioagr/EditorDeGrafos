@@ -329,6 +329,12 @@ namespace EditorDeGrafos
                     tamOrd.Dispose();
                     #endregion
                 break;
+                case "Complemento":
+                    #region Complemento
+                    this.grafo.complemento(this.colorLinea, this.anchoLineaA);
+                    this.EditorDeGrafos_Paint(this, null);
+                    #endregion
+                break;
             }
             #endregion
         }
@@ -399,6 +405,12 @@ namespace EditorDeGrafos
                     tamOrd.Dispose();
                     #endregion
                 break;
+                case "Complemento":
+                    #region Complemento
+                    this.grafo.complemento(this.colorLinea, this.anchoLineaA);
+                    this.EditorDeGrafos_Paint(this, null);
+                    #endregion
+                break;
             }
             #endregion
         }
@@ -434,13 +446,13 @@ namespace EditorDeGrafos
                    if (MessageBox.Show("¿Seguro quiere eliminar el grafo?", "No me quiero ir señor usuario :'(", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         grafo.borraGrafo();
-                        g.Clear(BackColor);
                         /*this.restauraConfiguracion();
                         PreferenciasBack(pref);*/
                         grafo = new Grafo();
                         numNodos = 1;
                         nombre = ConvierteNombre(numNodos);
                         this.deshabititaOpciones();
+                        this.EditorDeGrafos_Paint(this, null);
                     }
                 break;
             }
@@ -837,7 +849,180 @@ namespace EditorDeGrafos
         }
 
         #endregion
+
+        private void Especiales_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region Grafos Especiales
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Kn":
+                    #region Kn
+                    if (!numericKn.Visible)
+                    {
+                        numericKn.Visible = true;
+                        numericKn.Visible = false;
+                        numericKn.Visible = false;
+                        this.deshabititaOpciones();
+                        this.habilitaOpcionesGrafo();
+                        this.habilitaOpcionesGrafoNoDirigido();
+                        this.grafo.Clear();
+                        this.numNodos = 1;
+                        this.grafo = new GrafoNoDirigido(grafo);
+                        this.grafo.CreaKn(this.ClientSize, (int)numericKn.Value, ref this.numNodos, this.tamNodo,
+                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                        if (grafo.Count > 26)
+                        {
+                            this.grafo.Tipo = true;
+                        }
+                        else
+                        {
+                            grafo.CambiaNombre();
+                        }
+                        nombre = ConvierteNombre(numNodos);
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                    else
+                    {
+                        numericKn.Visible = false;
+                    }
+                    #endregion
+                break;
+                case "Cn":
+                    #region Cn
+                    if (!numericCn.Visible)
+                    {
+                        this.deshabititaOpciones();
+                        this.habilitaOpcionesGrafo();
+                        this.habilitaOpcionesGrafoNoDirigido();
+                        this.grafo.Clear();
+                        this.numNodos = 1;
+                        this.grafo = new GrafoNoDirigido(grafo);
+                        this.grafo.CreaCn(this.ClientSize, (int)numericCn.Value, ref this.numNodos, this.tamNodo,
+                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                        if (grafo.Count > 26)
+                        {
+                            this.grafo.Tipo = true;
+                        }
+                        else
+                        {
+                            grafo.CambiaNombre();
+                        }
+                        nombre = ConvierteNombre(numNodos);
+                        this.EditorDeGrafos_Paint(this, null);
+                        numericCn.Visible = true;
+                        numericKn.Visible = false;
+                        numericWn.Visible = false;
+                    }
+                    else
+                    {
+                        numericCn.Visible = false;
+                    }
+                    #endregion
+                break;
+                case "Wn":
+                    #region Wn
+                    if (!GrafosWn.Visible)
+                    {
+                        this.deshabititaOpciones();
+                        this.habilitaOpcionesGrafo();
+                        this.habilitaOpcionesGrafoNoDirigido();
+                        this.grafo.Clear();
+                        this.numNodos = 1;
+                        this.grafo = new GrafoNoDirigido(grafo);
+                        this.grafo.CreaWn(this.ClientSize, (int)numericWn.Value, ref this.numNodos, this.tamNodo,
+                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                        if (grafo.Count > 26)
+                        {
+                            this.grafo.Tipo = true;
+                        }
+                        else
+                        {
+                            grafo.CambiaNombre();
+                        }
+                        nombre = ConvierteNombre(numNodos);
+                        this.EditorDeGrafos_Paint(this, null);
+                        numericWn.Visible = true;
+                        numericCn.Visible = false;
+                        numericKn.Visible = false;
+                    }
+                    else
+                    {
+                        numericWn.Visible = false;
+                    }
+                    #endregion
+                break;
+            }
+            #endregion
+        }
         
+        #endregion
+
+        #region Eventos numeric
+        private void numericKn_ValueChanged(object sender, EventArgs e)
+        {
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            this.habilitaOpcionesGrafoNoDirigido();
+            this.grafo.Clear();
+            this.numNodos = 1;
+            this.grafo = new GrafoNoDirigido(grafo);
+            this.grafo.CreaKn(this.ClientSize, (int)numericKn.Value, ref this.numNodos, this.tamNodo,
+                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+            if (grafo.Count > 26)
+            {
+                this.grafo.Tipo = true;
+            }
+            else
+            {
+                grafo.CambiaNombre();
+            }
+            nombre = ConvierteNombre(numNodos);
+            this.EditorDeGrafos_Paint(this, null);
+        }
+
+        private void numericCn_ValueChanged(object sender, EventArgs e)
+        {
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            this.habilitaOpcionesGrafoNoDirigido();
+            this.grafo.Clear();
+            this.numNodos = 1;
+            this.grafo = new GrafoNoDirigido(grafo);
+            this.grafo.CreaCn(this.ClientSize, (int)numericCn.Value, ref this.numNodos, this.tamNodo,
+                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+            if (grafo.Count > 26)
+            {
+                this.grafo.Tipo = 1;
+            }
+            else
+            {
+                grafo.CambiaNombre();
+            }
+            nombre = ConvierteNombre(numNodos);
+            this.EditorDeGrafos_Paint(this, null);
+        }
+
+        private void numericWn_ValueChanged(object sender, EventArgs e)
+        {
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            this.habilitaOpcionesGrafoNoDirigido();
+            this.grafo.Clear();
+            this.numNodos = 1;
+            this.grafo = new GrafoNoDirigido(grafo);
+            this.grafo.CreaWn(this.ClientSize, (int)numericWn.Value, ref this.numNodos, this.tamNodo,
+                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+            if (grafo.Count > 26)
+            {
+                this.grafo.Tipo = 1;
+            }
+            else
+            {
+                grafo.CambiaNombre();
+            }
+            nombre = ConvierteNombre(numNodos);
+            this.EditorDeGrafos_Paint(this, null);
+        }
         #endregion
 
     }

@@ -104,9 +104,33 @@
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.GrafoNuloTool = new System.Windows.Forms.ToolStripButton();
             this.openFileGrafo = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
+            this.ComplementoDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
+            this.ComplementoNoDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator30 = new System.Windows.Forms.ToolStripSeparator();
+            this.ComplementoTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator31 = new System.Windows.Forms.ToolStripSeparator();
+            this.IsomorfismoTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator32 = new System.Windows.Forms.ToolStripSeparator();
+            this.IsomorfismoNoDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.GrafosKn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator33 = new System.Windows.Forms.ToolStripSeparator();
+            this.GrafosCn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator34 = new System.Windows.Forms.ToolStripSeparator();
+            this.GrafosWn = new System.Windows.Forms.ToolStripButton();
+            this.numericKn = new System.Windows.Forms.NumericUpDown();
+            this.numericCn = new System.Windows.Forms.NumericUpDown();
+            this.numericWn = new System.Windows.Forms.NumericUpDown();
+            this.toolStripSeparator35 = new System.Windows.Forms.ToolStripSeparator();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.ToolBarMetodos.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWn)).BeginInit();
             this.SuspendLayout();
             // 
             // MenuPrincipal
@@ -293,7 +317,9 @@
             this.toolStripSeparator15,
             this.ListaIncidencia,
             this.toolStripSeparator25,
-            this.tamañoYOrdenDir});
+            this.tamañoYOrdenDir,
+            this.toolStripSeparator28,
+            this.ComplementoDir});
             this.grafoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoDirigidoToolStripMenuItem.Name = "grafoDirigidoToolStripMenuItem";
             this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -373,7 +399,11 @@
             this.toolStripSeparator19,
             this.NodosPendienteNoDir,
             this.toolStripSeparator24,
-            this.tamañoYOrdenNoDir});
+            this.tamañoYOrdenNoDir,
+            this.toolStripSeparator29,
+            this.ComplementoNoDir,
+            this.toolStripSeparator32,
+            this.IsomorfismoNoDir});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
             this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -622,11 +652,15 @@
             this.toolStripSeparator26,
             this.tamañoYOrdenTool,
             this.toolStripSeparator27,
-            this.GrafoNuloTool});
+            this.GrafoNuloTool,
+            this.toolStripSeparator30,
+            this.ComplementoTool,
+            this.toolStripSeparator31,
+            this.IsomorfismoTool});
             this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ToolBarMetodos.Size = new System.Drawing.Size(40, 385);
+            this.ToolBarMetodos.Size = new System.Drawing.Size(40, 534);
             this.ToolBarMetodos.TabIndex = 2;
             this.ToolBarMetodos.Text = "Metodos";
             this.ToolBarMetodos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);
@@ -742,11 +776,211 @@
             // 
             this.openFileGrafo.FileName = "Grafo1";
             // 
+            // toolStripSeparator28
+            // 
+            this.toolStripSeparator28.Name = "toolStripSeparator28";
+            this.toolStripSeparator28.Size = new System.Drawing.Size(184, 6);
+            // 
+            // ComplementoDir
+            // 
+            this.ComplementoDir.AccessibleName = "Complemento";
+            this.ComplementoDir.Name = "ComplementoDir";
+            this.ComplementoDir.Size = new System.Drawing.Size(187, 22);
+            this.ComplementoDir.Text = "Complemento";
+            // 
+            // toolStripSeparator29
+            // 
+            this.toolStripSeparator29.Name = "toolStripSeparator29";
+            this.toolStripSeparator29.Size = new System.Drawing.Size(184, 6);
+            // 
+            // ComplementoNoDir
+            // 
+            this.ComplementoNoDir.AccessibleName = "Complemento";
+            this.ComplementoNoDir.Name = "ComplementoNoDir";
+            this.ComplementoNoDir.Size = new System.Drawing.Size(187, 22);
+            this.ComplementoNoDir.Text = "Complemento";
+            // 
+            // toolStripSeparator30
+            // 
+            this.toolStripSeparator30.Name = "toolStripSeparator30";
+            this.toolStripSeparator30.Size = new System.Drawing.Size(38, 6);
+            // 
+            // ComplementoTool
+            // 
+            this.ComplementoTool.AccessibleName = "Complemento";
+            this.ComplementoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ComplementoTool.Image = ((System.Drawing.Image)(resources.GetObject("ComplementoTool.Image")));
+            this.ComplementoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ComplementoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ComplementoTool.Name = "ComplementoTool";
+            this.ComplementoTool.Size = new System.Drawing.Size(38, 34);
+            this.ComplementoTool.Text = "Complemento";
+            // 
+            // toolStripSeparator31
+            // 
+            this.toolStripSeparator31.Name = "toolStripSeparator31";
+            this.toolStripSeparator31.Size = new System.Drawing.Size(38, 6);
+            // 
+            // IsomorfismoTool
+            // 
+            this.IsomorfismoTool.AccessibleName = "Isomorfismo";
+            this.IsomorfismoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.IsomorfismoTool.Image = ((System.Drawing.Image)(resources.GetObject("IsomorfismoTool.Image")));
+            this.IsomorfismoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.IsomorfismoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.IsomorfismoTool.Name = "IsomorfismoTool";
+            this.IsomorfismoTool.Size = new System.Drawing.Size(38, 34);
+            this.IsomorfismoTool.Text = "Isomorfismo";
+            // 
+            // toolStripSeparator32
+            // 
+            this.toolStripSeparator32.Name = "toolStripSeparator32";
+            this.toolStripSeparator32.Size = new System.Drawing.Size(184, 6);
+            // 
+            // IsomorfismoNoDir
+            // 
+            this.IsomorfismoNoDir.AccessibleName = "Isomorfismo";
+            this.IsomorfismoNoDir.Name = "IsomorfismoNoDir";
+            this.IsomorfismoNoDir.Size = new System.Drawing.Size(187, 22);
+            this.IsomorfismoNoDir.Text = "Isomorfismo";
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GrafosKn,
+            this.toolStripSeparator33,
+            this.GrafosCn,
+            this.toolStripSeparator34,
+            this.GrafosWn,
+            this.toolStripSeparator35});
+            this.toolStrip1.Location = new System.Drawing.Point(924, 61);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(40, 534);
+            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Especiales_Clicked);
+            // 
+            // GrafosKn
+            // 
+            this.GrafosKn.AccessibleName = "Kn";
+            this.GrafosKn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GrafosKn.Image = ((System.Drawing.Image)(resources.GetObject("GrafosKn.Image")));
+            this.GrafosKn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.GrafosKn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GrafosKn.Name = "GrafosKn";
+            this.GrafosKn.Size = new System.Drawing.Size(38, 34);
+            this.GrafosKn.Text = "Grafos Kn";
+            // 
+            // toolStripSeparator33
+            // 
+            this.toolStripSeparator33.Name = "toolStripSeparator33";
+            this.toolStripSeparator33.Size = new System.Drawing.Size(38, 6);
+            // 
+            // GrafosCn
+            // 
+            this.GrafosCn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GrafosCn.Image = ((System.Drawing.Image)(resources.GetObject("GrafosCn.Image")));
+            this.GrafosCn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.GrafosCn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GrafosCn.Name = "GrafosCn";
+            this.GrafosCn.Size = new System.Drawing.Size(38, 34);
+            this.GrafosCn.Text = "Grafos Cn";
+            // 
+            // toolStripSeparator34
+            // 
+            this.toolStripSeparator34.Name = "toolStripSeparator34";
+            this.toolStripSeparator34.Size = new System.Drawing.Size(38, 6);
+            // 
+            // GrafosWn
+            // 
+            this.GrafosWn.AccessibleName = "Wn";
+            this.GrafosWn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GrafosWn.Image = ((System.Drawing.Image)(resources.GetObject("GrafosWn.Image")));
+            this.GrafosWn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.GrafosWn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GrafosWn.Name = "GrafosWn";
+            this.GrafosWn.Size = new System.Drawing.Size(38, 34);
+            this.GrafosWn.Text = "Grafos Wn";
+            // 
+            // numericKn
+            // 
+            this.numericKn.Location = new System.Drawing.Point(880, 74);
+            this.numericKn.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericKn.Name = "numericKn";
+            this.numericKn.Size = new System.Drawing.Size(41, 20);
+            this.numericKn.TabIndex = 4;
+            this.numericKn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericKn.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericKn.Visible = false;
+            this.numericKn.ValueChanged += new System.EventHandler(this.numericKn_ValueChanged);
+            // 
+            // numericCn
+            // 
+            this.numericCn.AccessibleName = "Cn";
+            this.numericCn.Location = new System.Drawing.Point(880, 113);
+            this.numericCn.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericCn.Name = "numericCn";
+            this.numericCn.Size = new System.Drawing.Size(41, 20);
+            this.numericCn.TabIndex = 5;
+            this.numericCn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericCn.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericCn.Visible = false;
+            this.numericCn.ValueChanged += new System.EventHandler(this.numericCn_ValueChanged);
+            // 
+            // numericWn
+            // 
+            this.numericWn.AccessibleName = "Wn";
+            this.numericWn.Location = new System.Drawing.Point(880, 153);
+            this.numericWn.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericWn.Name = "numericWn";
+            this.numericWn.Size = new System.Drawing.Size(41, 20);
+            this.numericWn.TabIndex = 6;
+            this.numericWn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericWn.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericWn.Visible = false;
+            this.numericWn.ValueChanged += new System.EventHandler(this.numericWn_ValueChanged);
+            // 
+            // toolStripSeparator35
+            // 
+            this.toolStripSeparator35.Name = "toolStripSeparator35";
+            this.toolStripSeparator35.Size = new System.Drawing.Size(38, 6);
+            // 
             // EditorDeGrafos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 446);
+            this.ClientSize = new System.Drawing.Size(964, 595);
+            this.Controls.Add(this.numericWn);
+            this.Controls.Add(this.numericCn);
+            this.Controls.Add(this.numericKn);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ToolBarMetodos);
             this.Controls.Add(this.ToolBar);
             this.Controls.Add(this.MenuPrincipal);
@@ -766,6 +1000,11 @@
             this.ToolBar.PerformLayout();
             this.ToolBarMetodos.ResumeLayout(false);
             this.ToolBarMetodos.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericCn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -848,6 +1087,26 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator27;
         private System.Windows.Forms.ToolStripButton GrafoNuloTool;
         private System.Windows.Forms.OpenFileDialog openFileGrafo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
+        private System.Windows.Forms.ToolStripMenuItem ComplementoDir;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
+        private System.Windows.Forms.ToolStripMenuItem ComplementoNoDir;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator30;
+        private System.Windows.Forms.ToolStripButton ComplementoTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator32;
+        private System.Windows.Forms.ToolStripMenuItem IsomorfismoNoDir;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator31;
+        private System.Windows.Forms.ToolStripButton IsomorfismoTool;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton GrafosKn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator33;
+        private System.Windows.Forms.ToolStripButton GrafosCn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator34;
+        private System.Windows.Forms.ToolStripButton GrafosWn;
+        private System.Windows.Forms.NumericUpDown numericKn;
+        private System.Windows.Forms.NumericUpDown numericCn;
+        private System.Windows.Forms.NumericUpDown numericWn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator35;
 
     }
 }

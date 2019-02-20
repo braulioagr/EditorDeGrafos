@@ -69,6 +69,12 @@
     <Compile Include="Grafo.cs" />
     <Compile Include="GrafoDirigido.cs" />
     <Compile Include="GrafoNoDirigido.cs" />
+    <Compile Include="GrafoSecundario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GrafoSecundario.Designer.cs">
+      <DependentUpon>GrafoSecundario.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListaDeAdyacencia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GradosNoDir.resx">
       <DependentUpon>GradosNoDir.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GrafoSecundario.resx">
+      <DependentUpon>GrafoSecundario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListaDeAdyacencia.resx">
       <DependentUpon>ListaDeAdyacencia.cs</DependentUpon>

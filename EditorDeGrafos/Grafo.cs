@@ -536,13 +536,89 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #endregion
-
-
         #region Matriz de Adyacencia
         public virtual int[,] matrizDeAdyacencia() { return null; }
         #endregion
 
+        #region Grafos Especiales
+        public virtual void CreaKn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
+                                   SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
+        public virtual void CreaCn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
+                                   SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
+        public virtual void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
+                                   SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
         #endregion
+
+        #endregion
+
+        #region Operaciones
+
+        #region Complemento
+        public void complemento(Color color, int ancho)
+        {
+            Arista aux;
+            List<Nodo> complementos = new List<Nodo>();
+            Point pi1, pi2;
+            Nodo n;
+            bool band = false;
+            int id;
+            id = 0;
+            foreach (Nodo busca in this)
+            {
+                if (busca.Aristas.Count > 0)
+                {
+                    foreach (Nodo buscando in this)
+                    {
+                        band = false;
+                        foreach (Arista encuentra in busca.Aristas)
+                        {
+                            if (buscando.Equals(encuentra.Arriba))
+                            {
+                                band = true;
+                                break;
+                            }
+                        }
+                        if (!band)
+                        {
+                            n = buscando;
+                            complementos.Add(n);
+                        }
+                    }
+                    busca.Aristas.Clear();
+                    foreach (Nodo buscando in complementos)
+                    {
+                        if (!busca.Equals(buscando))
+                        {
+                            pi1 = MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, this[0].TamNodo / 2);
+                            pi2 = MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, this[0].TamNodo / 2);
+                            id++;
+                            aux = new Arista(0, pi1, pi2, ancho, color, buscando,id);
+                            busca.Aristas.Add(aux);
+                        }
+                    }
+                    complementos.Clear();
+                }
+                else
+                {
+                    foreach (Nodo buscando in this)
+                    {
+                        if (!busca.Equals(buscando))
+                        {
+                            pi1 = MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, this[0].TamNodo / 2);
+                            pi2 = MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, this[0].TamNodo / 2);
+                            id++;
+                            aux = new Arista(0, pi1, pi2, ancho, color, buscando,id);
+                            busca.Aristas.Add(aux);
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+        
+        #endregion
+
+        #endregion
+
     }
 }
