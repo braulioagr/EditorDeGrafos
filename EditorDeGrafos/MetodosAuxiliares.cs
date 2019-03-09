@@ -174,5 +174,48 @@ namespace EditorDeGrafos
         }
         #endregion
 
+        #region Isomorfismo
+        public static bool comparaMatrices(int[,] matriz1, int[,] matriz2)
+        {
+            bool bandera;
+            bandera = true;
+            for (int i = 0 ; i < matriz1.GetLength(0) ; i++)
+            {
+                for (int j = 0; j < matriz1.GetLength(0); j++)
+                {
+                    if (matriz1[i,j] != matriz2[i, j])
+                    {
+                        bandera = false;
+                        break;
+                    }
+                }
+            }
+            return bandera;
+        }
+
+        public static int[,] CambioIsomorfico(int[,] matrix, int i1, int i2)
+        {
+            int aux;
+            aux = 0;
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                aux = matrix[i1, i];
+                matrix[i1, i] = matrix[i2, i];
+                matrix[i2, i] = aux;
+            }
+            for (int j = 0; j < matrix.GetLength(0); j++)
+            {
+                aux = matrix[j, i1];
+                matrix[j, i1] = matrix[j, i2];
+                matrix[j, i2] = aux;
+            }
+            return matrix;
+        }
+        public static void biyectividad(int[,] matriz, int[,] matrix, ref int i1, ref int i2)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }

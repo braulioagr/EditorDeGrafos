@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace EditorDeGrafos
 {
-        [Serializable]
+    [Serializable]
     class Grafo : List <Nodo>
     {
 
@@ -477,9 +477,25 @@ namespace EditorDeGrafos
         public virtual List<Nodo> nodosAislados() { return null; }
         #endregion
 
-        #region Matriz de Incidencia
+        #region Matriz de Adyacencia
 
-        public Grafo matrizIncidencia()
+        public int[,] matrizDeAdyacencia()
+        {
+            int[,] matrizAdyacencia;
+            Grafo grafoM;
+            grafoM = this.grafoMatriz();
+            matrizAdyacencia = new int[this.Count,this.Count];
+            for(int i = 0 ; i < this.Count ; i++)
+            {
+                for(int j = 0 ; j < this.Count ; j++)
+                {
+                    matrizAdyacencia[i, j] = grafoM[i].Aristas[j].Peso;
+                }
+            }
+            return matrizAdyacencia;
+        }
+
+        public Grafo grafoMatriz()
         {
             Grafo grafo = new GrafoNoDirigido(this, true);
             Arista arista;
@@ -536,8 +552,8 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Matriz de Adyacencia
-        public virtual int[,] matrizDeAdyacencia() { return null; }
+        #region Matriz de Incidencia
+        public virtual int[,] matrizDeIncidencia() { return null; }
         #endregion
 
         #region Grafos Especiales
@@ -547,6 +563,15 @@ namespace EditorDeGrafos
                                    SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
         public virtual void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
                                    SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
+        public virtual void actualizaId() { }
+        #endregion
+
+        #region Isomorfismo
+
+        public virtual bool isomorfismo(ref Grafo grafito, ref List<Paso> pasos) { return false; }
+
+        public virtual Grafo matrizAGrafo(int[,] matriz){ return null; }
+
         #endregion
 
         #endregion
@@ -618,7 +643,6 @@ namespace EditorDeGrafos
         
         #endregion
 
-        #endregion
-
+        #endregion  
     }
 }

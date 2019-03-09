@@ -30,8 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GrafoSecundario));
             this.toolBar = new System.Windows.Forms.ToolStrip();
-            this.Aceptar = new System.Windows.Forms.Button();
-            this.Cancelar = new System.Windows.Forms.Button();
+            this.Abrir = new System.Windows.Forms.ToolStripButton();
+            this.Guardar = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.CrearNodo = new System.Windows.Forms.ToolStripButton();
             this.MoverNodo = new System.Windows.Forms.ToolStripButton();
             this.EliminarNodo = new System.Windows.Forms.ToolStripButton();
@@ -42,9 +43,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MoverGrafo = new System.Windows.Forms.ToolStripButton();
             this.EliminarGrafo = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.Guardar = new System.Windows.Forms.ToolStripButton();
-            this.Abrir = new System.Windows.Forms.ToolStripButton();
+            this.Aceptar = new System.Windows.Forms.Button();
+            this.Cancelar = new System.Windows.Forms.Button();
+            this.saveFileGrafo = new System.Windows.Forms.SaveFileDialog();
+            this.openFileGrafo = new System.Windows.Forms.OpenFileDialog();
             this.toolBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,27 +73,32 @@
             this.toolBar.Text = "toolStrip1";
             this.toolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Grafo_Clicked);
             // 
-            // Aceptar
+            // Abrir
             // 
-            this.Aceptar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Aceptar.Location = new System.Drawing.Point(666, 365);
-            this.Aceptar.Name = "Aceptar";
-            this.Aceptar.Size = new System.Drawing.Size(75, 23);
-            this.Aceptar.TabIndex = 1;
-            this.Aceptar.Text = "Aceptar";
-            this.Aceptar.UseVisualStyleBackColor = true;
-            this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
+            this.Abrir.AccessibleName = "Abrir";
+            this.Abrir.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Abrir.Image = ((System.Drawing.Image)(resources.GetObject("Abrir.Image")));
+            this.Abrir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Abrir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Abrir.Name = "Abrir";
+            this.Abrir.Size = new System.Drawing.Size(34, 34);
+            this.Abrir.Text = "Abrir Grafo";
             // 
-            // Cancelar
+            // Guardar
             // 
-            this.Cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancelar.Location = new System.Drawing.Point(12, 365);
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar.TabIndex = 2;
-            this.Cancelar.Text = "Cancelar";
-            this.Cancelar.UseVisualStyleBackColor = true;
-            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
+            this.Guardar.AccessibleName = "Guardar";
+            this.Guardar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Guardar.Image = ((System.Drawing.Image)(resources.GetObject("Guardar.Image")));
+            this.Guardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Guardar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Guardar.Name = "Guardar";
+            this.Guardar.Size = new System.Drawing.Size(34, 34);
+            this.Guardar.Text = "Guardar Grafo";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 37);
             // 
             // CrearNodo
             // 
@@ -191,32 +198,31 @@
             this.EliminarGrafo.Size = new System.Drawing.Size(34, 34);
             this.EliminarGrafo.Text = "Eliminar Grafo";
             // 
-            // toolStripSeparator3
+            // Aceptar
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 37);
+            this.Aceptar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Aceptar.Location = new System.Drawing.Point(666, 365);
+            this.Aceptar.Name = "Aceptar";
+            this.Aceptar.Size = new System.Drawing.Size(75, 23);
+            this.Aceptar.TabIndex = 1;
+            this.Aceptar.Text = "Aceptar";
+            this.Aceptar.UseVisualStyleBackColor = true;
+            this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
             // 
-            // Guardar
+            // Cancelar
             // 
-            this.Guardar.AccessibleName = "Guardar";
-            this.Guardar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Guardar.Image = ((System.Drawing.Image)(resources.GetObject("Guardar.Image")));
-            this.Guardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Guardar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Guardar.Name = "Guardar";
-            this.Guardar.Size = new System.Drawing.Size(34, 34);
-            this.Guardar.Text = "Guardar Grafo";
+            this.Cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancelar.Location = new System.Drawing.Point(12, 365);
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
+            this.Cancelar.TabIndex = 2;
+            this.Cancelar.Text = "Cancelar";
+            this.Cancelar.UseVisualStyleBackColor = true;
+            this.Cancelar.Click += new System.EventHandler(this.Cancelar_Click);
             // 
-            // Abrir
+            // openFileGrafo
             // 
-            this.Abrir.AccessibleName = "Abrir";
-            this.Abrir.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Abrir.Image = ((System.Drawing.Image)(resources.GetObject("Abrir.Image")));
-            this.Abrir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.Abrir.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Abrir.Name = "Abrir";
-            this.Abrir.Size = new System.Drawing.Size(34, 34);
-            this.Abrir.Text = "Abrir Grafo";
+            this.openFileGrafo.FileName = "openFileDialog1";
             // 
             // GrafoSecundario
             // 
@@ -261,5 +267,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton MoverGrafo;
         private System.Windows.Forms.ToolStripButton EliminarGrafo;
+        private System.Windows.Forms.SaveFileDialog saveFileGrafo;
+        private System.Windows.Forms.OpenFileDialog openFileGrafo;
     }
 }

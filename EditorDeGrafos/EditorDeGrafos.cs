@@ -117,7 +117,6 @@ namespace EditorDeGrafos
         private void Archivo_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
             #region Archivo
-
             IFormatter formater = new BinaryFormatter();
             Stream stream;
             switch (e.ClickedItem.AccessibleName)
@@ -231,24 +230,26 @@ namespace EditorDeGrafos
                     this.Archivo_Clicked(sender, e);
                 break;
                 #endregion
-                /*Redireccion al Cliked de Configuracion
+                /*Redireccion al Cliked de Configuracion*/
                 #region Configuraciones
                 case "Preferencias":
-                case "NombreNodo":
+                case "EtiquetasNodo":
+                case "pesosArista":
                     this.Configuracion_Clicked(sender, e);
-                break;*/
+                break;
+                #endregion
             }
             #endregion
         }
 
         private void MetodosTool_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            bool banderita;
-            banderita = true;
             #region Toolbar Metodos
             switch (e.ClickedItem.AccessibleName)
             {
                 case "GrafoNull":
+
+                    #region GrafoNulo
                     if (!typeof(GrafoNoDirigido).IsInstanceOfType(grafo) && !typeof(GrafoDirigido).IsInstanceOfType(grafo))
                     {
                         MessageBox.Show("El grafo no tiene aristas por lo tanto es nulo","Grafo nulo");
@@ -257,31 +258,34 @@ namespace EditorDeGrafos
                     {
                         MessageBox.Show("El grafo tiene aristas por lo tanto no es nulo", "Grafo no nulo");
                     }
-                    banderita = false;
+                    #endregion
+
+                break;
+                default :
+
+                    #region GrafoDirigido
+                    if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                    {
+                        this.Dirigido_Clicked(sender, e);
+                    }
+                    #endregion
+
+                    #region GrafoNoDirigido
+                    else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                    {
+                        this.NoDirigido_Clicked(sender, e);
+                    }
+                    #endregion
+
+                    #region Grafo
+                    else
+                    {
+                        MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");   
+                    }
+                    #endregion
+
                 break;
             }
-            #region GrafoDirigido
-            if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
-            {
-                this.Dirigido_Clicked(sender, e);
-            }
-            #endregion
-
-            #region GrafoNoDirigido
-            else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
-            {
-                this.NoDirigido_Clicked(sender, e);
-            }
-            #endregion
-            #region Grafo
-            else
-            {
-                if (banderita)
-                {
-                    MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");
-                }
-            }
-            #endregion
             
             #endregion
         }
@@ -292,23 +296,26 @@ namespace EditorDeGrafos
             switch (e.ClickedItem.AccessibleName)
             {
                 case "Grados":
+                    #region Grados
                     GradosDir grados;
                     grados = new GradosDir((GrafoDirigido)this.grafo);
                     grados.ShowDialog();
                     grados.Dispose();
+                    #endregion
                 break;
                 case "MAdyacencia":
                     #region Matriz de Adyacencia
                     MatrizDeAdyacencia matrizA;
-                    matrizA = new MatrizDeAdyacencia(grafo.matrizDeAdyacencia(),grafo.Count,grafo.Aristas,grafo);
+                    matrizA = new MatrizDeAdyacencia(grafo.grafoMatriz());
                     matrizA.ShowDialog();
                     matrizA.Dispose();
                     #endregion
                 break;
                 case "MIncidencia":
-                    #region Matriz de Adyacencia
+                    #region Matriz de Incidencia
                     MatrizDeIncidencia matrizI;
-                    matrizI = new MatrizDeIncidencia(grafo.matrizIncidencia());
+                    grafo.actualizaId();
+                    matrizI = new MatrizDeIncidencia(grafo.matrizDeIncidencia(), grafo.Count, grafo.Aristas, grafo);
                     matrizI.ShowDialog();
                     matrizI.Dispose();
                     #endregion
@@ -328,13 +335,14 @@ namespace EditorDeGrafos
                     tamOrd.ShowDialog();
                     tamOrd.Dispose();
                     #endregion
-                break;
+                    break;
                 case "Complemento":
                     #region Complemento
                     this.grafo.complemento(this.colorLinea, this.anchoLineaA);
+                    this.grafo.actualizaId();
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
-                break;
+                    break;
             }
             #endregion
         }
@@ -355,7 +363,7 @@ namespace EditorDeGrafos
                 case "MAdyacencia":
                     #region Matriz de Adyacencia
                     MatrizDeAdyacencia matrizA;
-                    matrizA = new MatrizDeAdyacencia(grafo.matrizDeAdyacencia(),grafo.Count,grafo.Aristas/2,grafo);
+                    matrizA = new MatrizDeAdyacencia(grafo.grafoMatriz());
                     matrizA.ShowDialog();
                     matrizA.Dispose();
                     #endregion
@@ -363,7 +371,8 @@ namespace EditorDeGrafos
                 case "MIncidencia":
                     #region Matriz de Adyacencia
                     MatrizDeIncidencia matrizI;
-                    matrizI = new MatrizDeIncidencia(grafo.matrizIncidencia());
+                    grafo.actualizaId();
+                    matrizI = new MatrizDeIncidencia(grafo.matrizDeIncidencia(),grafo.Count,grafo.Aristas/2,grafo);
                     matrizI.ShowDialog();
                     matrizI.Dispose();
                     #endregion
@@ -408,7 +417,181 @@ namespace EditorDeGrafos
                 case "Complemento":
                     #region Complemento
                     this.grafo.complemento(this.colorLinea, this.anchoLineaA);
+                    this.grafo.actualizaId();
                     this.EditorDeGrafos_Paint(this, null);
+                    #endregion
+                break;
+                case "Isomorfismo":
+                    #region Isomorfismo
+                    Grafo grafito;
+                    bool isomorficos;
+                    GrafoSecundario sGrafo;
+                    List<Paso> pasos;
+                    sGrafo = new GrafoSecundario(grafo);
+                    pasos = new List<Paso>();
+                    if (sGrafo.ShowDialog() == DialogResult.OK)
+                    {
+                        grafito = sGrafo.Grafo;
+                        if (grafo.Count == grafito.Count)
+                        {
+                            if (grafo.Aristas == grafito.Aristas)
+                            {
+                                MessageBox.Show("Puede que los grafos sean isomorficos", "Posibilidad");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Los grafos no tienen la misma cantidad de aristas no son isomorficos", "No son isomorficos");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Los grafos no tienen la misma cantidad de nodos no son isomorficos","No son isomorficos");
+                        }
+                    }
+                    #endregion
+                break;
+            }
+            #endregion
+        }
+
+        private void Especiales_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region Grafos Especiales
+            IFormatter formater;
+            Stream stream;
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Kn":
+                    #region Kn
+                    if (!numericKn.Visible)
+                    {
+                        numericKn.Visible = true;
+                        numericCn.Visible = false;
+                        numericWn.Visible = false;
+                        this.deshabititaOpciones();
+                        this.habilitaOpcionesGrafo();
+                        this.habilitaOpcionesGrafoNoDirigido();
+                        this.grafo.Clear();
+                        this.numNodos = 1;
+                        this.grafo = new GrafoNoDirigido(grafo);
+                        this.grafo.CreaKn(this.ClientSize, (int)numericKn.Value, ref this.numNodos, this.tamNodo,
+                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                        if (grafo.Count > 26)
+                        {
+                            this.grafo.Tipo = true;
+                        }
+                        else
+                        {
+                            grafo.CambiaNombre();
+                        }
+                        grafo.actualizaId();
+                        nombre = ConvierteNombre(numNodos);
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                    else
+                    {
+                        numericKn.Visible = false;
+                    }
+                    #endregion
+                break;
+                case "Cn":
+                    #region Cn
+                    if (!numericCn.Visible)
+                    {
+                        numericKn.Visible = false;
+                        numericCn.Visible = true;
+                        numericWn.Visible = false;
+                        this.deshabititaOpciones();
+                        this.habilitaOpcionesGrafo();
+                        this.habilitaOpcionesGrafoNoDirigido();
+                        this.grafo.Clear();
+                        this.numNodos = 1;
+                        this.grafo = new GrafoNoDirigido(grafo);
+                        this.grafo.CreaCn(this.ClientSize, (int)numericCn.Value, ref this.numNodos, this.tamNodo,
+                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                        if (grafo.Count > 26)
+                        {
+                            this.grafo.Tipo = true;
+                        }
+                        else
+                        {
+                            grafo.CambiaNombre();
+                        }
+                        nombre = ConvierteNombre(numNodos);
+                        this.grafo.actualizaId();
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                    else
+                    {
+                        numericCn.Visible = false;
+                    }
+                    #endregion
+                break;
+                case "Wn":
+                    #region Wn
+                    if (!numericWn.Visible)
+                    {
+                        numericCn.Visible = false;
+                        numericKn.Visible = false;
+                        numericWn.Visible = true;
+                        this.deshabititaOpciones();
+                        this.habilitaOpcionesGrafo();
+                        this.habilitaOpcionesGrafoNoDirigido();
+                        this.grafo.Clear();
+                        this.numNodos = 1;
+                        this.grafo = new GrafoNoDirigido(grafo);
+                        this.grafo.CreaWn(this.ClientSize, (int)numericWn.Value, ref this.numNodos, this.tamNodo,
+                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                        if (grafo.Count > 26)
+                        {
+                            this.grafo.Tipo = true;
+                        }
+                        else
+                        {
+                            grafo.CambiaNombre();
+                        }
+                        nombre = ConvierteNombre(numNodos);
+                        this.grafo.actualizaId();
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                    else
+                    {
+                        numericWn.Visible = false;
+                    }
+                    #endregion
+                break;
+                case "Q3":
+                    #region Q3
+                    numericKn.Visible = false;
+                    numericCn.Visible = false;
+                    numericWn.Visible = false;
+                    formater = new BinaryFormatter();
+                    stream = new FileStream(Environment.CurrentDirectory +@"..\Grafos\Especiales\Q3.grafo",
+                                                    FileMode.Open,FileAccess.Read, FileShare.None);
+                    grafo = (Grafo)formater.Deserialize(stream);
+                    //this.pref.Dispose();
+                    nodo = grafo[0];
+                    nombre = grafo[grafo.Count - 1].Nombre;
+                    try
+                    {
+                        numNodos = Int32.Parse(nombre);
+                    }
+                    catch (FormatException)
+                    {
+                        char aux = nombre[0];
+                        numNodos = aux - 64;
+                    }
+                    numNodos++;
+                    nombre = ConvierteNombre(numNodos);
+                    /*this.pref = new Preferencias(nodo.AnchoContorno, nodo.TamNodo, nodo.TamLetra,
+                                                1, this.colorDefault, nodo.ColorFuera,
+                                                nodo.BrushRelleno, nodo.BrushName);
+                    PreferenciasBack(pref);*/
+                    stream.Close();
+                    g.Clear(BackColor);
+                    grafo.DibujaGrafo(g);
+                    this.habilitaOpcionesGrafo();
+                    this.habilitaOpcionesGrafoNoDirigido();
                     #endregion
                 break;
             }
@@ -420,7 +603,6 @@ namespace EditorDeGrafos
             #region Grafo
             switch (e.ClickedItem.AccessibleName)
             {
-
                 case "CrearNodo":
                     this.opcion = 1;
                 break;
@@ -454,6 +636,28 @@ namespace EditorDeGrafos
                         this.deshabititaOpciones();
                         this.EditorDeGrafos_Paint(this, null);
                     }
+                break;
+            }
+            #endregion
+        }
+
+        private void Configuracion_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region Configuración
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "EtiquetasNodo":
+                    #region EtiquetasNodo
+                    grafo.Tipo = !grafo.Tipo;
+                    grafo.CambiaNombre();
+                    this.EditorDeGrafos_Paint(this, null);
+                    this.nombre = ConvierteNombre(this.numNodos);
+                    #endregion
+                break;
+                case "pesosArista":
+                    #region Pesos Arista
+                    grafo.Ponderado = !grafo.Ponderado;
+                    #endregion
                 break;
             }
             #endregion
@@ -688,6 +892,13 @@ namespace EditorDeGrafos
         #region Area Cliente
         private void EditorDeGrafos_Resize(object sender, EventArgs e)
         {
+            Point p = new Point(EspecialesTool.Location.X - 40, 0);
+            p.Y = numericKn.Location.Y;
+            numericKn.Location = p;
+            p.Y = numericCn.Location.Y;
+            numericCn.Location = p;
+            p.Y = numericWn.Location.Y;
+            numericWn.Location = p;
             this.ClientSize = new Size(this.Size.Width - 16, this.Size.Height - 39);
             this.bmp = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
             g = CreateGraphics();
@@ -752,6 +963,77 @@ namespace EditorDeGrafos
             g.DrawImage(bmp, 0, 0);
         }
 
+        #endregion
+
+        #region numeric
+        private void numericKn_ValueChanged(object sender, EventArgs e)
+        {
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            this.habilitaOpcionesGrafoNoDirigido();
+            this.grafo.Clear();
+            this.numNodos = 1;
+            this.grafo = new GrafoNoDirigido(grafo);
+            this.grafo.CreaKn(this.ClientSize, (int)numericKn.Value, ref this.numNodos, this.tamNodo,
+                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+            if (grafo.Count > 26)
+            {
+                this.grafo.Tipo = true;
+            }
+            else
+            {
+                grafo.CambiaNombre();
+            }
+            nombre = ConvierteNombre(numNodos);
+            grafo.actualizaId();
+            this.EditorDeGrafos_Paint(this, null);
+        }
+
+        private void numericCn_ValueChanged(object sender, EventArgs e)
+        {
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            this.habilitaOpcionesGrafoNoDirigido();
+            this.grafo.Clear();
+            this.numNodos = 1;
+            this.grafo = new GrafoNoDirigido(grafo);
+            this.grafo.CreaCn(this.ClientSize, (int)numericCn.Value, ref this.numNodos, this.tamNodo,
+                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+            if (grafo.Count > 26)
+            {
+                this.grafo.Tipo = true;
+            }
+            else
+            {
+                grafo.CambiaNombre();
+            }
+            nombre = ConvierteNombre(numNodos);
+            grafo.actualizaId();
+            this.EditorDeGrafos_Paint(this, null);
+        }
+
+        private void numericWn_ValueChanged(object sender, EventArgs e)
+        {
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            this.habilitaOpcionesGrafoNoDirigido();
+            this.grafo.Clear();
+            this.numNodos = 1;
+            this.grafo = new GrafoNoDirigido(grafo);
+            this.grafo.CreaWn(this.ClientSize, (int)numericWn.Value, ref this.numNodos, this.tamNodo,
+                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+            if (grafo.Count > 26)
+            {
+                this.grafo.Tipo = true;
+            }
+            else
+            {
+                grafo.CambiaNombre();
+            }
+            nombre = ConvierteNombre(numNodos);
+            grafo.actualizaId();
+            this.EditorDeGrafos_Paint(this, null);
+        }
         #endregion
 
         #endregion
@@ -849,180 +1131,7 @@ namespace EditorDeGrafos
         }
 
         #endregion
-
-        private void Especiales_Clicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            #region Grafos Especiales
-            switch (e.ClickedItem.AccessibleName)
-            {
-                case "Kn":
-                    #region Kn
-                    if (!numericKn.Visible)
-                    {
-                        numericKn.Visible = true;
-                        numericKn.Visible = false;
-                        numericKn.Visible = false;
-                        this.deshabititaOpciones();
-                        this.habilitaOpcionesGrafo();
-                        this.habilitaOpcionesGrafoNoDirigido();
-                        this.grafo.Clear();
-                        this.numNodos = 1;
-                        this.grafo = new GrafoNoDirigido(grafo);
-                        this.grafo.CreaKn(this.ClientSize, (int)numericKn.Value, ref this.numNodos, this.tamNodo,
-                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
-                        if (grafo.Count > 26)
-                        {
-                            this.grafo.Tipo = true;
-                        }
-                        else
-                        {
-                            grafo.CambiaNombre();
-                        }
-                        nombre = ConvierteNombre(numNodos);
-                        this.EditorDeGrafos_Paint(this, null);
-                    }
-                    else
-                    {
-                        numericKn.Visible = false;
-                    }
-                    #endregion
-                break;
-                case "Cn":
-                    #region Cn
-                    if (!numericCn.Visible)
-                    {
-                        this.deshabititaOpciones();
-                        this.habilitaOpcionesGrafo();
-                        this.habilitaOpcionesGrafoNoDirigido();
-                        this.grafo.Clear();
-                        this.numNodos = 1;
-                        this.grafo = new GrafoNoDirigido(grafo);
-                        this.grafo.CreaCn(this.ClientSize, (int)numericCn.Value, ref this.numNodos, this.tamNodo,
-                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
-                        if (grafo.Count > 26)
-                        {
-                            this.grafo.Tipo = true;
-                        }
-                        else
-                        {
-                            grafo.CambiaNombre();
-                        }
-                        nombre = ConvierteNombre(numNodos);
-                        this.EditorDeGrafos_Paint(this, null);
-                        numericCn.Visible = true;
-                        numericKn.Visible = false;
-                        numericWn.Visible = false;
-                    }
-                    else
-                    {
-                        numericCn.Visible = false;
-                    }
-                    #endregion
-                break;
-                case "Wn":
-                    #region Wn
-                    if (!GrafosWn.Visible)
-                    {
-                        this.deshabititaOpciones();
-                        this.habilitaOpcionesGrafo();
-                        this.habilitaOpcionesGrafoNoDirigido();
-                        this.grafo.Clear();
-                        this.numNodos = 1;
-                        this.grafo = new GrafoNoDirigido(grafo);
-                        this.grafo.CreaWn(this.ClientSize, (int)numericWn.Value, ref this.numNodos, this.tamNodo,
-                                          this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
-                        if (grafo.Count > 26)
-                        {
-                            this.grafo.Tipo = true;
-                        }
-                        else
-                        {
-                            grafo.CambiaNombre();
-                        }
-                        nombre = ConvierteNombre(numNodos);
-                        this.EditorDeGrafos_Paint(this, null);
-                        numericWn.Visible = true;
-                        numericCn.Visible = false;
-                        numericKn.Visible = false;
-                    }
-                    else
-                    {
-                        numericWn.Visible = false;
-                    }
-                    #endregion
-                break;
-            }
-            #endregion
-        }
         
-        #endregion
-
-        #region Eventos numeric
-        private void numericKn_ValueChanged(object sender, EventArgs e)
-        {
-            this.deshabititaOpciones();
-            this.habilitaOpcionesGrafo();
-            this.habilitaOpcionesGrafoNoDirigido();
-            this.grafo.Clear();
-            this.numNodos = 1;
-            this.grafo = new GrafoNoDirigido(grafo);
-            this.grafo.CreaKn(this.ClientSize, (int)numericKn.Value, ref this.numNodos, this.tamNodo,
-                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
-            if (grafo.Count > 26)
-            {
-                this.grafo.Tipo = true;
-            }
-            else
-            {
-                grafo.CambiaNombre();
-            }
-            nombre = ConvierteNombre(numNodos);
-            this.EditorDeGrafos_Paint(this, null);
-        }
-
-        private void numericCn_ValueChanged(object sender, EventArgs e)
-        {
-            this.deshabititaOpciones();
-            this.habilitaOpcionesGrafo();
-            this.habilitaOpcionesGrafoNoDirigido();
-            this.grafo.Clear();
-            this.numNodos = 1;
-            this.grafo = new GrafoNoDirigido(grafo);
-            this.grafo.CreaCn(this.ClientSize, (int)numericCn.Value, ref this.numNodos, this.tamNodo,
-                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
-            if (grafo.Count > 26)
-            {
-                this.grafo.Tipo = 1;
-            }
-            else
-            {
-                grafo.CambiaNombre();
-            }
-            nombre = ConvierteNombre(numNodos);
-            this.EditorDeGrafos_Paint(this, null);
-        }
-
-        private void numericWn_ValueChanged(object sender, EventArgs e)
-        {
-            this.deshabititaOpciones();
-            this.habilitaOpcionesGrafo();
-            this.habilitaOpcionesGrafoNoDirigido();
-            this.grafo.Clear();
-            this.numNodos = 1;
-            this.grafo = new GrafoNoDirigido(grafo);
-            this.grafo.CreaWn(this.ClientSize, (int)numericWn.Value, ref this.numNodos, this.tamNodo,
-                              this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
-            if (grafo.Count > 26)
-            {
-                this.grafo.Tipo = 1;
-            }
-            else
-            {
-                grafo.CambiaNombre();
-            }
-            nombre = ConvierteNombre(numNodos);
-            this.EditorDeGrafos_Paint(this, null);
-        }
         #endregion
 
     }

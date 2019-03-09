@@ -44,6 +44,7 @@ namespace EditorDeGrafos
         #endregion
 
         #region Operaciones Esenciales
+
         public override int BorraArista(Point p)
         {
             double m, b, y;
@@ -152,6 +153,38 @@ namespace EditorDeGrafos
             return cuts;
         }
 
+        public override void actualizaId()
+        {
+            int id;
+            id = 0;
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    arista.Id = 0;
+                }
+            }
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    if (arista.Id == 0)
+                    {
+                        id++;
+                        arista.Id = id;
+                        foreach (Arista arista2 in arista.Arriba.Aristas)
+                        {
+                            if (arista2.Arriba.Equals(nodo))
+                            {
+                                arista2.Id = id;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Metodos de Grafo
@@ -223,7 +256,7 @@ namespace EditorDeGrafos
         #endregion
 
         #region Matriz de Adyacencia
-        public override int[,] matrizDeAdyacencia()
+        public override int[,] matrizDeIncidencia()
         {
             int[,] matriz;
             int i;
@@ -246,6 +279,155 @@ namespace EditorDeGrafos
             }
             return matriz;
         }
+        #endregion
+
+        #region GrafosEspeciales
+        public override void CreaKn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
+                                    SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
+        {
+            Arista a;
+            Nodo nodo;
+            Point p1 = new Point(s.Width / 2, s.Height / 2 + 37);
+            Point Pc = p1;
+            Point Pe = new Point();
+            int ancho = s.Height / 2 - 50;
+            double grados = 360 / (double)n;
+            grados = grados * Math.PI / 180;
+            double contG = 0;
+            double x, y;
+            for (int i = 0; i < n; i++)
+            {
+                x = Math.Round(ancho * Math.Sin(contG));
+                y = Math.Round(ancho * Math.Cos(contG));
+                Pc.X += (int)x;
+                Pc.Y -= (int)y;
+                contG += grados;
+                Pe.X = Pc.X - (tam / 2);
+                Pe.Y = Pc.Y - (tam / 2);
+                nodo = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color, brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
+                this.Add(nodo);
+                Pc = p1;
+                num++;
+            }
+            foreach (Nodo busca in this)
+            {
+                foreach (Nodo buscando in this)
+                {
+                    if (!busca.Equals(buscando))
+                    {
+                        a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, tam / 2),
+                                       MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, tam / 2), (int)penArista.Width, penArista.Color,buscando,0);
+                        busca.Aristas.Add(a);
+                    }
+                }
+            }
+        }
+        public override void CreaCn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
+                                    SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
+        {
+            Nodo nodo;
+            Nodo ant = null;
+            Arista a;
+            Point p1 = new Point(s.Width / 2, s.Height / 2 + 37);
+            Point Pc = p1;
+            Point Pe = new Point();
+            int ancho = s.Height / 2 - 50;
+            double grados = 360 / (double)n;
+            grados = grados * Math.PI / 180;
+            double contG = 0;
+            double x, y;
+            for (int i = 0; i < n; i++)
+            {
+                x = Math.Round(ancho * Math.Sin(contG));
+                y = Math.Round(ancho * Math.Cos(contG));
+                Pc.X += (int)x;
+                Pc.Y -= (int)y;
+                contG += grados;
+                Pe.X = Pc.X - (tam / 2);
+                Pe.Y = Pc.Y - (tam / 2);
+                nodo = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color, brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
+                if (i > 0)
+                {
+                    a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, ant.Pc, tam / 2),
+                                   MetodosAuxiliares.PuntoInterseccion(ant.Pc, nodo.Pc, tam / 2),
+                                   (int)penArista.Width, penArista.Color, ant, 0);
+                    nodo.Aristas.Add(a);
+                    a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(ant.Pc, nodo.Pc, tam / 2),
+                                   MetodosAuxiliares.PuntoInterseccion(nodo.Pc, ant.Pc, tam / 2),
+                                   (int)penArista.Width, penArista.Color, nodo, 0);
+                    ant.Aristas.Add(a);
+                }
+                this.Add(nodo);
+                ant = nodo;
+                Pc = p1;
+                num++;
+            }
+            a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(this[0].Pc, ant.Pc, tam / 2),
+                           MetodosAuxiliares.PuntoInterseccion(ant.Pc, this[0].Pc, tam / 2),
+                           (int)penArista.Width, penArista.Color, ant, 0);
+            this[0].Aristas.Add(a);
+            a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(ant.Pc, this[0].Pc, tam / 2),
+                           MetodosAuxiliares.PuntoInterseccion(this[0].Pc, ant.Pc, tam / 2),
+                           (int)penArista.Width, penArista.Color, this[0], 0);
+            ant.Aristas.Add(a);
+
+        }
+        public override void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
+                                    SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
+        {
+            Arista a;
+            Nodo fin;
+            Point Pc = new Point(s.Width / 2, s.Height / 2 + 37);
+            Point Pe = new Point((Pc.X - (tam / 2)), (Pc.Y - (tam / 2)));
+            this.CreaCn(s, n, ref num, tam, tamL, brushRelleno, brushName, penNodo, penArista, fuente);
+            fin = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color,
+                     brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
+            foreach (Nodo busca in this)
+            {
+                a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(busca.Pc, fin.Pc, tam / 2),
+                              MetodosAuxiliares.PuntoInterseccion(fin.Pc, busca.Pc, tam / 2), (int)penArista.Width, penArista.Color, fin, 0);
+                busca.Aristas.Add(a);
+                a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(fin.Pc, busca.Pc, tam / 2),
+                               MetodosAuxiliares.PuntoInterseccion(busca.Pc, fin.Pc, tam / 2), (int)penArista.Width, penArista.Color, busca, 0);
+                fin.Aristas.Add(a);
+            }
+            this.Add(fin);
+        }
+        #endregion
+
+        #region Isomorfismo
+        public override bool isomorfismo(ref Grafo grafito, ref List<Paso> pasos)
+        {
+            int limCambio;
+            int cambios;
+            int i1;
+            int i2;
+            bool isomorfismo;
+            string cambio;
+            int[,] matriz;
+            int[,] matrix;
+            Paso paso;
+            i1 = 0;
+            i2 = 0;
+            matriz = base.matrizDeAdyacencia();
+            matrix = grafito.matrizDeAdyacencia();
+            limCambio = Convert.ToInt32(Math.Pow((double)grafito.Count, (double)2));
+            cambios = 0;
+            isomorfismo = MetodosAuxiliares.comparaMatrices(matriz, matrix);
+            while (isomorfismo || cambios == limCambio)
+            {
+                MetodosAuxiliares.biyectividad(matriz, matrix, ref i1, ref i2);
+                matrix = MetodosAuxiliares.CambioIsomorfico(matrix, i1, i2);
+                isomorfismo = MetodosAuxiliares.comparaMatrices(matriz, matrix);
+                cambio = grafito[i1].Nombre + "->" + grafito[i2].Nombre;
+                paso = new Paso(matrix, cambio);
+                pasos.Add(paso);
+                cambios++;
+            }
+            grafito = grafito.matrizAGrafo(matrix);
+            return isomorfismo;
+        }
+
         #endregion
 
         #endregion

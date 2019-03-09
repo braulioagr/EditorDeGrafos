@@ -42,6 +42,7 @@ namespace EditorDeGrafos
         #endregion
 
         #region operaciones Esenciales
+        
         public override int BorraArista(Point p)
         {
             double m, b, y;
@@ -96,10 +97,26 @@ namespace EditorDeGrafos
             }
             return 0;
         }
+
+        public override void actualizaId()
+        {
+            int id;
+            id = 0;
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    id++;
+                    arista.Id = id;
+                }
+            }
+        }
+
         #endregion
+
         #region Matriz de Adyacencia
 
-        public override int[,] matrizDeAdyacencia()
+        public override int[,] matrizDeIncidencia()
         {
             int[,] matriz;
             int i;

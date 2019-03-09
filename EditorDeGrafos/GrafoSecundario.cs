@@ -4,7 +4,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,13 +59,17 @@ namespace EditorDeGrafos
         private Bitmap bmp;
         private Nodo nodo;
         private Grafo grafo;
+        private Grafo grafito;
         #endregion
 
         #endregion
 
         #region Constructores
-        public GrafoSecundario()
+
+        public GrafoSecundario(Grafo grafito)
         {
+            // TODO: Complete member initialization
+            this.grafito = grafito;
             InitializeComponent();
         }
 
@@ -105,6 +112,21 @@ namespace EditorDeGrafos
             this.penArista = new Pen(colorLinea);
             #endregion
 
+            #region Habilitaciones
+            this.deshabititaOpciones();
+            this.habilitaOpcionesGrafo();
+            if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+            {
+                this.habilitaOpcionesGrafoDirigido();
+            }
+            else
+            {
+                if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                {
+                    this.habilitaOpcionesGrafoNoDirigido();
+                }
+            }
+            #endregion
         }
 
         #endregion
@@ -132,7 +154,19 @@ namespace EditorDeGrafos
                     bandFinal = true;
                     if (grafo.Count == 1)
                     {
-                        this.habilitaOpcionesGrafo();
+
+                        if (typeof(GrafoDirigido).IsInstanceOfType(grafito))
+                        {
+                            this.deshabititaOpciones();
+                            this.habilitaOpcionesGrafo();
+                            this.habilitaOpcionesGrafoDirigido();
+                        }
+                        else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafito))
+                        {
+                            this.deshabititaOpciones();
+                            this.habilitaOpcionesGrafo();
+                            this.habilitaOpcionesGrafoNoDirigido();
+                        }
                     }
                     this.GrafoSecundario_Paint(this, null);
                     break;
@@ -164,7 +198,6 @@ namespace EditorDeGrafos
                     }
                     break;
                 case 4://Mover Nodo
-                case 8://Algoritmo Warner
                     p1 = e.Location;
                     bandFinal = grafo.BuscaNodo(ref nodo, p1);
                     break;
@@ -176,9 +209,19 @@ namespace EditorDeGrafos
                     grafo.BorraArista(e.Location);
                     if (grafo.Aristas == 0)
                     {
-                        this.grafo = new Grafo(this.grafo);
                         this.numAristas = 0;
-                        this.habilitaOpcionesGrafo();
+                        if (typeof(GrafoDirigido).IsInstanceOfType(grafito))
+                        {
+                            this.deshabititaOpciones();
+                            this.habilitaOpcionesGrafo();
+                            this.habilitaOpcionesGrafoDirigido();
+                        }
+                        else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafito))
+                        {
+                            this.deshabititaOpciones();
+                            this.habilitaOpcionesGrafo();
+                            this.habilitaOpcionesGrafoNoDirigido();
+                        }
                     }
                     bandFinal = false;
                     this.GrafoSecundario_Paint(this, null);
@@ -340,9 +383,88 @@ namespace EditorDeGrafos
         
         private void Grafo_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            IFormatter formater = new BinaryFormatter();
+            Stream stream;
             #region Grafo
             switch (e.ClickedItem.AccessibleName)
             {
+                case "Abrir":
+                    #region Abrir Grafo
+                    openFileGrafo = new OpenFileDialog();
+                    openFileGrafo.Filter = "(*.grafo) | *.grafo";
+                    openFileGrafo.FilterIndex = 2;
+                    openFileGrafo.RestoreDirectory = true;
+                    openFileGrafo.InitialDirectory = directorio;
+                    if (openFileGrafo.ShowDialog() == DialogResult.OK)
+                    {
+                        stream = new FileStream(openFileGrafo.FileName, FileMode.Open,
+                            FileAccess.Read, FileShare.None);
+                        grafo = (Grafo)formater.Deserialize(stream);
+                        if (grafo.Count > 0)
+                        {
+                            nodo = grafo[0];
+                            nombre = grafo[grafo.Count - 1].Nombre;
+                            try
+                            {
+                                numNodos = Int32.Parse(nombre);
+                            }
+                            catch (FormatException)
+                            {
+                                char aux = nombre[0];
+                                numNodos = aux - 64;
+                            }
+                            numNodos++;
+                            nombre = ConvierteNombre(numNodos);
+                            /*this.pref.Dispose();
+                            if (grafo.buscaArista(ref arista))
+                            {
+                                this.pref = new Preferencias(nodo.AnchoContorno, nodo.TamNodo, nodo.TamLetra,
+                                                                arista.AnchoLinea, arista.ColorLinea, nodo.ColorFuera,
+                                                                nodo.BrushRelleno, nodo.Brushnombre);
+                            }
+                            else
+                            {
+                                this.pref = new Preferencias(nodo.AnchoContorno, nodo.TamNodo, nodo.TamLetra,
+                                                                1, Color.Black, nodo.ColorFuera,
+                                                                nodo.BrushRelleno, nodo.Brushnombre);
+                            }*/
+                        }
+                        /*else
+                        {
+                            this.pref = new Preferencias(anchoLineaN, tamNodo, altonombre,
+                                                         anchoLineaA, colorLinea, colorContorno,
+                                                         colorRelleno, colorLetra);
+                        }
+                        PreferenciasBack(pref);*/
+                        stream.Close();
+                        this.habilitaOpcionesGrafo();
+                        if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                        {
+                            this.habilitaOpcionesGrafoDirigido();
+                        }
+                        else
+                        {
+                            if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                            {
+                                this.habilitaOpcionesGrafoNoDirigido();
+                            }
+                        }
+                        this.GrafoSecundario_Paint(this, null);
+                    }
+                    #endregion
+                    break;
+                case "Guardar":
+                    #region Gurdar Grafo
+                    saveFileGrafo.Filter = "(*.grafo) | *.grafo";
+                    saveFileGrafo.InitialDirectory = directorio;
+                    if (saveFileGrafo.ShowDialog() == DialogResult.OK)
+                    {
+                        stream = new FileStream(saveFileGrafo.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                        formater.Serialize(stream, grafo);
+                        stream.Close();
+                    }
+                    #endregion
+                    break;
                 case "CrearNodo":
                     this.opcion = 1;
                 break;
@@ -466,6 +588,7 @@ namespace EditorDeGrafos
             p = new Point(Cancelar.Location.X,this.Height-74);
             Cancelar.Location = p;
             p = new Point(this.Size.Width-103,this.Size.Height-74);
+            Aceptar.Location = p;
         }
 
         #endregion

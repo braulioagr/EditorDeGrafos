@@ -75,17 +75,17 @@
     <Compile Include="GrafoSecundario.Designer.cs">
       <DependentUpon>GrafoSecundario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Isomorfismo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Isomorfismo.Designer.cs">
+      <DependentUpon>Isomorfismo.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListaDeAdyacencia.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListaDeAdyacencia.Designer.cs">
       <DependentUpon>ListaDeAdyacencia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MatrizDeIncidencia.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MatrizDeIncidencia.Designer.cs">
-      <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
     </Compile>
     <Compile Include="MatrizDeAdyacencia.cs">
       <SubType>Form</SubType>
@@ -93,8 +93,15 @@
     <Compile Include="MatrizDeAdyacencia.Designer.cs">
       <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
     </Compile>
+    <Compile Include="MatrizDeIncidencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MatrizDeIncidencia.Designer.cs">
+      <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="MetodosAuxiliares.cs" />
     <Compile Include="Nodo.cs" />
+    <Compile Include="Paso.cs" />
     <Compile Include="PendientesYAislados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,14 +128,17 @@
     <EmbeddedResource Include="GrafoSecundario.resx">
       <DependentUpon>GrafoSecundario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Isomorfismo.resx">
+      <DependentUpon>Isomorfismo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListaDeAdyacencia.resx">
       <DependentUpon>ListaDeAdyacencia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MatrizDeIncidencia.resx">
-      <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MatrizDeAdyacencia.resx">
       <DependentUpon>MatrizDeAdyacencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MatrizDeIncidencia.resx">
+      <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PendientesYAislados.resx">
       <DependentUpon>PendientesYAislados.cs</DependentUpon>
