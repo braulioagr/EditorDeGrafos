@@ -699,7 +699,7 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
-        public virtual string circuitoEuleriano()
+        public virtual List<string> circuitoEuleriano()
         {
             throw new NotImplementedException();
         }
@@ -714,7 +714,7 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
-        public virtual string caminoEuleriano()
+        public virtual List<string> caminoEuleriano()
         {
             throw new NotImplementedException();
         }

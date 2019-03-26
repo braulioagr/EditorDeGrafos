@@ -322,6 +322,16 @@ namespace EditorDeGrafos
             return subList;
         }
 
+        public static List<string> sumaListas(List<string> sumando1, List<string> sumando2)
+        {
+            foreach (string cadena in sumando2)
+            {
+                sumando1.Add(cadena);
+            }
+            return sumando1;
+        
+        }
+
         #endregion
 
         #region nPartita

@@ -36,7 +36,7 @@ namespace EditorDeGrafos
         private bool bandArista;
         private bool bandRecorrido;
         private string directorio;
-        private string recorrido;
+        private List<string> recorrido;
         #endregion
 
         #region Estructuras
@@ -93,7 +93,7 @@ namespace EditorDeGrafos
             this.bandNombre = false;
             this.bandArista = false;
             this.bandRecorrido = false;
-            this.recorrido = "";
+            //this.recorrido = "";
             #endregion
 
             #region Estructuras
@@ -467,8 +467,8 @@ namespace EditorDeGrafos
                         #region Circuito
                         if (grafo.gradosPares())//Si todos sus nodos son de grado par Existe circuito
                         {
-                            this.recorrido = grafo.circuitoEuleriano();
                             /**/
+                            this.recorrido = grafo.circuitoEuleriano();
                             euler = new Euler(recorrido, "Existe el circuito", relojEuler);
                             euler.borra_Recorrido += new Euler.Borra_Recorrido(this.redibujaGrafo);
                             rec = 0;
@@ -545,6 +545,12 @@ namespace EditorDeGrafos
                     corolarios.ShowDialog();
                     corolarios.Dispose();
                     #endregion
+                break;
+                case "Regiones":
+                    Regiones regiones;
+                    regiones = new Regiones(this.grafo);
+                    regiones.ShowDialog();
+                    regiones.Dispose();
                 break;
                 case  "Kuratowski":
                     Kuratowski kuratowski;
@@ -1157,7 +1163,7 @@ namespace EditorDeGrafos
             penAux = new Pen(Color.Green, this.anchoLineaN + 2);
             penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
             anterior = actual;
-            if (rec > recorrido.Length - 1)
+            if (rec > recorrido.Count - 1)
             {
                 rec = 0;
                 gAux.Clear(BackColor);
@@ -1191,7 +1197,7 @@ namespace EditorDeGrafos
             penAux = new Pen(Color.Green, this.anchoLineaN + 2);
             penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
             anterior = actual;
-            if (rec > recorrido.Length - 1)
+            if (rec > recorrido.Count - 1)
             {
                 rec = 0;
                 gAux.Clear(BackColor);

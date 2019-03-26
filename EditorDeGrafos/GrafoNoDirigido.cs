@@ -585,7 +585,7 @@ namespace EditorDeGrafos
             }
         }
         
-        public override string caminoEuleriano()
+        /*public override string caminoEuleriano()
         {
             string recorrido;
             string recorridoAux;
@@ -623,8 +623,48 @@ namespace EditorDeGrafos
             } while (recorridas.Count != this.Aristas);
             return recorrido;
         }
+        */
 
-        public override string circuitoEuleriano()
+        public override List<string> caminoEuleriano()
+        {
+            List<string> recorrido;
+            List<string> recorridoAux;
+            List<Arista> recorridas;
+            Nodo actual;
+            Nodo siguiente;
+            Arista arista;
+            recorrido = new List<string>();
+            recorridoAux = new List<string>();
+            this.setGrados();
+            recorridas = new List<Arista>();
+            actual = MetodosAuxiliares.inicioDeCamino(this);
+            do
+            {
+                recorridoAux.Add(actual.Nombre);
+                do
+                {
+                    siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
+                    arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
+                    recorridas.Add(arista);
+                    siguiente.Grado--;
+                    arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
+                    recorridas.Add(arista);
+                    actual.Grado--;
+                    actual = siguiente;
+                    recorridoAux.Add(actual.Nombre);
+                } while (actual.Grado != 0);
+                recorrido = MetodosAuxiliares.sumaListas(recorridoAux, recorrido);
+                recorridoAux = new List<string>();
+                if (recorridas.Count != this.Aristas)
+                {
+                    actual = base.BuscaNodo(recorrido.First().ToString());
+                    recorrido = MetodosAuxiliares.subList(recorrido, 1);
+                }
+            } while (recorridas.Count != this.Aristas);
+            return recorrido;
+        }
+
+        /*public override string circuitoEuleriano()
         {
             string recorrido;
             Nodo actual;
@@ -649,6 +689,34 @@ namespace EditorDeGrafos
 
             } while (actual.grados() != 0);
             recorrido += actual.Nombre;
+            return recorrido;
+        }*/
+
+        public override List<string> circuitoEuleriano()
+        {
+            List<string> recorrido;
+            Nodo actual;
+            Nodo siguiente;
+            Arista arista;
+            List<Arista> recorridas;
+            recorrido = new List<string>(); ;
+            this.setGrados();
+            recorridas = new List<Arista>();
+            actual = this[0];
+            do
+            {
+                recorrido.Add(actual.Nombre);
+                siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
+                arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
+                recorridas.Add(arista);
+                siguiente.Grado--;
+                arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
+                recorridas.Add(arista);
+                actual.Grado--;
+                actual = siguiente;
+
+            } while (actual.grados() != 0);
+            recorrido.Add(actual.Nombre);
             return recorrido;
         }
 

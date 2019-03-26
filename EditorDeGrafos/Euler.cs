@@ -15,7 +15,7 @@ namespace EditorDeGrafos
 
         #region Variables de Instancia
         private string titulo;
-        private string recorrido;
+        private List<string> recorrido;
         private Timer reloj;
         public delegate void Borra_Recorrido();
         public event Borra_Recorrido borra_Recorrido;
@@ -23,7 +23,7 @@ namespace EditorDeGrafos
 
         #region Constructores
 
-        public Euler(string recorrido, string titulo, Timer reloj)
+        public Euler(List<string> recorrido, string titulo, Timer reloj)
         {
             this.recorrido = recorrido;
             this.titulo = titulo;
@@ -35,7 +35,7 @@ namespace EditorDeGrafos
         {
             this.Text = titulo;
             BarVelocidad.Value = this.reloj.Interval / 100;
-            for (int i = 0; i < recorrido.Length - 1; i++)
+            for (int i = 0; i < recorrido.Count - 1; i++)
             {
                 this.richTextBoxCamino.Text += recorrido[i];
                 this.richTextBoxCamino.Text += "->";

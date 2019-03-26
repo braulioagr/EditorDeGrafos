@@ -152,6 +152,8 @@
             this.numericWn = new System.Windows.Forms.NumericUpDown();
             this.relojEuler = new System.Windows.Forms.Timer(this.components);
             this.relojHammilton = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
+            this.Regiones = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.ToolBarMetodos.SuspendLayout();
@@ -465,7 +467,9 @@
             this.toolStripSeparator43,
             this.Coloreados,
             this.toolStripSeparator44,
-            this.kuratowskiNoDir});
+            this.kuratowskiNoDir,
+            this.toolStripSeparator46,
+            this.Regiones});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
             this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -1223,6 +1227,18 @@
             // 
             this.relojHammilton.Tick += new System.EventHandler(this.relojHammilton_Tick);
             // 
+            // toolStripSeparator46
+            // 
+            this.toolStripSeparator46.Name = "toolStripSeparator46";
+            this.toolStripSeparator46.Size = new System.Drawing.Size(184, 6);
+            // 
+            // Regiones
+            // 
+            this.Regiones.AccessibleName = "Regiones";
+            this.Regiones.Name = "Regiones";
+            this.Regiones.Size = new System.Drawing.Size(187, 22);
+            this.Regiones.Text = "Regiones";
+            // 
             // EditorDeGrafos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1385,6 +1401,8 @@
         private System.Windows.Forms.ToolStripMenuItem kuratowskiNoDir;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator45;
         private System.Windows.Forms.ToolStripButton KuratowskiTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator46;
+        private System.Windows.Forms.ToolStripMenuItem Regiones;
 
     }
 }
