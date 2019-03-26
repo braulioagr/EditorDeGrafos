@@ -27,13 +27,16 @@ namespace EditorDeGrafos
         private int tamName;
         private int anchoLineaN;
         private int anchoLineaA;
+        private int rec;
         private string nombre;
         private string fuente;
         private bool band;
         private bool bandFinal;
         private bool bandNombre;
         private bool bandArista;
+        private bool bandRecorrido;
         private string directorio;
+        private string recorrido;
         #endregion
 
         #region Estructuras
@@ -57,6 +60,8 @@ namespace EditorDeGrafos
         private Font font;
         private Bitmap bmp;
         private Nodo nodo;
+        private Nodo anterior;
+        private Nodo actual;
         private Grafo grafo;
         #endregion
 
@@ -79,6 +84,7 @@ namespace EditorDeGrafos
             this.altoName = 10;
             this.tamName = 6;
             this.nombre = "A";
+            this.rec = 0;
             this.directorio = Environment.CurrentDirectory + @"..\Grafos";
             this.numNodos = 1;
             this.numAristas = 0;
@@ -86,6 +92,8 @@ namespace EditorDeGrafos
             this.band = false;
             this.bandNombre = false;
             this.bandArista = false;
+            this.bandRecorrido = false;
+            this.recorrido = "";
             #endregion
 
             #region Estructuras
@@ -202,6 +210,50 @@ namespace EditorDeGrafos
             #endregion
         }
 
+        private void Grafo_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region Grafo
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "CrearNodo":
+                    this.opcion = 1;
+                break;
+                case "MoverNodo":
+                    this.opcion = 4;
+                break;
+                case "EliminarNodo":
+                    this.opcion = 3;
+                break;
+                case "AristaDirigida":
+                    this.opcion = 7;
+                break;
+                case "AristaNoDirigida":
+                    this.opcion = 2;
+                break;
+                case "EliminarArista":
+                    this.opcion = 6;
+                break;
+                case "MoverGrafo":
+                    this.opcion = 5;
+                break;
+                case "EliminarGrafo":
+                   if (MessageBox.Show("¿Seguro quiere eliminar el grafo?", "No me quiero ir señor usuario :'(", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        grafo.borraGrafo();
+                        /*this.restauraConfiguracion();
+                        PreferenciasBack(pref);*/
+                        this.grafo = new Grafo();
+                        this.numNodos = 1;
+                        this.numAristas = 0;
+                        this.nombre = ConvierteNombre(numNodos);
+                        this.deshabititaOpciones();
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                break;
+            }
+            #endregion
+        }
+
         private void Tool_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
             #region ToolBar
@@ -242,54 +294,6 @@ namespace EditorDeGrafos
             #endregion
         }
 
-        private void MetodosTool_Clicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            #region Toolbar Metodos
-            switch (e.ClickedItem.AccessibleName)
-            {
-                case "GrafoNull":
-
-                    #region GrafoNulo
-                    if (!typeof(GrafoNoDirigido).IsInstanceOfType(grafo) && !typeof(GrafoDirigido).IsInstanceOfType(grafo))
-                    {
-                        MessageBox.Show("El grafo no tiene aristas por lo tanto es nulo","Grafo nulo");
-                    }
-                    else
-                    {
-                        MessageBox.Show("El grafo tiene aristas por lo tanto no es nulo", "Grafo no nulo");
-                    }
-                    #endregion
-
-                break;
-                default :
-
-                    #region GrafoDirigido
-                    if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
-                    {
-                        this.Dirigido_Clicked(sender, e);
-                    }
-                    #endregion
-
-                    #region GrafoNoDirigido
-                    else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
-                    {
-                        this.NoDirigido_Clicked(sender, e);
-                    }
-                    #endregion
-
-                    #region Grafo
-                    else
-                    {
-                        MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");   
-                    }
-                    #endregion
-
-                break;
-            }
-            
-            #endregion
-        }
-
         private void Dirigido_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
             #region Grafo Dirigido
@@ -302,7 +306,7 @@ namespace EditorDeGrafos
                     grados.ShowDialog();
                     grados.Dispose();
                     #endregion
-                break;
+                    break;
                 case "MAdyacencia":
                     #region Matriz de Adyacencia
                     MatrizDeAdyacencia matrizA;
@@ -310,7 +314,7 @@ namespace EditorDeGrafos
                     matrizA.ShowDialog();
                     matrizA.Dispose();
                     #endregion
-                break;
+                    break;
                 case "MIncidencia":
                     #region Matriz de Incidencia
                     MatrizDeIncidencia matrizI;
@@ -319,7 +323,7 @@ namespace EditorDeGrafos
                     matrizI.ShowDialog();
                     matrizI.Dispose();
                     #endregion
-                break;
+                    break;
                 case "LAdyacencia":
                     #region Lista Adyacencia
                     ListaDeAdyacencia lista;
@@ -372,7 +376,7 @@ namespace EditorDeGrafos
                     #region Matriz de Adyacencia
                     MatrizDeIncidencia matrizI;
                     grafo.actualizaId();
-                    matrizI = new MatrizDeIncidencia(grafo.matrizDeIncidencia(),grafo.Count,grafo.Aristas/2,grafo);
+                    matrizI = new MatrizDeIncidencia(grafo.matrizDeIncidencia(), grafo.Count, grafo.Aristas / 2, grafo);
                     matrizI.ShowDialog();
                     matrizI.Dispose();
                     #endregion
@@ -394,18 +398,18 @@ namespace EditorDeGrafos
                     aislados = grafo.nodosAislados();
                     if (pendientes.Count != 0)
                     {
-                        soportes = grafo.DibujaGrafo(g, pendientes,aislados);//Obtiene los nodos cuts y los dibuja junto con los pendientes
+                        soportes = grafo.DibujaGrafo(g, pendientes, aislados);//Obtiene los nodos cuts y los dibuja junto con los pendientes
                         PendientesYAislados pendientesYCuts = new PendientesYAislados(pendientes, soportes, aislados);//Crea el dialogo que muestra la informacion
                         pendientesYCuts.ShowDialog();//Muestra el dialogo
                         pendientesYCuts.Dispose();//Destruye el dialogo
                     }
                     else
                     {
-                        MessageBox.Show("El grafo no tiene nodos pendientes","Sin Pendientes");
+                        MessageBox.Show("El grafo no tiene nodos pendientes", "Sin Pendientes");
                     }
                     this.EditorDeGrafos_Paint(this, null);//Borra los nodos cuts & pendientes
                     #endregion
-                    break;
+                break;
                 case "TamOrd":
                     #region Tamaño y Orden
                     TamañoYOrden tamOrd;
@@ -424,7 +428,6 @@ namespace EditorDeGrafos
                 case "Isomorfismo":
                     #region Isomorfismo
                     Grafo grafito;
-                    bool isomorficos;
                     GrafoSecundario sGrafo;
                     List<Paso> pasos;
                     sGrafo = new GrafoSecundario(grafo);
@@ -436,7 +439,13 @@ namespace EditorDeGrafos
                         {
                             if (grafo.Aristas == grafito.Aristas)
                             {
-                                MessageBox.Show("Puede que los grafos sean isomorficos", "Posibilidad");
+                                if (grafo.isomorfismo(ref grafito, ref pasos))
+                                {
+                                }
+                                else
+                                {
+                                }
+                                MessageBox.Show("Los grafos no son isomorficos", "No son isomorficos");
                             }
                             else
                             {
@@ -445,12 +454,154 @@ namespace EditorDeGrafos
                         }
                         else
                         {
-                            MessageBox.Show("Los grafos no tienen la misma cantidad de nodos no son isomorficos","No son isomorficos");
+                            MessageBox.Show("Los grafos no tienen la misma cantidad de nodos no son isomorficos", "No son isomorficos");
                         }
                     }
                     #endregion
                 break;
+                case "Euler":
+                    #region Euler
+                    Euler euler;
+                    if (!grafo.aislado()/* && !grafo.componentesSeparados()*/)//Si no tiene un nodo aislado puede que tenga circuito o camino
+                    {
+                        #region Circuito
+                        if (grafo.gradosPares())//Si todos sus nodos son de grado par Existe circuito
+                        {
+                            this.recorrido = grafo.circuitoEuleriano();
+                            /**/
+                            euler = new Euler(recorrido, "Existe el circuito", relojEuler);
+                            euler.borra_Recorrido += new Euler.Borra_Recorrido(this.redibujaGrafo);
+                            rec = 0;
+                            bandRecorrido = false;
+                            euler.Show();
+                            this.EditorDeGrafos_Paint(this, null);
+                        }
+                        #endregion
+
+                        #region Camino
+                        else
+                        {
+                            if (grafo.nodosImpares() == 2)//Si tiene 2 nodos de grado impar tiene camino
+                            {
+                                this.recorrido = grafo.caminoEuleriano();
+                                /**/
+                                euler = new Euler(recorrido, "Existe el Camino", relojEuler);
+                                euler.borra_Recorrido += new Euler.Borra_Recorrido(this.redibujaGrafo);
+                                rec = 0;
+                                bandRecorrido = false;
+                                euler.Show();
+                                this.EditorDeGrafos_Paint(this, null);
+                            }
+                            else
+                            {
+                                MessageBox.Show("El Grafo no tiene ni camino ni circuito", "No existe");
+                            }
+                        }
+                        #endregion
+                    }
+                    else//Si tiene un nodo aislado tiene circuito y camino
+                    {
+                        MessageBox.Show("El grafo tiene un nodo aislado, por lo tanto no existe camino ni circuito", "No existe");
+                    }
+                    #endregion
+                    break;
+                case "Hamilton":
+                    #region Hamilton
+                    Hamilton hamilton;
+                    if (grafo.aislado())
+                    {
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe circuito ni camino Hamiltoniano", "Tiene un nodo aislado");
+                    }
+                    #endregion
+                break;
+                case "Coloreados":
+                    #region Coloreados
+                    List<Partita> partitas;
+                    partitas = grafo.nPartita(); //Obtiene en una lista de listas para sacar los nombres de las partitas
+                    if (partitas.Count == 4)
+                    {
+                        grafo.DibujaGrafo(g, this.ClientSize, partitas);//Se llenan los nombres de las partitas
+                        if (MessageBox.Show("El grafo si cumple con el teorema de los 4 colores \n ¿Desea ver los conjuntos?", "Si cumple", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        {
+                            Partitas partitasdlg = new Partitas(partitas);//Se crea un dialogo con los nombres de las partitas
+                            partitasdlg.ShowDialog();//Muestra el dialogo
+                            partitasdlg.Dispose();//Borra el dialogo
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El grafo no cumple con el teorema de los 4 colores", "No cumple");
+                    }
+                    this.EditorDeGrafos_Paint(this, null);
+                    #endregion
+                break;
+                case "Corolarios":
+                    #region Corolarios
+                    Corolarios corolarios;
+                    corolarios = new Corolarios(this.grafo);
+                    corolarios.ShowDialog();
+                    corolarios.Dispose();
+                    #endregion
+                break;
+                case  "Kuratowski":
+                    Kuratowski kuratowski;
+                    kuratowski = new Kuratowski(this.grafo);
+                    if (kuratowski.ShowDialog() == DialogResult.OK)
+                    {
+                    }
+                break;
             }
+            #endregion
+        }
+
+        private void MetodosTool_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region Toolbar Metodos
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "GrafoNull":
+
+                    #region GrafoNulo
+                    if (!typeof(GrafoNoDirigido).IsInstanceOfType(grafo) && !typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                    {
+                        MessageBox.Show("El grafo no tiene aristas por lo tanto es nulo","Grafo nulo");
+                    }
+                    else
+                    {
+                        MessageBox.Show("El grafo tiene aristas por lo tanto no es nulo", "Grafo no nulo");
+                    }
+                    #endregion
+
+                break;
+                default :
+
+                    #region GrafoDirigido
+                    if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                    {
+                        this.Dirigido_Clicked(sender, e);
+                    }
+                    #endregion
+
+                    #region GrafoNoDirigido
+                    else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                    {
+                        this.NoDirigido_Clicked(sender, e);
+                    }
+                    #endregion
+
+                    #region Grafo
+                    else
+                    {
+                        MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");   
+                    }
+                    #endregion
+
+                break;
+            }
+            
             #endregion
         }
 
@@ -598,49 +749,6 @@ namespace EditorDeGrafos
             #endregion
         }
 
-        private void Grafo_Clicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            #region Grafo
-            switch (e.ClickedItem.AccessibleName)
-            {
-                case "CrearNodo":
-                    this.opcion = 1;
-                break;
-                case "MoverNodo":
-                    this.opcion = 4;
-                break;
-                case "EliminarNodo":
-                    this.opcion = 3;
-                break;
-                case "AristaDirigida":
-                    this.opcion = 7;
-                break;
-                case "AristaNoDirigida":
-                    this.opcion = 2;
-                break;
-                case "EliminarArista":
-                    this.opcion = 6;
-                break;
-                case "MoverGrafo":
-                    this.opcion = 5;
-                break;
-                case "EliminarGrafo":
-                   if (MessageBox.Show("¿Seguro quiere eliminar el grafo?", "No me quiero ir señor usuario :'(", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        grafo.borraGrafo();
-                        /*this.restauraConfiguracion();
-                        PreferenciasBack(pref);*/
-                        grafo = new Grafo();
-                        numNodos = 1;
-                        nombre = ConvierteNombre(numNodos);
-                        this.deshabititaOpciones();
-                        this.EditorDeGrafos_Paint(this, null);
-                    }
-                break;
-            }
-            #endregion
-        }
-
         private void Configuracion_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
             #region Configuración
@@ -665,7 +773,7 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Eventos Mouse
+        #region Mouse
         private void EditorDeGrafos_MouseDown(object sender, MouseEventArgs e)
         {
             switch (opcion)
@@ -717,7 +825,6 @@ namespace EditorDeGrafos
                     }
                     break;
                 case 4://Mover Nodo
-                case 8://Algoritmo Warner
                     p1 = e.Location;
                     bandFinal = grafo.BuscaNodo(ref nodo, p1);
                     break;
@@ -947,7 +1054,7 @@ namespace EditorDeGrafos
                                 bandNombre = false;
                             }
                             bandFinal = false;
-                            break;
+                        break;
                         case 2://AristaNoDirigida
                             gAux.DrawLine(penArista, pI1, pI2);
                             bandFinal = false;
@@ -986,6 +1093,7 @@ namespace EditorDeGrafos
             }
             nombre = ConvierteNombre(numNodos);
             grafo.actualizaId();
+            this.numAristas = grafo.Aristas/2;
             this.EditorDeGrafos_Paint(this, null);
         }
 
@@ -1009,6 +1117,7 @@ namespace EditorDeGrafos
             }
             nombre = ConvierteNombre(numNodos);
             grafo.actualizaId();
+            this.numAristas = grafo.Aristas/2;
             this.EditorDeGrafos_Paint(this, null);
         }
 
@@ -1032,8 +1141,81 @@ namespace EditorDeGrafos
             }
             nombre = ConvierteNombre(numNodos);
             grafo.actualizaId();
+            this.numAristas = grafo.Aristas/2;
             this.EditorDeGrafos_Paint(this, null);
         }
+        #endregion
+
+        #region Timer
+
+        private void relojHammilton_Tick(object sender, EventArgs e)
+        {
+            Graphics gAux;
+            gAux = CreateGraphics();
+            //gAux = Graphics.FromImage(bmp);
+            Pen penAux;
+            penAux = new Pen(Color.Green, this.anchoLineaN + 2);
+            penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
+            anterior = actual;
+            if (rec > recorrido.Length - 1)
+            {
+                rec = 0;
+                gAux.Clear(BackColor);
+                grafo.DibujaGrafo(gAux);
+                bandRecorrido = false;
+            }
+            if (!bandRecorrido)
+            {
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                actual.dibujaNodo(gAux, Color.Blue);
+                rec++;
+            }
+            else
+            {
+                anterior.dibujaNodo(gAux, Color.Red);
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                gAux.DrawLine(penAux,
+                              MetodosAuxiliares.PuntoInterseccion(anterior.Pc, actual.Pc, tamNodo / 2)
+                             , MetodosAuxiliares.PuntoInterseccion(actual.Pc, anterior.Pc, tamNodo / 2));
+            }
+            bandRecorrido = !bandRecorrido;
+            g.DrawImage(bmp, 0, 0);
+        }
+
+        private void relojEuler_Tick(object sender, EventArgs e)
+        {
+            Graphics gAux;
+            gAux = CreateGraphics();
+            gAux = Graphics.FromImage(bmp);
+            Pen penAux;
+            penAux = new Pen(Color.Green, this.anchoLineaN + 2);
+            penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
+            anterior = actual;
+            if (rec > recorrido.Length - 1)
+            {
+                rec = 0;
+                gAux.Clear(BackColor);
+                grafo.DibujaGrafo(gAux);
+                bandRecorrido = false;
+            }
+            if (!bandRecorrido)
+            {
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                actual.dibujaNodo(gAux, Color.Blue);
+                rec++;
+            }
+            else
+            {
+                anterior.dibujaNodo(gAux, Color.Red);
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                gAux.DrawLine(penAux,
+                              MetodosAuxiliares.PuntoInterseccion(anterior.Pc, actual.Pc, tamNodo / 2)
+                             , MetodosAuxiliares.PuntoInterseccion(actual.Pc, anterior.Pc, tamNodo / 2));
+            }
+            bandRecorrido = !bandRecorrido;
+            g.DrawImage(bmp, 0, 0);
+        }
+
         #endregion
 
         #endregion
@@ -1130,6 +1312,13 @@ namespace EditorDeGrafos
             EliminarGrafoTool.Enabled = false;
         }
 
+        #endregion
+
+        #region Area Cliente
+        public void redibujaGrafo()
+        {
+            this.EditorDeGrafos_Paint(this, null);
+        }
         #endregion
         
         #endregion

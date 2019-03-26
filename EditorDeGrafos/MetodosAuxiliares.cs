@@ -217,5 +217,223 @@ namespace EditorDeGrafos
         }
         #endregion
 
+        #region Eulerianos
+
+        public static Nodo inicioDeCamino(Grafo grafo)
+        {
+            Nodo inicio;
+            inicio = null;
+            int gradoMayor = 0;
+            foreach (Nodo nodo in grafo)
+            {
+                if (nodo.Aristas.Count % 2 != 0)
+                {
+                    inicio = nodo;
+                    break;
+                }
+            }
+            foreach (Nodo nodo in grafo)
+            {
+                if (nodo.Aristas.Count % 2 != 0)
+                {
+                    if (nodo.Aristas.Count > gradoMayor)
+                    {
+                        inicio = nodo;
+                        gradoMayor = inicio.Aristas.Count;
+                    }
+                }
+            }
+            return inicio;
+        }
+
+        public static Arista encuentraArista(Nodo origen, Nodo destino)
+        {
+            Arista arista;
+            arista = null;
+            foreach (Arista busca in origen.Aristas)
+            {
+                if (busca.Arriba.Equals(destino))
+                {
+                    arista = busca;
+                    break;
+                }
+            }
+            return arista;
+        }
+
+        public static Nodo siguienteEnCircuito(Nodo actual, List<Arista> recorridas)
+        {
+            Nodo siguiente;
+            siguiente = null;
+            foreach (Arista arista in actual.Aristas)
+            {
+                if (!MetodosAuxiliares.aristaEnLista(arista, recorridas))
+                {
+                    siguiente = arista.Arriba;
+                }
+            }
+            return siguiente;
+        }
+
+        public static Nodo siguienteEnCamino(Nodo actual, List<Arista> recorridas)
+        {
+            Nodo siguiente;
+            int gradoMayor;
+            gradoMayor = -1;
+            siguiente = null;
+
+            foreach (Arista arista in actual.Aristas)
+            {
+                if (!MetodosAuxiliares.aristaEnLista(arista, recorridas))
+                {
+                    if (arista.Arriba.Grado >= gradoMayor)
+                    {
+                        siguiente = arista.Arriba;
+                        gradoMayor = arista.Arriba.Grado;
+                    }
+                }
+            }
+            return siguiente;
+        }
+
+        private static bool aristaEnLista(Arista arista, List<Arista> aristas)
+        {
+            bool existe;
+            existe = false;
+            foreach (Arista busca in aristas)
+            {
+                if (busca.Equals(arista))
+                {
+                    existe = true;
+                    break;
+                }
+            }
+            return existe;
+        }
+
+        public static List<string> subList(List<string> list, int indice)
+        {
+            List<string> subList;
+            subList = new List<string>();
+            for (int i = indice; i < list.Count; i++)
+            {
+                subList.Add(list[i]);
+            }
+            return subList;
+        }
+
+        #endregion
+
+        #region nPartita
+
+        /**
+         */
+        public static string convierteRomano(int arabigo)
+        {
+            int Resto = 0, Cen = 0, Dec = 0, Uni = 0;
+
+            string romano = "";
+            Resto = arabigo % 1000;
+            Cen = Resto / 100;
+            Resto = Resto % 100;
+            Dec = Resto / 10;
+            Resto = Resto % 10;
+            Uni = Resto;
+            switch (Cen)
+            {
+                case 1:
+                    romano += "C";
+                    break;
+            }
+            switch (Dec)
+            {
+                case 1:
+                    romano += "X";
+                    break;
+                case 2:
+                    romano += "XX";
+                    break;
+                case 3:
+                    romano += "XXX";
+                    break;
+                case 4:
+                    romano += "XL";
+                    break;
+                case 5:
+                    romano += "L";
+                    break;
+                case 6:
+                    romano += "LX";
+                    break;
+                case 7:
+                    romano += "LXX";
+                    break;
+                case 8:
+                    romano += "LXXX";
+                    break;
+                case 9:
+                    romano += "XC";
+                    break;
+            }
+            switch (Uni)
+            {
+                case 1:
+                    romano += "I";
+                    break;
+                case 2:
+                    romano += "II";
+                    break;
+                case 3:
+                    romano += "III";
+                    break;
+                case 4:
+                    romano += "IV";
+                    break;
+                case 5:
+                    romano += "V";
+                    break;
+                case 6:
+                    romano += "VI";
+                    break;
+                case 7:
+                    romano += "VII";
+                    break;
+                case 8:
+                    romano += "VIII";
+                    break;
+                case 9:
+                    romano += "IX";
+                    break;
+            }
+            return romano;
+        }
+        
+        /**
+         */
+        public static Color[] GeneraColores()
+        {
+            Color[] colores;
+            colores = new Color[18];
+            colores[0] = Color.Red;
+            colores[1] = Color.Green;
+            colores[2] = Color.Blue;
+            colores[3] = Color.Yellow;
+            colores[4] = Color.Purple;
+            colores[5] = Color.Pink;
+            colores[6] = Color.Brown;
+            colores[7] = Color.Cyan;
+            colores[8] = Color.Violet;
+            colores[9] = Color.Orange;
+            colores[10] = Color.SteelBlue;
+            colores[11] = Color.ForestGreen;
+            colores[12] = Color.MistyRose;
+            colores[13] = Color.Navy;
+            colores[14] = Color.Olive;
+            return colores;
+        }
+        
+        #endregion
+
+
     }
 }

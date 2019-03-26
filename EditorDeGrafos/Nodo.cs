@@ -158,7 +158,6 @@ namespace EditorDeGrafos
             g.DrawString(nombre.ToString(), font, brochaLetra, pe.X + (tamNodo / 2) - tamLetra / 2, pe.Y + (tamNodo / 2) - tamLetra / 2);
         }
 
-        #endregion
 
         public Arista aristaSoporte()
         {
@@ -192,5 +191,20 @@ namespace EditorDeGrafos
             }
             return pesos;
         }
+
+        public int grados()
+        {
+            int gr;
+            gr = 0;
+            foreach (Arista arista in aristas)
+            {
+                gr += arista.Arriba.grado;
+            }
+            return gr;
+        }
+
+        #endregion
+
+
     }
 }

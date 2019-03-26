@@ -35,6 +35,18 @@ namespace EditorDeGrafos
             this.tipo = g.Tipo;
             this.ponderado = g.Ponderado;
         }
+
+        public Grafo(Grafo g, bool p)
+        {
+            Nodo nodo;
+            foreach (Nodo n in g)
+            {
+                nodo = new Nodo(n.Nombre, n.Pe, n.Pc, n.ColorFuera, n.BrushRelleno, n.BrushName, n.TamNodo, n.TamLetra, n.AnchoContorno, n.Fuente);
+                this.Add(nodo);
+            }
+            this.Ponderado = g.Ponderado;
+            this.tipo = g.Tipo;
+        }
         #endregion
 
         #region Gets & Sets
@@ -98,7 +110,7 @@ namespace EditorDeGrafos
 
         #region Metodos
 
-        #region Algoritmos de Busqueda
+        #region Busqueda
 
         #region Nodo
 
@@ -264,7 +276,7 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Operaciones Escenciales
+        #region Escenciales
 
         public void InsertaArista(Point p1, Point p2, int peso, int AnchoLinea, Color colorLinea,int id)
         {
@@ -461,119 +473,6 @@ namespace EditorDeGrafos
             this.Clear();
         }
 
-        public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
-        {
-            return null;
-        }
-
-        public virtual int BorraArista(Point p) { return 0; }
-
-        #endregion
-
-        #region Metodos Virtuales
-
-        #region Pendientes & Aislados
-        public virtual List<Nodo> nodosPendientes() { return null; }
-        public virtual List<Nodo> nodosAislados() { return null; }
-        #endregion
-
-        #region Matriz de Adyacencia
-
-        public int[,] matrizDeAdyacencia()
-        {
-            int[,] matrizAdyacencia;
-            Grafo grafoM;
-            grafoM = this.grafoMatriz();
-            matrizAdyacencia = new int[this.Count,this.Count];
-            for(int i = 0 ; i < this.Count ; i++)
-            {
-                for(int j = 0 ; j < this.Count ; j++)
-                {
-                    matrizAdyacencia[i, j] = grafoM[i].Aristas[j].Peso;
-                }
-            }
-            return matrizAdyacencia;
-        }
-
-        public Grafo grafoMatriz()
-        {
-            Grafo grafo = new GrafoNoDirigido(this, true);
-            Arista arista;
-            int id;
-            id = 0;
-            arista = this.buscaArista();
-            foreach (Nodo busca in grafo)
-            {
-                busca.Aristas.Clear();
-            }
-            foreach (Nodo nodo in grafo)
-            {
-                foreach (Nodo nodo2 in grafo)
-                {
-                    id++;
-                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, nodo2.Pc, nodo.TamNodo / 2),
-                                        MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo.Pc, nodo.TamNodo / 2),
-                                        arista.AnchoLinea, arista.ColorLinea, nodo2, id);
-                    nodo.Aristas.Add(arista);
-                }
-            }
-            string origen, destino;
-            foreach (Nodo nodo in grafo)
-            {
-                origen = nodo.Nombre;
-                foreach (Arista arista2 in nodo.Aristas)
-                {
-                    destino = arista2.Arriba.Nombre;
-                    arista2.Peso = relacion(origen, destino);
-                }
-            }
-
-            return grafo;
-        }
-
-        private int relacion(string origen, string destino)
-        {
-            foreach (Nodo busca in this)
-            {
-                if (busca.Nombre.Equals(origen))
-                {
-                    foreach (Arista buscando in busca.Aristas)
-                    {
-                        if (buscando.Arriba.Nombre.Equals(destino))
-                        {
-                            return 1;
-                        }
-                    }
-                    break;
-                }
-            }
-            return 0;
-        }
-
-        #endregion
-
-        #region Matriz de Incidencia
-        public virtual int[,] matrizDeIncidencia() { return null; }
-        #endregion
-
-        #region Grafos Especiales
-        public virtual void CreaKn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
-                                   SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
-        public virtual void CreaCn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
-                                   SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
-        public virtual void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
-                                   SolidBrush brushName, Pen penNodo, Pen penArista, string fuente) { return; }
-        public virtual void actualizaId() { }
-        #endregion
-
-        #region Isomorfismo
-
-        public virtual bool isomorfismo(ref Grafo grafito, ref List<Paso> pasos) { return false; }
-
-        public virtual Grafo matrizAGrafo(int[,] matriz){ return null; }
-
-        #endregion
-
         #endregion
 
         #region Operaciones
@@ -640,9 +539,226 @@ namespace EditorDeGrafos
             }
         }
         #endregion
+
+        #region Matriz de Adyacencia
+
+        public int[,] matrizDeAdyacencia()
+        {
+            int[,] matrizAdyacencia;
+            Grafo grafoM;
+            grafoM = this.grafoMatriz();
+            matrizAdyacencia = new int[this.Count, this.Count];
+            for (int i = 0; i < this.Count; i++)
+            {
+                for (int j = 0; j < this.Count; j++)
+                {
+                    matrizAdyacencia[i, j] = grafoM[i].Aristas[j].Peso;
+                }
+            }
+            return matrizAdyacencia;
+        }
+
+        public Grafo grafoMatriz()
+        {
+            Grafo grafo = new Grafo(this, true);
+            Arista arista;
+            int id;
+            id = 0;
+            arista = this.buscaArista();
+            foreach (Nodo nodo in grafo)
+            {
+                foreach (Nodo nodo2 in grafo)
+                {
+                    id++;
+                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, nodo2.Pc, nodo.TamNodo / 2),
+                                        MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                        arista.AnchoLinea, arista.ColorLinea, nodo2, id);
+                    nodo.Aristas.Add(arista);
+                }
+            }
+            string origen, destino;
+            foreach (Nodo nodo in grafo)
+            {
+                origen = nodo.Nombre;
+                foreach (Arista arista2 in nodo.Aristas)
+                {
+                    destino = arista2.Arriba.Nombre;
+                    arista2.Peso = relacion(origen, destino);
+                }
+            }
+
+            return grafo;
+        }
+
+        private int relacion(string origen, string destino)
+        {
+            foreach (Nodo busca in this)
+            {
+                if (busca.Nombre.Equals(origen))
+                {
+                    foreach (Arista buscando in busca.Aristas)
+                    {
+                        if (buscando.Arriba.Nombre.Equals(destino))
+                        {
+                            return 1;
+                        }
+                    }
+                    break;
+                }
+            }
+            return 0;
+        }
+
+        #endregion
         
         #endregion
 
-        #endregion  
+        #region Virtuales
+
+        #region Esenciales
+        public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
+        {
+            return null;
+        }
+
+        /**
+         */
+        public virtual void DibujaGrafo(Graphics g, Size AreaCliente, List<Partita> partitas) { }
+
+        public virtual int BorraArista(Point p) { return 0; }
+
+        #endregion
+
+        #region Operaciones
+
+        #region Pendientes & Aislados
+        public virtual List<Nodo> nodosPendientes()
+        {
+            throw new NotImplementedException();
+        }
+        public virtual List<Nodo> nodosAislados()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Matriz de Incidencia
+        public virtual int[,] matrizDeIncidencia()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Grafos Especiales
+        public virtual void CreaKn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno, SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void CreaCn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno, SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno, SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual void actualizaId()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Isomorfismo
+
+        public virtual bool isomorfismo(ref Grafo grafito, ref List<Paso> pasos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Grafo matrizAGrafo(int[,] matriz)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Euler
+
+        public virtual bool aislado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool componentesSeparados()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool pendientes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual string circuitoEuleriano()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool gradosPares()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual int nodosImpares()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual string caminoEuleriano()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region nPartitas
+        public virtual List<Partita> nPartita()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Corolarios
+        public virtual bool corolario1()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool corolario2()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Kuratoski
+
+        public virtual void borraNodoKuratowski(Nodo nodo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool AddKuratoswki(Nodo nodo, Point p)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
     }
 }

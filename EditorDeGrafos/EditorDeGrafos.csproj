@@ -48,11 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arista.cs" />
+    <Compile Include="Corolarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Corolarios.Designer.cs">
+      <DependentUpon>Corolarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditorDeGrafos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditorDeGrafos.Designer.cs">
       <DependentUpon>EditorDeGrafos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Euler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Euler.Designer.cs">
+      <DependentUpon>Euler.cs</DependentUpon>
     </Compile>
     <Compile Include="GradosDir.cs">
       <SubType>Form</SubType>
@@ -75,11 +87,23 @@
     <Compile Include="GrafoSecundario.Designer.cs">
       <DependentUpon>GrafoSecundario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hamilton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hamilton.Designer.cs">
+      <DependentUpon>Hamilton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Isomorfismo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Isomorfismo.Designer.cs">
       <DependentUpon>Isomorfismo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Kuratowski.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kuratowski.Designer.cs">
+      <DependentUpon>Kuratowski.cs</DependentUpon>
     </Compile>
     <Compile Include="ListaDeAdyacencia.cs">
       <SubType>Form</SubType>
@@ -101,6 +125,13 @@
     </Compile>
     <Compile Include="MetodosAuxiliares.cs" />
     <Compile Include="Nodo.cs" />
+    <Compile Include="Partita.cs" />
+    <Compile Include="Partitas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Partitas.Designer.cs">
+      <DependentUpon>Partitas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Paso.cs" />
     <Compile Include="PendientesYAislados.cs">
       <SubType>Form</SubType>
@@ -116,8 +147,14 @@
     <Compile Include="TamañoYOrden.Designer.cs">
       <DependentUpon>TamañoYOrden.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Corolarios.resx">
+      <DependentUpon>Corolarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditorDeGrafos.resx">
       <DependentUpon>EditorDeGrafos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Euler.resx">
+      <DependentUpon>Euler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GradosDir.resx">
       <DependentUpon>GradosDir.cs</DependentUpon>
@@ -128,8 +165,14 @@
     <EmbeddedResource Include="GrafoSecundario.resx">
       <DependentUpon>GrafoSecundario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Hamilton.resx">
+      <DependentUpon>Hamilton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Isomorfismo.resx">
       <DependentUpon>Isomorfismo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Kuratowski.resx">
+      <DependentUpon>Kuratowski.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListaDeAdyacencia.resx">
       <DependentUpon>ListaDeAdyacencia.cs</DependentUpon>
@@ -139,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MatrizDeIncidencia.resx">
       <DependentUpon>MatrizDeIncidencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Partitas.resx">
+      <DependentUpon>Partitas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PendientesYAislados.resx">
       <DependentUpon>PendientesYAislados.cs</DependentUpon>

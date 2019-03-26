@@ -26,15 +26,9 @@ namespace EditorDeGrafos
         public GrafoNoDirigido(Grafo g, bool p)
         {
             Nodo nodo;
-            Arista arista;
             foreach (Nodo n in g)
             {
                 nodo = new Nodo(n.Nombre, n.Pe, n.Pc, n.ColorFuera, n.BrushRelleno, n.BrushName, n.TamNodo, n.TamLetra, n.AnchoContorno, n.Fuente);
-                foreach (Arista a in n.Aristas)
-                {
-                    arista = new Arista(a.Peso, a.P1, a.P2, a.AnchoLinea, a.ColorLinea, a.Arriba,a.Id);
-                    nodo.Aristas.Add(arista);
-                }
                 this.Add(nodo);
             }
             this.Ponderado = g.Ponderado;
@@ -43,7 +37,7 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Operaciones Esenciales
+        #region Esenciales
 
         public override int BorraArista(Point p)
         {
@@ -181,6 +175,36 @@ namespace EditorDeGrafos
                             }
                         }
                     }
+                }
+            }
+        }
+
+        public override void DibujaGrafo(Graphics g, Size AreaCliente, List<Partita> partitas)
+        {
+            Color[] colores;
+            colores = MetodosAuxiliares.GeneraColores();
+            int i;
+            i = 0;
+            foreach (Partita partita in partitas)
+            {
+                foreach (string nombre in partita)
+                {
+                    foreach (Nodo nodo in this)
+                    {
+                        if (nombre.Equals(nodo.Nombre))
+                        {
+                            foreach (Arista arista in nodo.Aristas)
+                            {
+                                arista.dibujaArista(g, false, this.ponderado);
+                            }
+                            nodo.dibujaNodo(g, colores[i]);
+                        }
+                    }
+                }
+                i++;
+                if (i == colores.Length)
+                {
+                    i = 0;
                 }
             }
         }
@@ -426,6 +450,472 @@ namespace EditorDeGrafos
             }
             grafito = grafito.matrizAGrafo(matrix);
             return isomorfismo;
+        }
+
+        public override Grafo matrizAGrafo(int[,] matriz)
+        {
+            Grafo grafo;
+            List<Arista> eliminadas;
+            grafo = this.grafoMatriz();
+            eliminadas = new List<Arista>();
+            for (int i = 0; i < matriz.GetLength(0); i++)
+            {
+                for (int j = 0; j < matriz.GetLength(0); j++)
+                {
+                    grafo[i].Aristas[j].Peso = matriz[i, j];
+                }
+            }
+            foreach (Nodo nodo in grafo)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    if (arista.Peso == 0)
+                    {
+                        eliminadas.Add(arista);
+                    }
+                }
+                foreach (Arista arista2 in eliminadas)
+                {
+                    nodo.Aristas.Remove(arista2);
+                }
+                eliminadas.Clear();
+            }
+            return grafo;
+        }
+        #endregion
+
+        #region Eulerianos
+
+        #region Validaciones
+        public override bool pendientes()
+        {
+            bool existe;
+            existe = false;
+            foreach (Nodo busca in this)
+            {
+                if (nodo.Aristas.Count <= 1)
+                {
+                    existe = true;
+                    break;
+                }
+            }
+            return existe;
+        }
+        public override bool gradosPares()
+        {
+            bool cumple;
+            cumple = true;
+            foreach (Nodo nodo in this)
+            {
+                if (nodo.Aristas.Count % 2 != 0)
+                {
+                    cumple = false;
+                    break;
+                }
+            }
+            return cumple;
+        }
+        
+        public override int nodosImpares()
+        {
+            int impares;
+            impares = 0;
+            foreach (Nodo nodo in this)
+            {
+                if (nodo.Aristas.Count % 2 != 0)
+                {
+                    impares++;
+                }
+
+            }
+            return impares;
+        }
+
+        public override bool aislado()
+        {
+            bool aislado;
+            aislado = false;
+            foreach (Nodo nodo in this)
+            {
+                if (nodo.Aristas.Count == 0)
+                {
+                    aislado = true;
+                    break;
+                }
+            }
+            return aislado;
+        }
+
+        public override bool componentesSeparados()
+        {
+            bool separados;
+            separados = false;
+            Nodo actual;
+            Nodo siguiente;
+            Arista arista;
+            List<Arista> recorridas;
+            this.setGrados();
+            recorridas = new List<Arista>();
+            actual = this[0];
+            do
+            {
+                siguiente = MetodosAuxiliares.siguienteEnCamino(actual, recorridas);
+                arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
+                recorridas.Add(arista);
+                siguiente.Grado--;
+                arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
+                recorridas.Add(arista);
+                actual.Grado--;
+                actual = siguiente;
+            } while (actual.grados() != 0);
+            if (this.Aristas != recorridas.Count)
+            {
+                separados = true;
+            }
+            return separados;
+        }
+        #endregion
+
+        private void setGrados()
+        {
+            foreach (Nodo nodo in this)
+            {
+                nodo.Aristas = nodo.Aristas.OrderBy(nr => nr.Arriba.Nombre).ToList();
+                nodo.Grado = nodo.Aristas.Count;
+            }
+        }
+        
+        public override string caminoEuleriano()
+        {
+            string recorrido;
+            string recorridoAux;
+            Nodo actual;
+            Nodo siguiente;
+            Arista arista;
+            List<Arista> recorridas;
+            recorrido = "";
+            recorridoAux = "";
+            this.setGrados();
+            recorridas = new List<Arista>();
+            actual = MetodosAuxiliares.inicioDeCamino(this);
+            do
+            {
+                recorridoAux += actual.Nombre;
+                do
+                {
+                    siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
+                    arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
+                    recorridas.Add(arista);
+                    siguiente.Grado--;
+                    arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
+                    recorridas.Add(arista);
+                    actual.Grado--;
+                    actual = siguiente;
+                    recorridoAux += actual.Nombre;
+                } while (actual.Grado != 0);
+                recorrido = recorridoAux + recorrido;
+                recorridoAux = "";
+                if (recorridas.Count != this.Aristas)
+                {
+                    actual = base.BuscaNodo(recorrido.First().ToString());
+                    recorrido = recorrido.Substring(1);
+                }
+            } while (recorridas.Count != this.Aristas);
+            return recorrido;
+        }
+
+        public override string circuitoEuleriano()
+        {
+            string recorrido;
+            Nodo actual;
+            Nodo siguiente;
+            Arista arista;
+            List<Arista> recorridas;
+            recorrido = "";
+            this.setGrados();
+            recorridas = new List<Arista>();
+            actual = this[0];
+            do
+            {
+                recorrido += actual.Nombre;
+                siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
+                arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
+                recorridas.Add(arista);
+                siguiente.Grado--;
+                arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
+                recorridas.Add(arista);
+                actual.Grado--;
+                actual = siguiente;
+
+            } while (actual.grados() != 0);
+            recorrido += actual.Nombre;
+            return recorrido;
+        }
+
+        #endregion
+
+        #region nPartita
+        
+        /**/
+        public override List<Partita> nPartita()
+        {
+            Partita partita;
+            List<Partita> partitas;
+            partitas = new List<Partita>();
+            partita = new Partita();
+            foreach (Nodo busca in this)
+            {
+                foreach (Arista buscando in busca.Aristas)
+                {
+                    partita = new Partita();
+                    foreach (Nodo encuentra in this)
+                    {
+                        if (!buscando.Arriba.Nombre.Equals(encuentra.Nombre))
+                            if (!encuentraLista(partita, encuentra.Nombre))
+                            {
+                                if (!buscaRelacion(busca, encuentra.Nombre, partita))
+                                {
+                                    if (!encuentraNombre(partitas, encuentra.Nombre))
+                                    {
+                                        partita.Add(encuentra.Nombre);
+                                    }
+                                }
+                            }
+                    }
+                }
+                if (partita.Count > 0)
+                {
+                    if (!encuentraNombre(partitas, busca.Nombre))
+                    {
+                        partitas.Add(partita);
+                    }
+                }
+            }
+            return partitas;
+        }
+        
+        /**/
+        public bool encuentraNombre(List<Partita> partitas, string nombre)
+        {
+            bool encontrado;
+            encontrado = false;
+            foreach (Partita busca in partitas)
+            {
+                foreach (string buscando in busca)
+                {
+                    if (buscando.Equals(nombre))
+                    {
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+            return encontrado;
+        }
+        
+        /**/
+        public bool encuentraLista(Partita lista, string nombre)
+        {
+            bool encontrado;
+            encontrado = false;
+            foreach (string busca in lista)
+            {
+                if (busca.Equals(nombre))
+                {
+                    encontrado = true;
+                    break;
+                }
+            }
+            return encontrado;
+        }
+        
+        /**/
+        public bool buscaRelacion(Nodo nodo, string nombre, Partita lista)
+        {
+            bool encontrada;
+            encontrada = false;
+            foreach (Nodo busca in this)
+            {
+                foreach (string buscando in lista)
+                {
+                    if (buscando.Equals(busca.Nombre))
+                    {
+                        foreach (Arista encuentra in busca.Aristas)
+                        {
+                            if (encuentra.Arriba.Nombre.Equals(nombre))
+                            {
+                                encontrada = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            return encontrada;
+        }
+
+        #endregion
+
+        #region Corolarios
+        public override bool corolario1()
+        {
+            //Corolario 1
+            //E<=3V-6
+            bool band;
+            band = false;
+            if((this.Aristas/2) <= (3*this.Count) - 6)
+            {
+                band = true;
+            }
+            return band;
+        }
+
+        public override bool corolario2()
+        {
+            //Corolario 2
+            //E <= 2V – 4
+            bool band;
+            band = false;
+            if ((this.Aristas / 2) <= (2 * this.Count) - 4)
+            {
+                band = true;
+            }
+            return band;
+        }
+        #endregion
+
+        #region Kuratowski
+        
+        public override bool AddKuratoswki(Nodo nodo, Point p)
+        {
+            double m, b, y;
+            double xp, yp, xn, yn, xarista, yarista;
+            xp = p.X;
+            yp = p.Y;
+            int sensibilidad = 3;
+            Arista arista2;
+            foreach (Nodo n in this)
+            {
+                foreach (Arista arista in n.Aristas)
+                {
+                    xn = n.Pc.X;
+                    yn = n.Pc.Y;
+                    xarista = arista.Arriba.Pc.X;
+                    yarista = arista.Arriba.Pc.Y;
+
+                    if (n.Equals(arista.Arriba))
+                    {
+                            return false;
+                    }
+
+                    if ((xarista - xn) == 0)
+                    {
+                        if ((yp < yn && yp > yarista) || (yp > yn && yp < yarista))
+                        {
+                            if ((xp < xarista + sensibilidad && xp > xn - sensibilidad) || (xp > xarista - sensibilidad && xp < xn + sensibilidad))
+                            {
+                                foreach (Arista busca in arista.Arriba.Aristas)
+                                {
+                                    if (busca.Arriba.Equals(n))
+                                    {
+                                        arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, arista.Arriba.Pc, nodo.TamNodo / 2),
+                                                             MetodosAuxiliares.PuntoInterseccion(arista.Arriba.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                             arista.AnchoLinea, arista.ColorLinea,arista.Arriba,0);
+                                        nodo.Aristas.Add(arista2);
+                                        arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(arista.Arriba.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                             MetodosAuxiliares.PuntoInterseccion(nodo.Pc, arista.Arriba.Pc, nodo.TamNodo / 2),
+                                                             arista.AnchoLinea, arista.ColorLinea, nodo, 0);
+                                        arista.Arriba.Aristas.Add(arista2);
+                                        arista.Arriba.Aristas.Remove(busca);
+                                        break;
+                                    }
+                                }
+                                arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, n.Pc, nodo.TamNodo / 2),
+                                                     MetodosAuxiliares.PuntoInterseccion(n.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                     arista.AnchoLinea, arista.ColorLinea, n, 0);
+                                nodo.Aristas.Add(arista2);
+                                arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(n.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                     MetodosAuxiliares.PuntoInterseccion(nodo.Pc, n.Pc, nodo.TamNodo / 2),
+                                                     arista.AnchoLinea, arista.ColorLinea, nodo, 0);
+                                arista.Arriba.Aristas.Add(arista2);
+                                n.Aristas.Remove(arista);
+                                this.Add(nodo);
+                                return true;
+                            }
+                        }
+                    }
+
+                    m = (yarista - yn) / (xarista - xn);
+                    b = yn - (m * xn);
+                    y = m * xp + b;
+
+                    if (yp >= y - sensibilidad && yp <= y + sensibilidad)
+                    {
+                        if ((xp < xarista + sensibilidad && xp > xn - sensibilidad) || (xp > xarista - sensibilidad && xp < xn + sensibilidad))
+                        {
+                            foreach (Arista busca in arista.Arriba.Aristas)
+                            {
+                                if (busca.Arriba.Equals(n))
+                                {
+                                    arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, arista.Arriba.Pc, nodo.TamNodo / 2),
+                                                         MetodosAuxiliares.PuntoInterseccion(arista.Arriba.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                         arista.AnchoLinea, arista.ColorLinea, arista.Arriba, 0);
+                                    nodo.Aristas.Add(arista2);
+                                    arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(arista.Arriba.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                         MetodosAuxiliares.PuntoInterseccion(nodo.Pc, arista.Arriba.Pc, nodo.TamNodo / 2),
+                                                         arista.AnchoLinea, arista.ColorLinea, nodo, 0);
+                                    arista.Arriba.Aristas.Add(arista2);
+                                    arista.Arriba.Aristas.Remove(busca);
+                                    break;
+                                }
+                            }
+                            arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, n.Pc, nodo.TamNodo / 2),
+                                                 MetodosAuxiliares.PuntoInterseccion(n.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                 arista.AnchoLinea, arista.ColorLinea, n, 0);
+                            nodo.Aristas.Add(arista2);
+                            arista2 = new Arista(0, MetodosAuxiliares.PuntoInterseccion(n.Pc, nodo.Pc, nodo.TamNodo / 2),
+                                                 MetodosAuxiliares.PuntoInterseccion(nodo.Pc, n.Pc, nodo.TamNodo / 2),
+                                                 arista.AnchoLinea, arista.ColorLinea, nodo, 0);
+                            n.Aristas.Add(arista2);
+                            n.Aristas.Remove(arista);
+                            this.Add(nodo);
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public override void borraNodoKuratowski(Nodo nodo)
+        {
+            Arista arista;
+            List<Nodo> relaciones;
+            relaciones = new List<Nodo>();
+            arista = base.buscaArista();
+            foreach (Arista aristaI in nodo.Aristas)
+            {
+                relaciones.Add(aristaI.Arriba);
+            }
+            this.Remove(nodo);
+            foreach (Nodo nodo1 in relaciones)
+            {
+                foreach (Nodo nodo2 in relaciones)
+                {
+                    if (!nodo1.Equals(nodo2))
+                    {
+                        arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo1.Pc, nodo2.Pc, nodo1.TamNodo / 2),
+                                            MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo1.Pc, nodo1.TamNodo / 2),
+                                            arista.AnchoLinea, arista.ColorLinea, nodo2,0);
+                        nodo1.Aristas.Add(arista);
+                        arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo2.Pc, nodo1.Pc, nodo1.TamNodo / 2),
+                                            MetodosAuxiliares.PuntoInterseccion(nodo1.Pc, nodo2.Pc, nodo1.TamNodo / 2),
+                                            arista.AnchoLinea, arista.ColorLinea, nodo1, 0);
+                        nodo2.Aristas.Add(arista);
+                    }
+                }
+            }
         }
 
         #endregion
