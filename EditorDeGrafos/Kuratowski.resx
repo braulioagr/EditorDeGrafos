@@ -165,6 +165,33 @@
         cAGKUXMf5SFu5ApKKA/xKBQA4B+Sz1kHXKJhrAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="borraNodo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAATPSURBVEhLjZddSFxHFMcvZlNdFLuxBpts2WyjNCUISn0Q
+        0QeRQhubECXmoUTENGkbYyMtdltsNHZpYgmp2H2KaP2EvvgiYiWpaC1YlyWI1tJWEURqLYi46PoVdYmn
+        93/unbt3r3dX/zDsnZkz89s5d87MuRKZaD8QoPUbFbTne8b11dVVGhwcJJfLRVlZWZScnEyxsbEkSRLF
+        x8dTYWEh98FGKPjn3xS4dp32nz9XW8J1ACygK6+lcWn/5A7Z7XaGHLX84PqS/Off4vFrl66YwsPAeuh/
+        9lQNnhNrpby8PKqvryev10uLi4u0s7PDY+CN3t5e7svJyaH047E0d/osj/vHrvyuXSii/c0tthfSwHro
+        H6eclGY5To9sJzW4cHs0wb3/nnmD7R/Ykun0MQt5UxymcAabQW02G3V1ddHmV/dC8N+8PMhMgAr3bn59
+        n37s7KSYmBhKijlmCpfMoE6nk8bHx9kAOgxuhNLuLrdPTU1RUlKSKVwSULwPsdKxsTEeqFckeCSo0MzM
+        DFmtVoZjYbALXL1G0p7Xp03YeOIk9fT0qEMOygg/DCrU19dH1Ykn2M7/ZibtDjxV3nHrrdu0rE648XkN
+        G0eSHn4UKLTd6GG7eXm3d5aVc5u0vLzM7kXIrDiUHbnx2RfcaZTP56Pu7m568vYFDf5X+U3qam2ljo4O
+        mp6eVi1D2vrue7bDSt+zxlNiYiL5/X6SWlpaOOhx+iBkosHr6urYNjc3lzZr3bzSyxcvchs2JGJaLz10
+        98nPlJ2dzbb4k1JRUZFWgaLB9WCo5fFjriNshoeHuU3ICIWam5vZvri4mKTU1FSuYOsLRYLrwQsLC/yK
+        UMc5rZcZFJqfn2f7lJQU/CrnazAYVLsVmcH14JKSEn4uKCiQ91VoY2lQeePpodD29jaPUS8Y5YYxU/DZ
+        OK04zynwqmoNHBcXx78o+htp62FjCPo01K5XQkKCGCvxTjOTMU7r7t7lQVhxRkYGP6enp6vWcqjd+4Zt
+        UfZ++VVtDRcWyWBsDBSjq4MTv4fH6YsXYa6enZ1VJpBLRUWFOkqGy7YCvjs4pLaGJMZICAM8zM3NqV3m
+        UMi4q2tqarSJRkdHuQ2KBJ+cnGTbzMxMkkpLS7ni8Xi4MxIUMoIhnkRuww5fWlpSW83hTU1NbFtWVkYS
+        rj5U8vPzo0KhtrY2tqusrKStbx/RRuWn7Cm0oTQ0NKiWioxwHFJgIXGQcNpYLBbKeikuKlSvrfsPtQnX
+        b91RW82lh78rH5nwDJh8SXhufqSlK4dBN90P2A5/0n/2vAL/8Lbaay4xBqWj/ANuk3BQiJUiXenv7+cO
+        M+mhiNPg+MSR4DiO3S8na3C+FpGCooIVI1FDgGP3GWWECh0Gx1xw7+tykiHAa+9cUlyNFFQPR7qih0eC
+        CkWCYw6Hw8HQiVfPaFCkW1qWaYRj98FFh0GFjPD29nZtpUYopIEhIxzvHHWkrNGgQhyOaek8pvuVUxGh
+        UBgYEnBR8CcK5TBAnCJpHxkZ4QwCQlKPQ2NoaIjcbjcfJgjLRfVjQHwUGKHQATAUuPI+D4B7f6p2cZYI
+        1x+lYH/01NVrKzeDQqZgaP36x2HuxWlTW1vLK8dtBgjuVXzA4dOlqqqKBgYGtPQHbl+7fNUUSkT0P5Us
+        IXAqMJmpAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="HomeomorfoK5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8

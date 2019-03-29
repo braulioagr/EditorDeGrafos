@@ -34,9 +34,12 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.EliminarArista = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.borraNodo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.HomeomorfoK5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.HomeomorfoK33 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,9 +51,12 @@
             this.toolStripSeparator2,
             this.EliminarArista,
             this.toolStripSeparator1,
+            this.borraNodo,
+            this.toolStripSeparator5,
             this.HomeomorfoK5,
             this.toolStripSeparator3,
-            this.HomeomorfoK33});
+            this.HomeomorfoK33,
+            this.toolStripSeparator4});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
             this.ToolBar.Size = new System.Drawing.Size(847, 25);
@@ -88,6 +94,21 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // borraNodo
+            // 
+            this.borraNodo.AccessibleName = "BorraNodo";
+            this.borraNodo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.borraNodo.Image = ((System.Drawing.Image)(resources.GetObject("borraNodo.Image")));
+            this.borraNodo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.borraNodo.Name = "borraNodo";
+            this.borraNodo.Size = new System.Drawing.Size(23, 22);
+            this.borraNodo.Text = "BorraNodo";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
             // HomeomorfoK5
             // 
             this.HomeomorfoK5.AccessibleName = "HomeomorfoK5";
@@ -112,6 +133,11 @@
             this.HomeomorfoK33.Name = "HomeomorfoK33";
             this.HomeomorfoK33.Size = new System.Drawing.Size(23, 22);
             this.HomeomorfoK33.Text = "Kuratowski K33";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // Kuratowski
             // 
@@ -142,5 +168,8 @@
         private System.Windows.Forms.ToolStripButton HomeomorfoK5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton HomeomorfoK33;
+        private System.Windows.Forms.ToolStripButton borraNodo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }

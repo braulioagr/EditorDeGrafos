@@ -147,6 +147,12 @@
     <Compile Include="Regiones.Designer.cs">
       <DependentUpon>Regiones.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteKuratowski.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteKuratowski.Designer.cs">
+      <DependentUpon>ReporteKuratowski.cs</DependentUpon>
+    </Compile>
     <Compile Include="TamañoYOrden.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +212,9 @@
     </Compile>
     <EmbeddedResource Include="Regiones.resx">
       <DependentUpon>Regiones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteKuratowski.resx">
+      <DependentUpon>ReporteKuratowski.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TamañoYOrden.resx">
       <DependentUpon>TamañoYOrden.cs</DependentUpon>

@@ -1251,7 +1251,7 @@ namespace EditorDeGrafos
             gAux = CreateGraphics();
             gAux = Graphics.FromImage(bmp);
             Pen penAux;
-            penAux = new Pen(Color.Green, this.anchoLineaN + 2);
+            penAux = new Pen(Color.Green, this.anchoLineaN + 1);
             penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
             anterior = actual;
             if (rec > recorrido.Count - 1)

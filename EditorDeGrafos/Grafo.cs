@@ -779,12 +779,12 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
-        public virtual bool homeomorficoK5(Graphics g)
+        public virtual bool homeomorficoK5()
         {
             throw new NotImplementedException();
         }
 
-        public virtual bool homeomorficoK33(Graphics g)
+        public virtual bool homeomorficoK33()
         {
             throw new NotImplementedException();
         }

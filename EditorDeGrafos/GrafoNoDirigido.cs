@@ -919,7 +919,7 @@ namespace EditorDeGrafos
             }
         }
 
-        public override bool homeomorficoK5(Graphics g)
+        public override bool homeomorficoK5()
         {
             if (this.Count >= 5)
             {
@@ -941,7 +941,6 @@ namespace EditorDeGrafos
                     if (grado4.Count >= 4)
                     {
                         grado4.Insert(0, nodo);
-                        this.DibujaGrafo(g, grado4);
                         return true;
                     }
                     vertices.Clear();
@@ -951,7 +950,7 @@ namespace EditorDeGrafos
             return false;
         }
 
-        public override bool homeomorficoK33(Graphics g)
+        public override bool homeomorficoK33()
         {
             if (this.Count >= 6)
             {

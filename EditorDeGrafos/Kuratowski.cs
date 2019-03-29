@@ -51,6 +51,7 @@ namespace EditorDeGrafos
         private Bitmap bmp;
         private Nodo nodo;
         private Grafo grafo;
+        private ReporteKuratowski reporte;
         #endregion
 
         #endregion
@@ -171,25 +172,18 @@ namespace EditorDeGrafos
                 case "EliminarArista":
                     this.opcion = 2;
                 break;
+                case "BorraNodo":
+                this.opcion = 3;
+                break;
                 case "HomeomorfoK5":
-                    if(grafo.homeomorficoK5(this.g))
-                    {
-                        Corolarios corolarios;
-                        corolarios = new Corolarios(this.grafo,"K5");
-                        corolarios.ShowDialog();
-                        corolarios.Dispose();
-                        this.Kuratowski_Paint(this, null);
-                    }
+                    this.reporte = new ReporteKuratowski("K5", this.grafo);
+                    reporte.ShowDialog();
+                    reporte.Dispose();
                 break;
                 case "HomeomorfoK33":
-                    if (grafo.homeomorficoK33(this.g))
-                    {
-                        Corolarios corolarios;
-                        corolarios = new Corolarios(this.grafo, "K33");
-                        corolarios.ShowDialog();
-                        corolarios.Dispose();
-                        this.Kuratowski_Paint(this, null);
-                    }
+                    this.reporte = new ReporteKuratowski("K33", this.grafo);
+                    reporte.ShowDialog();
+                    reporte.Dispose();
                 break;
             }
         }
@@ -204,16 +198,17 @@ namespace EditorDeGrafos
                 switch (this.opcion)
                 {
                     case 1:
-                        #region Borra Nodo
+                        #region Añade Nodo Puente
                         p1 = e.Location;
-                        if (grafo.BuscaNodo(ref nodo, p1))
+                        pe.X = p1.X - (tamNodo / 2);
+                        pe.Y = p1.Y - (tamNodo / 2);
+                        nodo = new Nodo(nombre, pe, p1, penNodo.Color, brushRelleno.Color, brushName.Color, tamNodo, altoName, anchoLineaN, fuente);
+                        if (numNodos == 27)
                         {
-                            if (nodo.Aristas.Count == 2 && grafo.Count > 3)
-                            {
-                                grafo.borraNodoKuratowski(nodo);
-                            }
-                            this.grafo.actualizaId();
-                        }
+                            bandNombre = true;
+                            grafo.Tipo = true;
+                        }                        
+                        bandFinal = grafo.AddKuratoswki(nodo, p1);
                         #endregion
                     break;
                     case 2:
@@ -221,6 +216,16 @@ namespace EditorDeGrafos
                         grafo.BorraArista(e.Location);
                         bandFinal = false;
                         #endregion
+                    break;
+                    case 3:
+                    #region BorraNodo   
+                        p1 = e.Location;
+                        if (grafo.BuscaNodo(ref nodo, p1))
+                        {
+                            grafo.borraNodo(nodo);
+                            this.Kuratowski_Paint(this, null);
+                        }
+                    #endregion
                     break;
                 }
                 this.Kuratowski_Paint(this, null);
