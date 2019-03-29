@@ -21,7 +21,7 @@ namespace EditorDeGrafos
 
         private void Regiones_Load(object sender, EventArgs e)
         {
-            richTextBoxRegion.Text += "Forumla de Euler\n";
+            richTextBoxRegion.Text += "Formula de Euler\n";
             richTextBoxRegion.Text += "V - E + R = 2 \n";
             richTextBoxRegion.Text += "V = "+grafo.Count+"\n";
             richTextBoxRegion.Text += "E"+grafo.Aristas/2+"\n";

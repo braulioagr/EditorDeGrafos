@@ -14,13 +14,21 @@ namespace EditorDeGrafos
     {
         #region Variables de Instancia
         private Grafo grafo;
+        private string texto;
         #endregion
         public Corolarios(Grafo grafo)
         {
+            texto = "null";
             this.grafo = grafo;
             InitializeComponent();
         }
 
+        public Corolarios(Grafo grafo, string texto)
+        {
+            this.grafo = grafo;
+            this.texto = texto;
+            InitializeComponent();
+        }
         private void Corolarios_Load(object sender, EventArgs e)
         {
             int E;
@@ -75,6 +83,10 @@ namespace EditorDeGrafos
             }
             else
             {
+                if (!this.texto.Equals("null"))
+                {
+                    richTextBoxC.Text += "El grafo es Homeomorfico con un grafo " + texto + "\n";
+                }
                 richTextBoxC.Text += "El grafo no es plano";
             }
         }

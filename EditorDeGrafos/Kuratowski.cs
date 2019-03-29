@@ -25,17 +25,11 @@ namespace EditorDeGrafos
         private int tamName;
         private int anchoLineaN;
         private int anchoLineaA;
-        private int rec;
+        private int[,] matrizInicial;
         private string nombre;
         private string fuente;
         private bool bandFinal;
         private bool bandNombre;
-        /*
-        private bool band;
-        private bool bandArista;
-        private bool bandRecorrido;
-        private string directorio;
-        private string recorrido;*/
         #endregion
 
         #region Estructuras
@@ -45,9 +39,6 @@ namespace EditorDeGrafos
         Color colorLetra;
         Point p1;
         Point pe;
-        /*Point p2;
-        Point pI1;
-        Point pI2;*/
         #endregion
 
         #region Objetos
@@ -86,9 +77,6 @@ namespace EditorDeGrafos
             this.nombre = this.ConvierteNombre(numNodos);
             this.bandFinal = false;
             this.bandNombre = false;
-            /*this.band = false;
-            this.bandArista = false;
-            this.bandRecorrido = false;*/
             #endregion
 
             #region Estructuras
@@ -109,7 +97,8 @@ namespace EditorDeGrafos
             this.penArista = new Pen(colorLinea);
             if (typeof(GrafoNoDirigido).IsInstanceOfType(this.grafo))
             {
-                this.grafo = new GrafoNoDirigido(this.grafo.matrizAGrafo(this.grafo.matrizDeAdyacencia()));
+                this.matrizInicial = this.grafo.matrizDeAdyacencia();
+                this.grafo = new GrafoNoDirigido(this.grafo.matrizAGrafo(matrizInicial));
                 this.grafo.actualizaId();
                 this.numAristas = grafo.Aristas / 2;
             }
@@ -164,14 +153,9 @@ namespace EditorDeGrafos
 
         private void Kuratowski_Resize(object sender, EventArgs e)
         {
-            Point p;
             this.ClientSize = new Size(this.Size.Width - 16, this.Size.Height - 39);
             this.bmp = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
             g = CreateGraphics();
-            p = new Point(Cancelar.Location.X, this.Height - 74);
-            Cancelar.Location = p;
-            p = new Point(this.Size.Width - 103, this.Size.Height - 74);
-            Aceptar.Location = p;
         }
 
         #endregion
@@ -181,11 +165,31 @@ namespace EditorDeGrafos
         {
             switch (e.ClickedItem.AccessibleName)
             {
-                case "InsertaNodo":
+                case "EliminaNodo":
                     this.opcion = 1;
                 break;
-                case "EliminaNodo":
-                this.opcion = 2;
+                case "EliminarArista":
+                    this.opcion = 2;
+                break;
+                case "HomeomorfoK5":
+                    if(grafo.homeomorficoK5(this.g))
+                    {
+                        Corolarios corolarios;
+                        corolarios = new Corolarios(this.grafo,"K5");
+                        corolarios.ShowDialog();
+                        corolarios.Dispose();
+                        this.Kuratowski_Paint(this, null);
+                    }
+                break;
+                case "HomeomorfoK33":
+                    if (grafo.homeomorficoK33(this.g))
+                    {
+                        Corolarios corolarios;
+                        corolarios = new Corolarios(this.grafo, "K33");
+                        corolarios.ShowDialog();
+                        corolarios.Dispose();
+                        this.Kuratowski_Paint(this, null);
+                    }
                 break;
             }
         }
@@ -200,21 +204,6 @@ namespace EditorDeGrafos
                 switch (this.opcion)
                 {
                     case 1:
-                        #region Inserta Nodo
-                        p1 = e.Location;
-                        pe.X = p1.X - (tamNodo / 2);
-                        pe.Y = p1.Y - (tamNodo / 2);
-                        nodo = new Nodo(nombre, pe, p1, penNodo.Color, brushRelleno.Color, brushName.Color, tamNodo, altoName, anchoLineaN, fuente);
-                        if (numNodos == 27)
-                        {
-                            bandNombre = true;
-                            grafo.Tipo = true;
-                        }
-                        //band = false;
-                        bandFinal = grafo.AddKuratoswki(nodo, e.Location);
-                        #endregion
-                    break;
-                    case 2:
                         #region Borra Nodo
                         p1 = e.Location;
                         if (grafo.BuscaNodo(ref nodo, p1))
@@ -227,8 +216,14 @@ namespace EditorDeGrafos
                         }
                         #endregion
                     break;
+                    case 2:
+                        #region Borra Arista
+                        grafo.BorraArista(e.Location);
+                        bandFinal = false;
+                        #endregion
+                    break;
                 }
-            this.Kuratowski_Paint(this, null);
+                this.Kuratowski_Paint(this, null);
             }
         }
 

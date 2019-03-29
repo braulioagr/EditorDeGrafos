@@ -179,7 +179,7 @@ namespace EditorDeGrafos
             }
         }
 
-        public override void DibujaGrafo(Graphics g, Size AreaCliente, List<Partita> partitas)
+        public override void DibujaGrafo(Graphics g, List<Partita> partitas)
         {
             Color[] colores;
             colores = MetodosAuxiliares.GeneraColores();
@@ -559,13 +559,13 @@ namespace EditorDeGrafos
             actual = this[0];
             do
             {
-                siguiente = MetodosAuxiliares.siguienteEnCamino(actual, recorridas);
+                siguiente = MetodosAuxiliares.siguienteEnCaminoNoDir(actual, recorridas);
                 arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
                 recorridas.Add(arista);
-                siguiente.Grado--;
+                siguiente.GradoSalida--;
                 arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
                 recorridas.Add(arista);
-                actual.Grado--;
+                actual.GradoSalida--;
                 actual = siguiente;
             } while (actual.grados() != 0);
             if (this.Aristas != recorridas.Count)
@@ -576,54 +576,15 @@ namespace EditorDeGrafos
         }
         #endregion
 
-        private void setGrados()
+        public override void setGrados()
         {
             foreach (Nodo nodo in this)
             {
                 nodo.Aristas = nodo.Aristas.OrderBy(nr => nr.Arriba.Nombre).ToList();
-                nodo.Grado = nodo.Aristas.Count;
+                nodo.GradoSalida = nodo.Aristas.Count;
             }
         }
         
-        /*public override string caminoEuleriano()
-        {
-            string recorrido;
-            string recorridoAux;
-            Nodo actual;
-            Nodo siguiente;
-            Arista arista;
-            List<Arista> recorridas;
-            recorrido = "";
-            recorridoAux = "";
-            this.setGrados();
-            recorridas = new List<Arista>();
-            actual = MetodosAuxiliares.inicioDeCamino(this);
-            do
-            {
-                recorridoAux += actual.Nombre;
-                do
-                {
-                    siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
-                    arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
-                    recorridas.Add(arista);
-                    siguiente.Grado--;
-                    arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
-                    recorridas.Add(arista);
-                    actual.Grado--;
-                    actual = siguiente;
-                    recorridoAux += actual.Nombre;
-                } while (actual.Grado != 0);
-                recorrido = recorridoAux + recorrido;
-                recorridoAux = "";
-                if (recorridas.Count != this.Aristas)
-                {
-                    actual = base.BuscaNodo(recorrido.First().ToString());
-                    recorrido = recorrido.Substring(1);
-                }
-            } while (recorridas.Count != this.Aristas);
-            return recorrido;
-        }
-        */
 
         public override List<string> caminoEuleriano()
         {
@@ -637,22 +598,22 @@ namespace EditorDeGrafos
             recorridoAux = new List<string>();
             this.setGrados();
             recorridas = new List<Arista>();
-            actual = MetodosAuxiliares.inicioDeCamino(this);
+            actual = MetodosAuxiliares.inicioDeCaminoNoDir(this);
             do
             {
                 recorridoAux.Add(actual.Nombre);
                 do
                 {
-                    siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
+                    siguiente = MetodosAuxiliares.siguienteEnCaminoNoDir(actual, recorridas);
                     arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
                     recorridas.Add(arista);
-                    siguiente.Grado--;
+                    siguiente.GradoSalida--;
                     arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
                     recorridas.Add(arista);
-                    actual.Grado--;
+                    actual.GradoSalida--;
                     actual = siguiente;
                     recorridoAux.Add(actual.Nombre);
-                } while (actual.Grado != 0);
+                } while (actual.GradoSalida != 0);
                 recorrido = MetodosAuxiliares.sumaListas(recorridoAux, recorrido);
                 recorridoAux = new List<string>();
                 if (recorridas.Count != this.Aristas)
@@ -663,34 +624,6 @@ namespace EditorDeGrafos
             } while (recorridas.Count != this.Aristas);
             return recorrido;
         }
-
-        /*public override string circuitoEuleriano()
-        {
-            string recorrido;
-            Nodo actual;
-            Nodo siguiente;
-            Arista arista;
-            List<Arista> recorridas;
-            recorrido = "";
-            this.setGrados();
-            recorridas = new List<Arista>();
-            actual = this[0];
-            do
-            {
-                recorrido += actual.Nombre;
-                siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
-                arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
-                recorridas.Add(arista);
-                siguiente.Grado--;
-                arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
-                recorridas.Add(arista);
-                actual.Grado--;
-                actual = siguiente;
-
-            } while (actual.grados() != 0);
-            recorrido += actual.Nombre;
-            return recorrido;
-        }*/
 
         public override List<string> circuitoEuleriano()
         {
@@ -709,10 +642,10 @@ namespace EditorDeGrafos
                 siguiente = MetodosAuxiliares.siguienteEnCircuito(actual, recorridas);
                 arista = MetodosAuxiliares.encuentraArista(siguiente, actual);
                 recorridas.Add(arista);
-                siguiente.Grado--;
+                siguiente.GradoSalida--;
                 arista = MetodosAuxiliares.encuentraArista(actual, siguiente);
                 recorridas.Add(arista);
-                actual.Grado--;
+                actual.GradoSalida--;
                 actual = siguiente;
 
             } while (actual.grados() != 0);
@@ -985,6 +918,67 @@ namespace EditorDeGrafos
                 }
             }
         }
+
+        public override bool homeomorficoK5(Graphics g)
+        {
+            if (this.Count >= 5)
+            {
+                List<Nodo> vertices = new List<Nodo>();
+                foreach (Nodo nodo in this)
+                {
+                    vertices = nodo.nodosAdyacentes;
+                    List<Nodo> grado4 = new List<Nodo>();
+                    foreach (Nodo adyacente in vertices)
+                        if (grado4.Count <= 3)
+                        {
+                            if (adyacente.Aristas.Count >= 4)
+                            {
+                                grado4.Add(adyacente);
+                            }                                
+                        }
+                        else
+                            break;
+                    if (grado4.Count >= 4)
+                    {
+                        grado4.Insert(0, nodo);
+                        this.DibujaGrafo(g, grado4);
+                        return true;
+                    }
+                    vertices.Clear();
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public override bool homeomorficoK33(Graphics g)
+        {
+            if (this.Count >= 6)
+            {
+                List<List<Nodo>> nodos = new List<List<Nodo>>();
+                foreach (Nodo nodo in this)
+                {
+                    List<Nodo> adyacentes = nodo.nodosAdyacentes;
+                    for (int i = 0; i < adyacentes.Count; i++)
+                    {
+                        if (adyacentes[i].Aristas.Count < 3)
+                        {
+                            adyacentes.Remove(adyacentes[i]);
+                        }
+                    }
+                    if (adyacentes.Count >= 3)
+                    {
+                        nodos.Add(adyacentes);
+                    }
+                }
+                if (nodos.Count >= 6)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         #endregion
 

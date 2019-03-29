@@ -18,11 +18,13 @@ namespace EditorDeGrafos
         #endregion
 
         #region Constructores
+        
         public GradosDir(GrafoDirigido grafo)
         {
             this.grafo = grafo;
             InitializeComponent();
         }
+
         private void GradosDir_Load(object sender, EventArgs e)
         {
             int gradoInterno;
@@ -43,6 +45,7 @@ namespace EditorDeGrafos
             }
             dataGridGrados.Rows.Add("Grafo", "deg-(" + grafo.Aristas + ")", "deg+(" + grafo.Aristas + ")");
         }
+        
         #endregion
 
         #region Eventos

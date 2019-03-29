@@ -182,17 +182,19 @@ namespace EditorDeGrafos
                         if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
                         {
                             this.habilitaOpcionesGrafoDirigido();
+                                this.numAristas = this.grafo.Aristas;
                         }
                         else
                         {
                             if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
                             {
                                 this.habilitaOpcionesGrafoNoDirigido();
+                            this.numAristas = this.grafo.Aristas / 2;
                             }
                         }
                         this.EditorDeGrafos_Paint(this, null);
                     }
-                #endregion
+                    #endregion
                 break;
                 case "Guardar":
                     #region Gurdar Grafo
@@ -306,7 +308,7 @@ namespace EditorDeGrafos
                     grados.ShowDialog();
                     grados.Dispose();
                     #endregion
-                    break;
+                break;
                 case "MAdyacencia":
                     #region Matriz de Adyacencia
                     MatrizDeAdyacencia matrizA;
@@ -314,7 +316,7 @@ namespace EditorDeGrafos
                     matrizA.ShowDialog();
                     matrizA.Dispose();
                     #endregion
-                    break;
+                break;
                 case "MIncidencia":
                     #region Matriz de Incidencia
                     MatrizDeIncidencia matrizI;
@@ -323,7 +325,7 @@ namespace EditorDeGrafos
                     matrizI.ShowDialog();
                     matrizI.Dispose();
                     #endregion
-                    break;
+                break;
                 case "LAdyacencia":
                     #region Lista Adyacencia
                     ListaDeAdyacencia lista;
@@ -331,7 +333,7 @@ namespace EditorDeGrafos
                     lista.ShowDialog();
                     lista.Dispose();
                     #endregion
-                    break;
+                break;
                 case "TamOrd":
                     #region Tamaño y Orden
                     TamañoYOrden tamOrd;
@@ -339,14 +341,68 @@ namespace EditorDeGrafos
                     tamOrd.ShowDialog();
                     tamOrd.Dispose();
                     #endregion
-                    break;
+                break;
                 case "Complemento":
                     #region Complemento
                     this.grafo.complemento(this.colorLinea, this.anchoLineaA);
                     this.grafo.actualizaId();
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
-                    break;
+                break;
+                case "Euler":
+                    #region Euler
+                    Euler euler;
+                    if (!grafo.aislado())//Si no tiene un nodo aislado puede que tenga circuito o camino
+                    {
+                        #region Circuito
+                        this.grafo.setGrados();
+                        if (grafo.gradosPares())//Si todos sus nodos son de grado par Existe circuito
+                        {
+                            /**/
+                            this.recorrido = grafo.circuitoEuleriano();//Regresa una lista de strings que ya esta secuenciada el dato
+                            euler = new Euler(recorrido, "Existe el circuito", relojEuler);//Inicializa el dialogo
+                            euler.borra_Recorrido += new Euler.Borra_Recorrido(this.redibujaGrafo);//Detalles
+                            rec = 0;//Detalles
+                            bandRecorrido = false;//Detalles
+                            euler.Show();//Detalles
+                            this.EditorDeGrafos_Paint(this, null);//Detalles
+                        }
+                        #endregion
+
+                        #region Camino
+                        else
+                        {
+                            if (grafo.nodosImpares() == 2)//Si tiene 2 nodos de grado impar tiene camino
+                            {
+                                if (grafo.paresParejos())
+                                {
+
+                                    this.recorrido = grafo.caminoEuleriano();
+                                    euler = new Euler(recorrido, "Existe el Camino", relojEuler);
+                                    euler.borra_Recorrido += new Euler.Borra_Recorrido(this.redibujaGrafo);
+                                    rec = 0;
+                                    bandRecorrido = false;
+                                    euler.Show();
+                                    this.EditorDeGrafos_Paint(this, null);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Un nodo no cumple con las condiciones para poder hacer un ciclo", "No existe");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("El Grafo no tiene ni camino ni circuito", "No existe");
+                            }
+                        }
+                        #endregion
+                    }
+                    else//Si tiene un nodo aislado tiene circuito y camino
+                    {
+                        MessageBox.Show("El grafo tiene un nodo aislado, por lo tanto no existe camino ni circuito", "No existe");
+                    }
+                    #endregion
+                break;
             }
             #endregion
         }
@@ -504,10 +560,9 @@ namespace EditorDeGrafos
                         MessageBox.Show("El grafo tiene un nodo aislado, por lo tanto no existe camino ni circuito", "No existe");
                     }
                     #endregion
-                    break;
+                break;
                 case "Hamilton":
                     #region Hamilton
-                    Hamilton hamilton;
                     if (grafo.aislado())
                     {
                     }
@@ -523,7 +578,7 @@ namespace EditorDeGrafos
                     partitas = grafo.nPartita(); //Obtiene en una lista de listas para sacar los nombres de las partitas
                     if (partitas.Count == 4)
                     {
-                        grafo.DibujaGrafo(g, this.ClientSize, partitas);//Se llenan los nombres de las partitas
+                        grafo.DibujaGrafo(g, partitas);//Se llenan los nombres de las partitas
                         if (MessageBox.Show("El grafo si cumple con el teorema de los 4 colores \n ¿Desea ver los conjuntos?", "Si cumple", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             Partitas partitasdlg = new Partitas(partitas);//Se crea un dialogo con los nombres de las partitas
@@ -547,10 +602,12 @@ namespace EditorDeGrafos
                     #endregion
                 break;
                 case "Regiones":
+                    #region Regiones
                     Regiones regiones;
                     regiones = new Regiones(this.grafo);
                     regiones.ShowDialog();
                     regiones.Dispose();
+                    #endregion
                 break;
                 case  "Kuratowski":
                     Kuratowski kuratowski;
@@ -816,7 +873,7 @@ namespace EditorDeGrafos
                         bandArista = false;
                     }
                     break;
-                case 3:
+                case 3://Borrar Nodo
                     p1 = e.Location;
                     if (grafo.BuscaNodo(ref nodo, p1))
                     {

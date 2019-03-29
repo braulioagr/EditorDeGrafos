@@ -30,11 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kuratowski));
             this.ToolBar = new System.Windows.Forms.ToolStrip();
-            this.InsertaNodo = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.EliminaNodo = new System.Windows.Forms.ToolStripButton();
-            this.Aceptar = new System.Windows.Forms.Button();
-            this.Cancelar = new System.Windows.Forms.Button();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.EliminarArista = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.HomeomorfoK5 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.HomeomorfoK33 = new System.Windows.Forms.ToolStripButton();
             this.ToolBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,72 +44,80 @@
             // 
             this.ToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.InsertaNodo,
+            this.EliminaNodo,
+            this.toolStripSeparator2,
+            this.EliminarArista,
             this.toolStripSeparator1,
-            this.EliminaNodo});
+            this.HomeomorfoK5,
+            this.toolStripSeparator3,
+            this.HomeomorfoK33});
             this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
-            this.ToolBar.Size = new System.Drawing.Size(847, 37);
+            this.ToolBar.Size = new System.Drawing.Size(847, 25);
             this.ToolBar.TabIndex = 0;
             this.ToolBar.Text = "ToolBar";
             this.ToolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Clicked_Kuratowski);
-            // 
-            // InsertaNodo
-            // 
-            this.InsertaNodo.AccessibleName = "InsertaNodo";
-            this.InsertaNodo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.InsertaNodo.Image = ((System.Drawing.Image)(resources.GetObject("InsertaNodo.Image")));
-            this.InsertaNodo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.InsertaNodo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.InsertaNodo.Name = "InsertaNodo";
-            this.InsertaNodo.Size = new System.Drawing.Size(34, 34);
-            this.InsertaNodo.Text = "Inserta Nodo";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 37);
             // 
             // EliminaNodo
             // 
             this.EliminaNodo.AccessibleName = "EliminaNodo";
             this.EliminaNodo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.EliminaNodo.Image = ((System.Drawing.Image)(resources.GetObject("EliminaNodo.Image")));
-            this.EliminaNodo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.EliminaNodo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.EliminaNodo.Name = "EliminaNodo";
-            this.EliminaNodo.Size = new System.Drawing.Size(34, 34);
+            this.EliminaNodo.Size = new System.Drawing.Size(23, 22);
             this.EliminaNodo.Text = "Elimina Nodo";
             // 
-            // Aceptar
+            // toolStripSeparator2
             // 
-            this.Aceptar.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.Aceptar.Location = new System.Drawing.Point(760, 409);
-            this.Aceptar.Name = "Aceptar";
-            this.Aceptar.Size = new System.Drawing.Size(75, 23);
-            this.Aceptar.TabIndex = 1;
-            this.Aceptar.Text = "Aceptar";
-            this.Aceptar.UseVisualStyleBackColor = true;
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // Cancelar
+            // EliminarArista
             // 
-            this.Cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancelar.Location = new System.Drawing.Point(12, 409);
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar.TabIndex = 2;
-            this.Cancelar.Text = "Cancelar";
-            this.Cancelar.UseVisualStyleBackColor = true;
+            this.EliminarArista.AccessibleName = "EliminarArista";
+            this.EliminarArista.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EliminarArista.Image = ((System.Drawing.Image)(resources.GetObject("EliminarArista.Image")));
+            this.EliminarArista.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EliminarArista.Name = "EliminarArista";
+            this.EliminarArista.Size = new System.Drawing.Size(23, 22);
+            this.EliminarArista.Text = "Eliminar Arista";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // HomeomorfoK5
+            // 
+            this.HomeomorfoK5.AccessibleName = "HomeomorfoK5";
+            this.HomeomorfoK5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.HomeomorfoK5.Image = ((System.Drawing.Image)(resources.GetObject("HomeomorfoK5.Image")));
+            this.HomeomorfoK5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.HomeomorfoK5.Name = "HomeomorfoK5";
+            this.HomeomorfoK5.Size = new System.Drawing.Size(23, 22);
+            this.HomeomorfoK5.Text = "Kuratowski K5";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // HomeomorfoK33
+            // 
+            this.HomeomorfoK33.AccessibleName = "HomeomorfoK33";
+            this.HomeomorfoK33.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.HomeomorfoK33.Image = ((System.Drawing.Image)(resources.GetObject("HomeomorfoK33.Image")));
+            this.HomeomorfoK33.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.HomeomorfoK33.Name = "HomeomorfoK33";
+            this.HomeomorfoK33.Size = new System.Drawing.Size(23, 22);
+            this.HomeomorfoK33.Text = "Kuratowski K33";
             // 
             // Kuratowski
             // 
-            this.AcceptButton = this.Aceptar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.Cancelar;
             this.ClientSize = new System.Drawing.Size(847, 444);
-            this.Controls.Add(this.Cancelar);
-            this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.ToolBar);
             this.Name = "Kuratowski";
             this.Text = "Kuratowski";
@@ -125,10 +135,12 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip ToolBar;
-        private System.Windows.Forms.ToolStripButton InsertaNodo;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton EliminaNodo;
-        private System.Windows.Forms.Button Aceptar;
-        private System.Windows.Forms.Button Cancelar;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton EliminarArista;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton HomeomorfoK5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton HomeomorfoK33;
     }
 }

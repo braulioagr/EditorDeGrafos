@@ -316,6 +316,25 @@ namespace EditorDeGrafos
             }
         }
 
+        public void DibujaGrafo(Graphics g, List<Nodo> conjunto)
+        {
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this), this.ponderado);
+                }
+                if (conjunto.Contains(nodo))
+                {
+                    nodo.dibujaNodo(g, Color.Green);
+                }
+                else
+                {
+                    nodo.dibujaNodo(g);
+                }
+            }
+        }
+
         /**
          *  Metodo el cual cambia los nombres del grafo segun el tipo del grafo
          *                  ya sea numerico o alphabetico
@@ -621,9 +640,7 @@ namespace EditorDeGrafos
             return null;
         }
 
-        /**
-         */
-        public virtual void DibujaGrafo(Graphics g, Size AreaCliente, List<Partita> partitas) { }
+        public virtual void DibujaGrafo(Graphics g, List<Partita> partitas) { }
 
         public virtual int BorraArista(Point p) { return 0; }
 
@@ -714,7 +731,17 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
+        public virtual bool paresParejos()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual List<string> caminoEuleriano()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void setGrados()
         {
             throw new NotImplementedException();
         }
@@ -752,6 +779,15 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
+        public virtual bool homeomorficoK5(Graphics g)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual bool homeomorficoK33(Graphics g)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #endregion

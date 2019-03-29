@@ -219,7 +219,8 @@ namespace EditorDeGrafos
 
         #region Eulerianos
 
-        public static Nodo inicioDeCamino(Grafo grafo)
+        #region No Dirigidos
+        public static Nodo inicioDeCaminoNoDir(Grafo grafo)
         {
             Nodo inicio;
             inicio = null;
@@ -246,20 +247,6 @@ namespace EditorDeGrafos
             return inicio;
         }
 
-        public static Arista encuentraArista(Nodo origen, Nodo destino)
-        {
-            Arista arista;
-            arista = null;
-            foreach (Arista busca in origen.Aristas)
-            {
-                if (busca.Arriba.Equals(destino))
-                {
-                    arista = busca;
-                    break;
-                }
-            }
-            return arista;
-        }
 
         public static Nodo siguienteEnCircuito(Nodo actual, List<Arista> recorridas)
         {
@@ -275,7 +262,7 @@ namespace EditorDeGrafos
             return siguiente;
         }
 
-        public static Nodo siguienteEnCamino(Nodo actual, List<Arista> recorridas)
+        public static Nodo siguienteEnCaminoNoDir(Nodo actual, List<Arista> recorridas)
         {
             Nodo siguiente;
             int gradoMayor;
@@ -286,15 +273,68 @@ namespace EditorDeGrafos
             {
                 if (!MetodosAuxiliares.aristaEnLista(arista, recorridas))
                 {
-                    if (arista.Arriba.Grado >= gradoMayor)
+                    if (arista.Arriba.GradoSalida >= gradoMayor)
                     {
                         siguiente = arista.Arriba;
-                        gradoMayor = arista.Arriba.Grado;
+                        gradoMayor = arista.Arriba.GradoSalida;
                     }
                 }
             }
             return siguiente;
         }
+        #endregion
+
+        #region Dirigidos
+
+        public static Nodo inicioDeCaminoDir(Grafo grafo)
+        {
+            Nodo inicio;
+            inicio = null;
+            int gradoMayor = 0;
+            foreach (Nodo nodo in grafo)
+            {
+                if ((nodo.GradoEntrada + nodo.GradoSalida) % 2 != 0)
+                {
+                    inicio = nodo;
+                    break;
+                }
+            }
+            foreach (Nodo nodo in grafo)
+            {
+                if ((nodo.GradoEntrada + nodo.GradoSalida) % 2 != 0)
+                {
+                    if (nodo.GradoSalida > gradoMayor)
+                    {
+                        inicio = nodo;
+                        gradoMayor = inicio.Aristas.Count;
+                    }
+                }
+            }
+            return inicio;
+        }
+
+        public static Nodo siguienteEnCaminoDir(Nodo actual, List<Arista> recorridas)
+        {
+            Nodo siguiente;
+            int gradoMayor;
+            gradoMayor = -1;
+            siguiente = null;
+            foreach (Arista arista in actual.Aristas)
+            {
+                if (!MetodosAuxiliares.aristaEnLista(arista, recorridas))
+                {
+                    if (arista.Arriba.GradoSalida >= gradoMayor)
+                    {
+                        siguiente = arista.Arriba;
+                        gradoMayor = arista.Arriba.GradoSalida;
+                    }
+                }
+            }
+            return siguiente;
+        }
+        #endregion
+
+        #region Generales
 
         private static bool aristaEnLista(Arista arista, List<Arista> aristas)
         {
@@ -309,6 +349,20 @@ namespace EditorDeGrafos
                 }
             }
             return existe;
+        }
+        public static Arista encuentraArista(Nodo origen, Nodo destino)
+        {
+            Arista arista;
+            arista = null;
+            foreach (Arista busca in origen.Aristas)
+            {
+                if (busca.Arriba.Equals(destino))
+                {
+                    arista = busca;
+                    break;
+                }
+            }
+            return arista;
         }
 
         public static List<string> subList(List<string> list, int indice)
@@ -329,8 +383,9 @@ namespace EditorDeGrafos
                 sumando1.Add(cadena);
             }
             return sumando1;
-        
+
         }
+        #endregion
 
         #endregion
 
@@ -443,7 +498,5 @@ namespace EditorDeGrafos
         }
         
         #endregion
-
-
     }
 }

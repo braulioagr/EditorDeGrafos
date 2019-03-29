@@ -22,7 +22,8 @@ namespace EditorDeGrafos
         private int tamNodo;
         private int tamLetra;
         private int anchoContorno;
-        private int grado;
+        private int gradoEntrada;
+        private int gradoSalida;
         private string fuente;
         #endregion
 
@@ -113,10 +114,16 @@ namespace EditorDeGrafos
             get { return anchoContorno; }
         }
 
-        public int Grado
+        public int GradoSalida
         {
-            set { this.grado = value; }
-            get { return this.grado; }
+            set { this.gradoSalida = value; }
+            get { return this.gradoSalida; }
+        }
+
+        public int GradoEntrada
+        {
+            set { this.gradoEntrada = value; }
+            get { return this.gradoEntrada; }
         }
 
         public string Fuente
@@ -124,6 +131,23 @@ namespace EditorDeGrafos
             get { return this.fuente; }
             set { this.fuente = value; }
         }
+
+        public List<Nodo> nodosAdyacentes
+        {
+            get
+            {
+                List<Nodo> adyacentes = new List<Nodo>();
+                foreach (Arista arista in this.Aristas)
+                {
+                    if (!arista.Arriba.Equals(this))
+                    {
+                        adyacentes.Add(arista.Arriba);
+                    }
+                }
+                return adyacentes;
+            }
+        }
+
         #endregion
 
         #region Metodos
@@ -198,7 +222,7 @@ namespace EditorDeGrafos
             gr = 0;
             foreach (Arista arista in aristas)
             {
-                gr += arista.Arriba.grado;
+                gr += arista.Arriba.gradoSalida;
             }
             return gr;
         }

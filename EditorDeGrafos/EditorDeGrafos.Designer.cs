@@ -89,6 +89,8 @@
             this.Coloreados = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
             this.kuratowskiNoDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
+            this.Regiones = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EtiquetasNodo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
@@ -152,8 +154,6 @@
             this.numericWn = new System.Windows.Forms.NumericUpDown();
             this.relojEuler = new System.Windows.Forms.Timer(this.components);
             this.relojHammilton = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
-            this.Regiones = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.ToolBarMetodos.SuspendLayout();
@@ -602,6 +602,18 @@
             this.kuratowskiNoDir.Name = "kuratowskiNoDir";
             this.kuratowskiNoDir.Size = new System.Drawing.Size(187, 22);
             this.kuratowskiNoDir.Text = "Kuratowski";
+            // 
+            // toolStripSeparator46
+            // 
+            this.toolStripSeparator46.Name = "toolStripSeparator46";
+            this.toolStripSeparator46.Size = new System.Drawing.Size(184, 6);
+            // 
+            // Regiones
+            // 
+            this.Regiones.AccessibleName = "Regiones";
+            this.Regiones.Name = "Regiones";
+            this.Regiones.Size = new System.Drawing.Size(187, 22);
+            this.Regiones.Text = "Regiones";
             // 
             // configuraciónToolStripMenuItem
             // 
@@ -1226,18 +1238,6 @@
             // relojHammilton
             // 
             this.relojHammilton.Tick += new System.EventHandler(this.relojHammilton_Tick);
-            // 
-            // toolStripSeparator46
-            // 
-            this.toolStripSeparator46.Name = "toolStripSeparator46";
-            this.toolStripSeparator46.Size = new System.Drawing.Size(184, 6);
-            // 
-            // Regiones
-            // 
-            this.Regiones.AccessibleName = "Regiones";
-            this.Regiones.Name = "Regiones";
-            this.Regiones.Size = new System.Drawing.Size(187, 22);
-            this.Regiones.Text = "Regiones";
             // 
             // EditorDeGrafos
             // 
