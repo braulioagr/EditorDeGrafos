@@ -166,7 +166,7 @@ namespace EditorDeGrafos
         {
             switch (e.ClickedItem.AccessibleName)
             {
-                case "EliminaNodo":
+                case "InsertaNodo":
                     this.opcion = 1;
                 break;
                 case "EliminarArista":

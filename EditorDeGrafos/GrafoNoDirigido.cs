@@ -960,7 +960,7 @@ namespace EditorDeGrafos
                     List<Nodo> adyacentes = nodo.nodosAdyacentes;
                     for (int i = 0; i < adyacentes.Count; i++)
                     {
-                        if (adyacentes[i].Aristas.Count < 3)
+                        if (adyacentes[i].Aristas.Count != 3)
                         {
                             adyacentes.Remove(adyacentes[i]);
                         }

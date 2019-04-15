@@ -11,6 +11,7 @@ C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.pdb
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Corolarios.resources
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Dijkstra.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.EditorDeGrafos.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Euler.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosDir.resources

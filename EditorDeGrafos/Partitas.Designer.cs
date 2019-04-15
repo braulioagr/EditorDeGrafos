@@ -85,7 +85,7 @@
             this.Controls.Add(this.Cerrar);
             this.Controls.Add(this.dataGridPartitas);
             this.Name = "Partitas";
-            this.Text = "Partitas";
+            this.Text = "Colores";
             this.Load += new System.EventHandler(this.Partitas_Load);
             this.Resize += new System.EventHandler(this.Partitas_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPartitas)).EndInit();

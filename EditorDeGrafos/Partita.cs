@@ -27,15 +27,13 @@ namespace EditorDeGrafos
         public string[] elementos(int id)
         {
             string[] elementos;
-            elementos = new string[this.Count + 1];
-            int i;
-            i = 1;
+            elementos = new string[2];
             elementos[0] = MetodosAuxiliares.convierteRomano(id);
             foreach (string busca in this)
             {
-                elementos[i] = busca;
-                i++;
+                elementos[1] += "," + busca;
             }
+            elementos[1] = elementos[1].Substring(1);
             return elementos;
         }
     }

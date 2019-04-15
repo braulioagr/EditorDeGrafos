@@ -5,12 +5,19 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EditorDeGrafos
 {
     [Serializable]
     class Arista
     {
+
+        #region No Serializables
+        //[NonSerialized] public NumericUpDown numericPeso;
+        [NonSerialized] public bool recorrida;
+        #endregion
+
         #region Variables de instancia
         private int peso;
         private int id;

@@ -403,6 +403,16 @@ namespace EditorDeGrafos
                     }
                     #endregion
                 break;
+                case "Dijkstra":
+                    #region Dijkstra
+                    Dijkstra dijkstra;
+                    dijkstra = new Dijkstra(grafo, this.relojDijkstra);
+                    dijkstra.dijsktra += new Dijkstra.Evento_Dijkstra(this.dijkstra);
+                    dijkstra.borra_Recorrido += new Dijkstra.Borra_Recorrido(this.redibujaGrafo);
+                    dijkstra.vector += new Dijkstra.Vector_Origen(grafo.vectorDijkstra);
+                    dijkstra.Show();
+                    #endregion
+                break;
             }
             #endregion
         }
@@ -572,8 +582,32 @@ namespace EditorDeGrafos
                     }
                     #endregion
                 break;
-                case "Coloreados":
-                    #region Coloreados
+                case "Corolarios":
+                    #region Corolarios
+                    Corolarios corolarios;
+                    corolarios = new Corolarios(this.grafo);
+                    corolarios.ShowDialog();
+                    corolarios.Dispose();
+                    #endregion
+                break;
+                case "Regiones":
+                    #region Regiones
+                    Regiones regiones;
+                    regiones = new Regiones(this.grafo);
+                    regiones.ShowDialog();
+                    regiones.Dispose();
+                    #endregion
+                break;
+                case  "Kuratowski":
+                    #region Kuratowski
+                    Kuratowski kuratowski;
+                    kuratowski = new Kuratowski(this.grafo);
+                    kuratowski.ShowDialog();
+                    kuratowski.Dispose();
+                    #endregion
+                break;
+                case "Teorema4C":
+                    #region Teorema 4 Colores
                     List<Partita> partitas;
                     partitas = grafo.nPartita(); //Obtiene en una lista de listas para sacar los nombres de las partitas
                     if (partitas.Count == 4)
@@ -593,28 +627,19 @@ namespace EditorDeGrafos
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
                 break;
-                case "Corolarios":
-                    #region Corolarios
-                    Corolarios corolarios;
-                    corolarios = new Corolarios(this.grafo);
-                    corolarios.ShowDialog();
-                    corolarios.Dispose();
-                    #endregion
-                break;
-                case "Regiones":
-                    #region Regiones
-                    Regiones regiones;
-                    regiones = new Regiones(this.grafo);
-                    regiones.ShowDialog();
-                    regiones.Dispose();
-                    #endregion
-                break;
-                case  "Kuratowski":
-                    Kuratowski kuratowski;
-                    kuratowski = new Kuratowski(this.grafo);
-                    if (kuratowski.ShowDialog() == DialogResult.OK)
+                case "NumeroC":
+                    #region Numero Cromatico
+                    List<Partita> colores;
+                    colores = grafo.nPartita(); //Obtiene en una lista de listas para sacar los nombres de las partitas
+                    grafo.DibujaGrafo(g, colores);//Se llenan los nombres de las partitas
+                    if (MessageBox.Show("El número cromatico es: " + colores.Count.ToString() + "\n" + "¿Desea ver los conjuntos?", "Numero Cromatico", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
+                        Partitas partitasdlg = new Partitas(colores);//Se crea un dialogo con los nombres de las partitas
+                        partitasdlg.ShowDialog();//Muestra el dialogo
+                        partitasdlg.Dispose();//Borra el dialogo
                     }
+                    this.EditorDeGrafos_Paint(this, null);
+                    #endregion
                 break;
             }
             #endregion
@@ -1383,7 +1408,18 @@ namespace EditorDeGrafos
             this.EditorDeGrafos_Paint(this, null);
         }
         #endregion
-        
+
+        #region Dijkstra
+        public List<string> dijkstra(string origen, string destino)
+        {
+            this.recorrido = grafo.dijkstra(origen, destino);
+            this.bandRecorrido = false;
+            this.rec = 0;
+            this.EditorDeGrafos_Paint(this, null);
+            return this.recorrido;
+        }
+        #endregion
+
         #endregion
 
     }

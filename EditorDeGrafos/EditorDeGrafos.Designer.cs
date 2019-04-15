@@ -85,12 +85,14 @@
             this.IsomorfismoNoDir = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator39 = new System.Windows.Forms.ToolStripSeparator();
             this.EulerNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator43 = new System.Windows.Forms.ToolStripSeparator();
-            this.Coloreados = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
             this.kuratowskiNoDir = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
             this.Regiones = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator43 = new System.Windows.Forms.ToolStripSeparator();
+            this.Teorema4C = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
+            this.NumeroC = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EtiquetasNodo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
@@ -134,12 +136,14 @@
             this.IsomorfismoTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator40 = new System.Windows.Forms.ToolStripSeparator();
             this.EulerTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
-            this.ColoreadosTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator42 = new System.Windows.Forms.ToolStripSeparator();
             this.CorolariosTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator45 = new System.Windows.Forms.ToolStripSeparator();
             this.KuratowskiTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
+            this.Teorema4CTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
+            this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.openFileGrafo = new System.Windows.Forms.OpenFileDialog();
             this.EspecialesTool = new System.Windows.Forms.ToolStrip();
             this.GrafosKn = new System.Windows.Forms.ToolStripButton();
@@ -154,6 +158,7 @@
             this.numericWn = new System.Windows.Forms.NumericUpDown();
             this.relojEuler = new System.Windows.Forms.Timer(this.components);
             this.relojHammilton = new System.Windows.Forms.Timer(this.components);
+            this.relojDijkstra = new System.Windows.Forms.Timer(this.components);
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.ToolBarMetodos.SuspendLayout();
@@ -464,12 +469,14 @@
             this.IsomorfismoNoDir,
             this.toolStripSeparator39,
             this.EulerNoDir,
-            this.toolStripSeparator43,
-            this.Coloreados,
             this.toolStripSeparator44,
             this.kuratowskiNoDir,
             this.toolStripSeparator46,
-            this.Regiones});
+            this.Regiones,
+            this.toolStripSeparator43,
+            this.Teorema4C,
+            this.toolStripSeparator48,
+            this.NumeroC});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
             this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -579,18 +586,6 @@
             this.EulerNoDir.Size = new System.Drawing.Size(187, 22);
             this.EulerNoDir.Text = "Euler";
             // 
-            // toolStripSeparator43
-            // 
-            this.toolStripSeparator43.Name = "toolStripSeparator43";
-            this.toolStripSeparator43.Size = new System.Drawing.Size(184, 6);
-            // 
-            // Coloreados
-            // 
-            this.Coloreados.AccessibleName = "Coloreados";
-            this.Coloreados.Name = "Coloreados";
-            this.Coloreados.Size = new System.Drawing.Size(187, 22);
-            this.Coloreados.Text = "Coloreados";
-            // 
             // toolStripSeparator44
             // 
             this.toolStripSeparator44.Name = "toolStripSeparator44";
@@ -614,6 +609,30 @@
             this.Regiones.Name = "Regiones";
             this.Regiones.Size = new System.Drawing.Size(187, 22);
             this.Regiones.Text = "Regiones";
+            // 
+            // toolStripSeparator43
+            // 
+            this.toolStripSeparator43.Name = "toolStripSeparator43";
+            this.toolStripSeparator43.Size = new System.Drawing.Size(184, 6);
+            // 
+            // Teorema4C
+            // 
+            this.Teorema4C.AccessibleName = "Teorema4C";
+            this.Teorema4C.Name = "Teorema4C";
+            this.Teorema4C.Size = new System.Drawing.Size(187, 22);
+            this.Teorema4C.Text = "Teorema 4 Colores";
+            // 
+            // toolStripSeparator48
+            // 
+            this.toolStripSeparator48.Name = "toolStripSeparator48";
+            this.toolStripSeparator48.Size = new System.Drawing.Size(184, 6);
+            // 
+            // NumeroC
+            // 
+            this.NumeroC.AccessibleName = "NumeroC";
+            this.NumeroC.Name = "NumeroC";
+            this.NumeroC.Size = new System.Drawing.Size(187, 22);
+            this.NumeroC.Text = "Numero Cromatico";
             // 
             // configuraciónToolStripMenuItem
             // 
@@ -769,13 +788,13 @@
             // 
             this.PonderaAristaTool.AccessibleName = "Ponderación";
             this.PonderaAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.PonderaAristaTool.Enabled = false;
             this.PonderaAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("PonderaAristaTool.Image")));
             this.PonderaAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.PonderaAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.PonderaAristaTool.Name = "PonderaAristaTool";
             this.PonderaAristaTool.Size = new System.Drawing.Size(34, 34);
             this.PonderaAristaTool.Text = "Pondera Aristastas";
-            this.PonderaAristaTool.Visible = false;
             // 
             // EliminarAristaTool
             // 
@@ -870,12 +889,14 @@
             this.IsomorfismoTool,
             this.toolStripSeparator40,
             this.EulerTool,
-            this.toolStripSeparator41,
-            this.ColoreadosTool,
             this.toolStripSeparator42,
             this.CorolariosTool,
             this.toolStripSeparator45,
-            this.KuratowskiTool});
+            this.KuratowskiTool,
+            this.toolStripSeparator41,
+            this.Teorema4CTool,
+            this.toolStripSeparator47,
+            this.NumeroCTool});
             this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -1039,21 +1060,6 @@
             this.EulerTool.Size = new System.Drawing.Size(38, 34);
             this.EulerTool.Text = "Caminos y Circuitos Eulerianos";
             // 
-            // toolStripSeparator41
-            // 
-            this.toolStripSeparator41.Name = "toolStripSeparator41";
-            this.toolStripSeparator41.Size = new System.Drawing.Size(38, 6);
-            // 
-            // ColoreadosTool
-            // 
-            this.ColoreadosTool.AccessibleName = "Coloreados";
-            this.ColoreadosTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ColoreadosTool.Image = ((System.Drawing.Image)(resources.GetObject("ColoreadosTool.Image")));
-            this.ColoreadosTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ColoreadosTool.Name = "ColoreadosTool";
-            this.ColoreadosTool.Size = new System.Drawing.Size(38, 20);
-            this.ColoreadosTool.Text = "Coloreados";
-            // 
             // toolStripSeparator42
             // 
             this.toolStripSeparator42.Name = "toolStripSeparator42";
@@ -1085,6 +1091,38 @@
             this.KuratowskiTool.Name = "KuratowskiTool";
             this.KuratowskiTool.Size = new System.Drawing.Size(38, 34);
             this.KuratowskiTool.Text = "Kuratowski";
+            // 
+            // toolStripSeparator41
+            // 
+            this.toolStripSeparator41.Name = "toolStripSeparator41";
+            this.toolStripSeparator41.Size = new System.Drawing.Size(38, 6);
+            // 
+            // Teorema4CTool
+            // 
+            this.Teorema4CTool.AccessibleName = "Teorema4C";
+            this.Teorema4CTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Teorema4CTool.Image = ((System.Drawing.Image)(resources.GetObject("Teorema4CTool.Image")));
+            this.Teorema4CTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Teorema4CTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Teorema4CTool.Name = "Teorema4CTool";
+            this.Teorema4CTool.Size = new System.Drawing.Size(38, 34);
+            this.Teorema4CTool.Text = "Coloreados";
+            // 
+            // toolStripSeparator47
+            // 
+            this.toolStripSeparator47.Name = "toolStripSeparator47";
+            this.toolStripSeparator47.Size = new System.Drawing.Size(38, 6);
+            // 
+            // NumeroCTool
+            // 
+            this.NumeroCTool.AccessibleName = "NumeroC";
+            this.NumeroCTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.NumeroCTool.Image = ((System.Drawing.Image)(resources.GetObject("NumeroCTool.Image")));
+            this.NumeroCTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.NumeroCTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.NumeroCTool.Name = "NumeroCTool";
+            this.NumeroCTool.Size = new System.Drawing.Size(38, 34);
+            this.NumeroCTool.Text = "Número Cromatico";
             // 
             // openFileGrafo
             // 
@@ -1391,10 +1429,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
         private System.Windows.Forms.ToolStripButton EulerTool;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator41;
-        private System.Windows.Forms.ToolStripButton ColoreadosTool;
+        private System.Windows.Forms.ToolStripButton Teorema4CTool;
         private System.Windows.Forms.Timer relojHammilton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator43;
-        private System.Windows.Forms.ToolStripMenuItem Coloreados;
+        private System.Windows.Forms.ToolStripMenuItem Teorema4C;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator42;
         private System.Windows.Forms.ToolStripButton CorolariosTool;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
@@ -1403,6 +1441,11 @@
         private System.Windows.Forms.ToolStripButton KuratowskiTool;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator46;
         private System.Windows.Forms.ToolStripMenuItem Regiones;
+        private System.Windows.Forms.Timer relojDijkstra;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator48;
+        private System.Windows.Forms.ToolStripMenuItem NumeroC;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator47;
+        private System.Windows.Forms.ToolStripButton NumeroCTool;
 
     }
 }

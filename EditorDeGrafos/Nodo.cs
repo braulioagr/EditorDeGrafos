@@ -10,6 +10,9 @@ namespace EditorDeGrafos
     [Serializable]
     class Nodo
     {
+        #region NonSerialized
+        [NonSerialized] public bool visitado;
+        #endregion
 
         #region Variables de Instancia
         private string nombre;
@@ -63,51 +66,61 @@ namespace EditorDeGrafos
         #endregion
 
         #region Gets & Sets
+        
         public string Nombre
         {
             set { nombre = value; }
             get { return nombre; }
         }
+
         public List<Arista> Aristas
         {
             set { aristas = value; }
             get { return aristas; }
         }
+        
         public Point Pc
         {
             set { pc = value; }
             get { return pc; }
         }
+        
         public Point Pe
         {
             set { pe = value; }
             get { return pe; }
         }
+        
         public Color ColorFuera
         {
             set { colorFuera = value; }
             get { return colorFuera; }
         }
+        
         public Color BrushRelleno
         {
             set { colorRelleno = value; }
             get { return colorRelleno; }
         }
+        
         public Color BrushName
         {
             set { colorNombre = value; }
             get { return colorNombre; }
         }
+        
         public int TamNodo
         {
             set { tamNodo = value; }
             get { return tamNodo; }
         }
+        
         public int TamLetra
         {
             set { tamLetra = value; }
             get { return tamLetra; }
         }
+        
         public int AnchoContorno
         {
             set { anchoContorno = value; }
@@ -148,6 +161,23 @@ namespace EditorDeGrafos
             }
         }
 
+        public bool FataReccorer
+        {
+            get
+            {
+                bool falta;
+                falta = false;
+                foreach (Arista arista in this.aristas)
+                {
+                    if (!arista.recorrida)
+                    {
+                        falta = true;
+                    }
+                }
+                return falta;
+            }
+        }
+
         #endregion
 
         #region Metodos
@@ -181,7 +211,6 @@ namespace EditorDeGrafos
             g.DrawEllipse(pen, pe.X, pe.Y, tamNodo, tamNodo);
             g.DrawString(nombre.ToString(), font, brochaLetra, pe.X + (tamNodo / 2) - tamLetra / 2, pe.Y + (tamNodo / 2) - tamLetra / 2);
         }
-
 
         public Arista aristaSoporte()
         {
@@ -227,8 +256,23 @@ namespace EditorDeGrafos
             return gr;
         }
 
-        #endregion
+        public Arista buscaRelacion(string nombre)
+        {
+            Arista arista;
+            arista = null;
+            foreach (Arista busca in this.Aristas)
+            {
+                if (busca.Arriba.Nombre.Equals(nombre))
+                {
+                    arista = busca;
+                    break;
+                }
+            }
+            return arista;
+        }
 
+        #endregion
+        
 
     }
 }

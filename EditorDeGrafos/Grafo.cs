@@ -790,6 +790,25 @@ namespace EditorDeGrafos
         }
         #endregion
 
+        #region Dijkstra
+        
+        public virtual List<string> dijkstra(string origen, string destino)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Grafo matrizDeCostos()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual string[] vectorDijkstra(string origen)
+        {
+            throw new NotImplementedException();
+        }
+        
+        #endregion
+
         #endregion
 
         #endregion

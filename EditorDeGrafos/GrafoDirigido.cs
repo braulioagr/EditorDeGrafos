@@ -227,6 +227,7 @@ namespace EditorDeGrafos
 
         #endregion
 
+        #region Recorridos
         /**
          * Este es el metodo encargado de asignar valores a los grados de entrada y de salida
          */
@@ -311,6 +312,227 @@ namespace EditorDeGrafos
                 }
             } while (recorridas.Count != this.Aristas);
             return recorrido;
+        }
+        #endregion
+
+        #endregion
+
+        #region Matriz de Costos
+
+        public override Grafo matrizDeCostos()
+        {
+            Grafo grafoMatriz;
+            grafoMatriz = new GrafoDirigido(this, true);
+            Arista arista;
+            arista = base.buscaArista();
+            foreach (Nodo busca in grafoMatriz)
+            {
+                busca.Aristas.Clear();
+            }
+            foreach (Nodo busca in grafoMatriz)
+            {
+                foreach (Nodo buscando in grafoMatriz)
+                {
+                    arista = new Arista(int.MaxValue, MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, busca.TamNodo / 2),
+                                   MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, busca.TamNodo / 2), arista.AnchoLinea, arista.ColorLinea, buscando,0);
+                    busca.Aristas.Add(arista);
+                }
+            }
+            string origen, destino;
+            foreach (Nodo busca in grafoMatriz)
+            {
+                origen = busca.Nombre;
+                foreach (Arista buscando in busca.Aristas)
+                {
+                    destino = buscando.Arriba.Nombre;
+                    buscando.Peso = relacion(origen, destino);
+                }
+            }
+            for (int i = 0; i < grafoMatriz.Count; i++)
+            {
+                grafoMatriz[i].Aristas[i].Peso = 0;
+            }
+            return grafoMatriz;
+        }
+
+        private int relacion(string origen, string destino)
+        {
+            foreach (Nodo busca in this)
+            {
+                if (busca.Nombre.Equals(origen))
+                {
+                    foreach (Arista buscando in busca.Aristas)
+                    {
+                        if (buscando.Arriba.Nombre.Equals(destino))
+                        {
+                            return buscando.Peso;
+                        }
+                    }
+                    break;
+                }
+            }
+            return int.MaxValue;
+        }
+
+        #endregion
+
+        #region Dijkstra
+
+        public override List<string> dijkstra(string origen, string destino)
+        {
+            List<string> recorrido;
+            Nodo centinela;
+            Stack<Nodo> recorridos;
+            recorridos = new Stack<Nodo>();
+            recorrido = new List<string>();
+            this.iniciaBanderaAristas();
+            centinela = base.BuscaNodo(origen);
+            while (!centinela.Nombre.Equals(destino))
+            {
+                if ((centinela.Nombre.Equals(origen) && !centinela.FataReccorer))
+                {
+                    break;
+                }
+                if (!this.nodoEnPila(centinela, recorridos))
+                {
+                    recorridos.Push(centinela);
+                }
+                /*if (!centinela.fataReccorer && !centinela.Nombre.Equals(destino) && !centinela.Nombre.Equals(origen))
+                {
+                    recorridos.Pop();
+                    centinela = recorridos.Peek();
+                }*/
+                centinela = MetodosAuxiliares.siguenteDijkstra(centinela, ref recorridos);
+            }
+            if (!centinela.Nombre.Equals(origen))
+            {
+                foreach (Nodo nodo in recorridos)
+                {
+                    recorrido.Add(nodo.Nombre);
+                }
+                recorrido.Reverse();
+                /*char[] aux = recorrido.ToCharArray();
+                Array.Reverse(aux);
+                recorrido = new string(aux);*/
+                recorrido.Add(centinela.Nombre);
+            }
+            else
+            {
+                if (!origen.Equals(destino))
+                {
+                    recorrido.Clear();
+                    recorrido.Add("No existe Camino");
+                }
+                else
+                {
+                    recorrido.Add(origen);
+                }
+            }
+            return recorrido;
+        }
+
+        private bool nodoEnPila(Nodo nodo, Stack<Nodo> recorridos)
+        {
+            bool existe;
+            existe = false;
+            foreach (Nodo nodo2 in recorridos)
+            {
+                if (nodo.Nombre.Equals(nodo2.Nombre))
+                {
+                    existe = true;
+                    break;
+                }
+            }
+            return existe;
+        }
+
+        private void iniciaBanderaAristas()
+        {
+            foreach (Nodo nodo in this)
+            {
+                nodo.visitado = false;
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    arista.recorrida = false;
+                }
+            }
+        }
+
+        private int pesaCamino(List<Arista> camino)
+        {
+            int peso;
+            peso = 0;
+            foreach (Arista arista in camino)
+            {
+                peso += arista.Peso;
+            }
+            return peso;
+        }
+
+        public int dijkstra(string origen, Nodo destino)
+        {
+            int peso;
+            peso = 0;
+            List<string> recorrido = dijkstra(origen, destino.Nombre);
+            if (!recorrido.Equals("No existe Camino"))
+            {
+                peso = this.calculaPeso(recorrido);
+            }
+            else
+            {
+                peso = int.MaxValue;
+            }
+            return peso;
+        }
+
+        private int calculaPeso(List<string> recorrido)
+        {
+            int peso;
+            Nodo nodo;
+            peso = 0;
+            for (int i = 0; i < recorrido.Count - 1; i++)
+            {
+                nodo = BuscaNodo(recorrido[i].ToString());
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    if (arista.Arriba.Nombre.Equals(recorrido[i + 1].ToString()))
+                    {
+                        peso += arista.Peso;
+                        break;
+                    }
+                }
+            }
+            return peso;
+        }
+
+        public override string[] vectorDijkstra(string origen)
+        {
+            string[] vector;
+            vector = new string[this.Count];
+            int i;
+            i = 0;
+            int peso;
+            foreach (Nodo nodo in this)
+            {
+                if (!nodo.Nombre.Equals(origen))
+                {
+                    peso = this.dijkstra(origen, nodo);
+                    if (peso != int.MaxValue)
+                    {
+                        vector[i] = peso.ToString();
+                    }
+                    else
+                    {
+                        vector[i] = "∞";
+                    }
+                }
+                else
+                {
+                    vector[i] = "0";
+                }
+                i++;
+            }
+            return vector;
         }
 
         #endregion

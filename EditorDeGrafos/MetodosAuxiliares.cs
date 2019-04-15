@@ -498,5 +498,50 @@ namespace EditorDeGrafos
         }
         
         #endregion
+
+        #region Dijkstra
+
+        public static Nodo siguenteDijkstra(Nodo centinela, ref Stack<Nodo> recorridos)
+        {
+            Nodo siguiente;
+            Arista auxA;
+            siguiente = null;
+            int pesoMenor;
+            pesoMenor = int.MaxValue;
+            auxA = null;
+            foreach (Arista arista in centinela.Aristas)
+            {
+                if (arista.Peso < pesoMenor && !arista.recorrida)
+                {
+                    if (!arista.Arriba.visitado)
+                    {
+                        pesoMenor = arista.Peso;
+                        auxA = arista;
+                    }
+                    else
+                    {
+                        arista.recorrida = true;
+                    }
+                }
+            }
+            if (auxA != null)
+            {
+                auxA.recorrida = true;
+                auxA.Arriba.visitado = true;
+                siguiente = auxA.Arriba;
+            }
+            else
+            {
+                if (recorridos.Count != 1)
+                {
+                    recorridos.Pop();
+                }
+                siguiente = recorridos.Peek();
+            }
+            return siguiente;
+        }
+
+        #endregion
+
     }
 }

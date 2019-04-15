@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Kuratowski));
             this.ToolBar = new System.Windows.Forms.ToolStrip();
-            this.EliminaNodo = new System.Windows.Forms.ToolStripButton();
+            this.InsertaNodo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.EliminarArista = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -47,7 +47,7 @@
             // 
             this.ToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.EliminaNodo,
+            this.InsertaNodo,
             this.toolStripSeparator2,
             this.EliminarArista,
             this.toolStripSeparator1,
@@ -64,15 +64,15 @@
             this.ToolBar.Text = "ToolBar";
             this.ToolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Clicked_Kuratowski);
             // 
-            // EliminaNodo
+            // InsertaNodo
             // 
-            this.EliminaNodo.AccessibleName = "EliminaNodo";
-            this.EliminaNodo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EliminaNodo.Image = ((System.Drawing.Image)(resources.GetObject("EliminaNodo.Image")));
-            this.EliminaNodo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EliminaNodo.Name = "EliminaNodo";
-            this.EliminaNodo.Size = new System.Drawing.Size(23, 22);
-            this.EliminaNodo.Text = "Elimina Nodo";
+            this.InsertaNodo.AccessibleName = "InsertaNodo";
+            this.InsertaNodo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.InsertaNodo.Image = ((System.Drawing.Image)(resources.GetObject("InsertaNodo.Image")));
+            this.InsertaNodo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.InsertaNodo.Name = "InsertaNodo";
+            this.InsertaNodo.Size = new System.Drawing.Size(23, 22);
+            this.InsertaNodo.Text = "Inserta Nodo Puente";
             // 
             // toolStripSeparator2
             // 
@@ -161,7 +161,7 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip ToolBar;
-        private System.Windows.Forms.ToolStripButton EliminaNodo;
+        private System.Windows.Forms.ToolStripButton InsertaNodo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton EliminarArista;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
