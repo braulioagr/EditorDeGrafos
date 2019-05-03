@@ -12,6 +12,7 @@ namespace EditorDeGrafos
     {
         #region NonSerialized
         [NonSerialized] public bool visitado;
+        [NonSerialized] private int erdos;
         #endregion
 
         #region Variables de Instancia
@@ -176,6 +177,12 @@ namespace EditorDeGrafos
                 }
                 return falta;
             }
+        }
+
+        public int Erdos
+        {
+            get { return this.erdos; }
+            set { this.erdos = value; }
         }
 
         #endregion

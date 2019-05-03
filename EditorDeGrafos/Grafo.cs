@@ -106,177 +106,139 @@ namespace EditorDeGrafos
                 return aristas;
             }
         }
+
+        public string AristasArbol
+        {
+            get
+            {
+                string aristasArbol;
+                aristasArbol = "";
+                foreach (Nodo nodo in this)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        if (arista.Tipo.Equals("Arbol"))
+                        {
+                            aristasArbol += ", e:" + arista.Id;
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(aristasArbol))
+                {
+                    aristasArbol = aristasArbol.Substring(1);
+                }
+                else
+                {
+                    aristasArbol = "No existen Aristas de Arbol";
+                }
+                return aristasArbol;
+
+            }
+        }
+
+        public string AristasCruce
+        {
+            get
+            {
+                string aristasCruce;
+                aristasCruce = "";
+                foreach (Nodo nodo in this)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        if (arista.Tipo.Equals("Cruce"))
+                        {
+                            aristasCruce += ", e:" + arista.Id;
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(aristasCruce))
+                {
+                    aristasCruce = aristasCruce.Substring(1);
+                }
+                else
+                {
+                    aristasCruce = "No existen Aristas de Cruce";
+                }
+                return aristasCruce;
+            }
+        }
+
+        public string AristasAvance
+        {
+            get
+            {
+                string aristasAvance;
+                aristasAvance = "";
+                foreach (Nodo nodo in this)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        if (arista.Tipo.Equals("Avance"))
+                        {
+                            aristasAvance += ", e:" + arista.Id;
+                        }
+                    }
+                }
+                if(!string.IsNullOrEmpty(aristasAvance))
+                {
+                    aristasAvance = aristasAvance.Substring(1);
+                }
+                else
+                {
+                    aristasAvance = "No existen Aristas de Avance";
+                }
+                return aristasAvance;
+            }
+        }
+
+        public string AristasRetroceso
+        {
+            get
+            {
+                string aristasRetroceso;
+                aristasRetroceso = "";
+                foreach (Nodo nodo in this)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        if (arista.Tipo.Equals("Retroceso"))
+                        {
+                            aristasRetroceso += ", e:" + arista.Id;
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(aristasRetroceso))
+                {
+                    aristasRetroceso = aristasRetroceso.Substring(1);
+                }
+                else
+                {
+                    aristasRetroceso = "No existen Aristas de Retroceso";
+                }
+                return aristasRetroceso;
+            }
+        }
         #endregion
 
         #region Metodos
 
-        #region Busqueda
-
-        #region Nodo
-
-        /**
-         * Sobrecarga del metodo busca nodo el cual regresa una bandera
-         *      boleana y un nodo por referenciapara poder ser modificado
-         *  @param ref Nodo Nodo mandado por referencia para poder ser modificado
-         *  @param Point Punto el cual se verificara si selecciono el area de alguno
-         *               de  
-         *  @return bool retorna verdadero si encuentra el nodo y falso en
-         *               caso de no encontrarlo.
-         */
-        public bool BuscaNodo(ref Nodo np, Point p1)
-        {
-            int difX;
-            int difY;
-            bool band = false;
-            foreach (Nodo n in this)
-            {
-                difX = Math.Abs(p1.X - n.Pc.X);
-                difY = Math.Abs(p1.Y - n.Pc.Y);
-                if (difX < n.TamNodo / 2 && difY < n.TamNodo / 2)
-                {
-                    np = n;
-                    band = true;
-                }
-            }
-            return band;
-        }
-
-        public bool BuscaNodo(Nodo nodo, ref Nodo nodo2)
-        {
-            int difX;
-            int difY;
-            bool band = false;
-            foreach (Nodo n in this)
-            {
-                difX = Math.Abs(nodo.Pc.X - n.Pc.X);
-                difY = Math.Abs(nodo.Pc.Y - n.Pc.Y);
-                if ((difX < n.TamNodo / 2 && difY < n.TamNodo / 2) && !nodo.Nombre.Equals(n.Nombre))
-                {
-                    nodo2 = n;
-                    band = true;
-                }
-            }
-            return band;
-        }
-
-        /**
-         * Este metodo es un algoritmo de busqueda que permite idetificar si
-         * si el punto donde se dio el click esta en el area de alguno de los
-         * guardados en este grafo.
-         * 
-         * @param ref Point Este punto es el punto en el que se dio el click,
-         *                  esta referenciado debido a que si se en cuentra
-         *                  detro del área de un nodo se modificara para estar
-         *                  en el centro de este.
-         * @return bool retorna un booleano que indica si en efecto el punto
-         *              en el que se le dio click esta dentro del área de la
-         *              lista de nodos correspondiente.
-         */
-        public bool BuscaNodo(ref Point p1)
-        {
-            int difX;
-            int difY;
-            bool band = false;
-            foreach (Nodo n in this)
-            {
-                difX = Math.Abs(p1.X - n.Pc.X);
-                difY = Math.Abs(p1.Y - n.Pc.Y);
-                if (difX < n.TamNodo / 2 && difY < n.TamNodo / 2)
-                {
-                    p1 = n.Pc;
-                    band = true;
-                }
-            }
-            return band;
-        }
-
-        /**
-         * Sobrecarga del metodo busca nodo, este algoritmo se encarga
-         *  @param Point Punto con el cual se cicla para saber si esta 
-         *              dentro del area de alguno de los nodos del grafo.
-         *  @return Nodo regresa el nodo encontrado;
-         */
-        public Nodo BuscaNodo(Point p1)
-        {
-
-            int difX;
-            int difY;
-            foreach (Nodo busca in this)
-            {
-                difX = Math.Abs(p1.X - busca.Pc.X);
-                difY = Math.Abs(p1.Y - busca.Pc.Y);
-                if (difX < busca.TamNodo / 2 && difY < busca.TamNodo / 2)
-                {
-                    nodo = busca;
-                }
-            }
-            return nodo;
-        }
-
-        /**
-         */
-        public Nodo BuscaNodo(string nombre)
-        {
-            Nodo nodo;
-            nodo = null;
-            foreach (Nodo busca in this)
-            {
-                if (busca.Nombre.Equals(nombre))
-                {
-                    nodo = busca;
-                    break;
-                }
-            }
-            return nodo;
-        }
-        #endregion
-
-        #region Arista
-        /**
-         * Metodo que se realiza para buscar el un nodo que contenga almenos
-         *           una arista, mediante un ciclo for-each va recorriendo la
-         *           lista de nodos contenida en este grafo, al detectar que el
-         *           Count de la lista de nodosR sea mayor a 0 obtiene el primer
-         *           elemento de esa lista modifica la bandera en true
-         * @param ref Arista Este nodo al encontrar que el count de la lista de 
-         *                  Arista se iguala al primer elemento de dicha lista para
-         *                  poder ser referenciado y ser utilizado mas adelante
-         * @return bool Bandera que indica si se encontro almenos una arista dentro
-         *              del grafo
-         */
-        public bool buscaArista(ref Arista arista)
-        {
-            bool band = false;
-            foreach (Nodo busca in this)
-            {
-                if (busca.Aristas.Count > 0)
-                {
-                    arista = busca.Aristas[0];
-                    band = true;
-                }
-            }
-            return band;
-        }
-
-        public Arista buscaArista()
-        {
-            Arista arista;
-            arista = null;
-            foreach (Nodo busca in this)
-            {
-                if (busca.Aristas.Count > 0)
-                {
-                    arista = busca.Aristas[0];
-                    break;
-                }
-            }
-            return arista;
-        }
-        #endregion
-
-        #endregion
-
         #region Escenciales
+
+        public int encuentraIndice(Nodo nodo)
+        {
+            int j;
+            j = 0;
+            for (int i = 0; i < this.Count; i++)
+            {
+                if (nodo.Equals(this[i]))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            return j;
+        }
 
         public void InsertaArista(Point p1, Point p2, int peso, int AnchoLinea, Color colorLinea,int id)
         {
@@ -294,6 +256,7 @@ namespace EditorDeGrafos
                     np1.Aristas.Add(arista);
                 }
             }
+            this.actualizaId();
         }
 
         /**
@@ -311,6 +274,18 @@ namespace EditorDeGrafos
                 foreach (Arista arista in nodo.Aristas)
                 {
                     arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),this.ponderado);
+                }
+                nodo.dibujaNodo(g);
+            }
+        }
+
+        public void DibujaGrafoBosque(Graphics g)
+        {
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    arista.dibujaAristaBosque(g);
                 }
                 nodo.dibujaNodo(g);
             }
@@ -494,6 +469,186 @@ namespace EditorDeGrafos
 
         #endregion
 
+        #region Busqueda
+
+        #region Nodo
+
+        /**
+         * Sobrecarga del metodo busca nodo el cual regresa una bandera
+         *      boleana y un nodo por referenciapara poder ser modificado
+         *  @param ref Nodo Nodo mandado por referencia para poder ser modificado
+         *  @param Point Punto el cual se verificara si selecciono el area de alguno
+         *               de  
+         *  @return bool retorna verdadero si encuentra el nodo y falso en
+         *               caso de no encontrarlo.
+         */
+        public bool BuscaNodo(ref Nodo np, Point p1)
+        {
+            int difX;
+            int difY;
+            bool band = false;
+            foreach (Nodo n in this)
+            {
+                difX = Math.Abs(p1.X - n.Pc.X);
+                difY = Math.Abs(p1.Y - n.Pc.Y);
+                if (difX < n.TamNodo / 2 && difY < n.TamNodo / 2)
+                {
+                    np = n;
+                    band = true;
+                }
+            }
+            return band;
+        }
+
+        public bool BuscaNodo(Nodo nodo, ref Nodo nodo2)
+        {
+            int difX;
+            int difY;
+            bool band = false;
+            foreach (Nodo n in this)
+            {
+                difX = Math.Abs(nodo.Pc.X - n.Pc.X);
+                difY = Math.Abs(nodo.Pc.Y - n.Pc.Y);
+                if ((difX < n.TamNodo / 2 && difY < n.TamNodo / 2) && !nodo.Nombre.Equals(n.Nombre))
+                {
+                    nodo2 = n;
+                    band = true;
+                }
+            }
+            return band;
+        }
+
+        /**
+         * Este metodo es un algoritmo de busqueda que permite idetificar si
+         * si el punto donde se dio el click esta en el area de alguno de los
+         * guardados en este grafo.
+         * 
+         * @param ref Point Este punto es el punto en el que se dio el click,
+         *                  esta referenciado debido a que si se en cuentra
+         *                  detro del área de un nodo se modificara para estar
+         *                  en el centro de este.
+         * @return bool retorna un booleano que indica si en efecto el punto
+         *              en el que se le dio click esta dentro del área de la
+         *              lista de nodos correspondiente.
+         */
+        public bool BuscaNodo(ref Point p1)
+        {
+            int difX;
+            int difY;
+            bool band = false;
+            foreach (Nodo n in this)
+            {
+                difX = Math.Abs(p1.X - n.Pc.X);
+                difY = Math.Abs(p1.Y - n.Pc.Y);
+                if (difX < n.TamNodo / 2 && difY < n.TamNodo / 2)
+                {
+                    p1 = n.Pc;
+                    band = true;
+                }
+            }
+            return band;
+        }
+
+        /**
+         * Sobrecarga del metodo busca nodo, este algoritmo se encarga
+         *  @param Point Punto con el cual se cicla para saber si esta 
+         *              dentro del area de alguno de los nodos del grafo.
+         *  @return Nodo regresa el nodo encontrado;
+         */
+        public Nodo BuscaNodo(Point p1)
+        {
+
+            int difX;
+            int difY;
+            foreach (Nodo busca in this)
+            {
+                difX = Math.Abs(p1.X - busca.Pc.X);
+                difY = Math.Abs(p1.Y - busca.Pc.Y);
+                if (difX < busca.TamNodo / 2 && difY < busca.TamNodo / 2)
+                {
+                    nodo = busca;
+                }
+            }
+            return nodo;
+        }
+
+        /**
+         */
+        public Nodo BuscaNodo(string nombre)
+        {
+            Nodo nodo;
+            nodo = null;
+            foreach (Nodo busca in this)
+            {
+                if (busca.Nombre.Equals(nombre))
+                {
+                    nodo = busca;
+                    break;
+                }
+            }
+            return nodo;
+        }
+        #endregion
+
+        #region Arista
+        /**
+         * Metodo que se realiza para buscar el un nodo que contenga almenos
+         *           una arista, mediante un ciclo for-each va recorriendo la
+         *           lista de nodos contenida en este grafo, al detectar que el
+         *           Count de la lista de nodosR sea mayor a 0 obtiene el primer
+         *           elemento de esa lista modifica la bandera en true
+         * @param ref Arista Este nodo al encontrar que el count de la lista de 
+         *                  Arista se iguala al primer elemento de dicha lista para
+         *                  poder ser referenciado y ser utilizado mas adelante
+         * @return bool Bandera que indica si se encontro almenos una arista dentro
+         *              del grafo
+         */
+        public bool buscaArista(ref Arista arista)
+        {
+            bool band = false;
+            foreach (Nodo busca in this)
+            {
+                if (busca.Aristas.Count > 0)
+                {
+                    arista = busca.Aristas[0];
+                    band = true;
+                }
+            }
+            return band;
+        }
+
+        public Arista buscaArista()
+        {
+            Arista arista;
+            arista = null;
+            foreach (Nodo busca in this)
+            {
+                if (busca.Aristas.Count > 0)
+                {
+                    arista = busca.Aristas[0];
+                    break;
+                }
+            }
+            return arista;
+        }
+
+        public Arista buscaArista(string origen, string destino)
+        {
+            this.nodo = this.BuscaNodo(origen);
+            foreach (Arista arista in nodo.Aristas)
+            {
+                if(arista.Arriba.Nombre.Equals(destino))
+                {
+                    this.arista = arista;
+                    break;
+                }
+            }
+            return this.arista;
+        }
+        #endregion
+
+        #endregion
+
         #region Operaciones
 
         #region Complemento
@@ -635,6 +790,7 @@ namespace EditorDeGrafos
         #region Virtuales
 
         #region Esenciales
+
         public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
         {
             return null;
@@ -797,7 +953,7 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
-        public virtual Grafo matrizDeCostos()
+        public virtual int[,] matrizDeCostos()
         {
             throw new NotImplementedException();
         }
@@ -807,6 +963,42 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
         
+        #endregion
+
+        #region Floyd
+
+        public virtual List<string> floyd(string origen, string destino)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual int[,] FloydWarshall()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Bosque de Busqueda Profunda
+
+        public virtual void bosqueBusquedaProfunda(Nodo nodo, int erdoz)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void eliminaBosque()
+        {
+            foreach (Nodo nodo in this)
+            {
+                nodo.Erdos = -1;
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    arista.Tipo = "null";
+                }
+                nodo.Aristas = nodo.Aristas.OrderBy(arista => arista.Arriba.Nombre).ToList(); ;
+            }
+        }
+
         #endregion
 
         #endregion

@@ -62,6 +62,7 @@ namespace EditorDeGrafos
                         if (nAux != null && nAux.Equals(n))
                         {
                             n.Aristas.Remove(arista);
+                            this.actualizaId();
                             return 1;
                         }
                     }
@@ -81,7 +82,7 @@ namespace EditorDeGrafos
                                     }
                                 }
                                 n.Aristas.Remove(arista);
-
+                                this.actualizaId();
                                 return 1;
                             }
                         }
@@ -104,6 +105,7 @@ namespace EditorDeGrafos
                                 }
                             }
                             n.Aristas.Remove(arista);
+                            this.actualizaId();
                             return 1;
                         }
                     }

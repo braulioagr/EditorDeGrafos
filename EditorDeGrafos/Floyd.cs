@@ -10,51 +10,61 @@ using System.Windows.Forms;
 
 namespace EditorDeGrafos
 {
-    partial class Dijkstra : Form
+    partial class Floyd : Form
     {
+
         #region Variables de Instancia
         int[,] matrizCostos;
+        int[,] matrizRecorridos;
         Grafo grafo;
         Timer reloj;
         List<string> recorrido;
         #endregion
 
         #region Declaracion de Delegados
-        public delegate List<string> EventoDijkstra(string origen, string destino);
-        public delegate string[] VectorOrigen(string origen);
+        public delegate List<string> EventoFloyd(string origen, string destino);
         public delegate void BorraRecorrido();
         #endregion
 
         #region Declaracion de Eventos
-        public event EventoDijkstra dijsktra;
-        public event VectorOrigen vector;
+        public event EventoFloyd floyd;
         public event BorraRecorrido borraRecorrido;
         #endregion
 
         #region Constructores
-
-        public Dijkstra(Grafo grafo, Timer reloj)
+        public Floyd(int[,] matrizCostos, int[,] matrizRecorridos, Grafo grafo,Timer reloj)
         {
+            this.matrizCostos = matrizCostos;
+            this.matrizRecorridos = matrizRecorridos;
             this.grafo = grafo;
-            this.matrizCostos = grafo.matrizDeCostos();
             this.reloj = reloj;
             InitializeComponent();
         }
 
-        private void Dijkstra_Load(object sender, EventArgs e)
+        private void Floyd_Load(object sender, EventArgs e)
         {
-
             int gradoInterno;
-            DataGridMatriz.ColumnCount = matrizCostos.GetLength(0)+1;
-            DataGridMatriz.Columns[0].Name = "Nodos";
+            dataGridCostos.ColumnCount = matrizCostos.GetLength(0) + 1;
+            dataGridCostos.Columns[0].Name = "Nodos";
             for (int i = 1; i < grafo.Count; i++)
             {
-                DataGridMatriz.Columns[i].Name = grafo[i - 1].Nombre;
+                dataGridCostos.Columns[i].Name = grafo[i - 1].Nombre;
             }
-            DataGridMatriz.Columns[grafo.Count].Name = grafo.Last().Nombre;
+            dataGridCostos.Columns[grafo.Count].Name = grafo.Last().Nombre;
             foreach (Nodo busca in grafo)
             {
-                DataGridMatriz.Rows.Add(MetodosAuxiliares.vectorNodo(busca.Nombre,grafo.encuentraIndice(busca),matrizCostos));
+                dataGridCostos.Rows.Add(MetodosAuxiliares.vectorNodo(busca.Nombre, grafo.encuentraIndice(busca), matrizCostos));
+            }
+            dataGridRecorridos.ColumnCount = matrizCostos.GetLength(0) + 1;
+            dataGridRecorridos.Columns[0].Name = "Nodos";
+            for (int i = 1; i < grafo.Count; i++)
+            {
+                dataGridRecorridos.Columns[i].Name = grafo[i - 1].Nombre;
+            }
+            dataGridRecorridos.Columns[grafo.Count].Name = grafo.Last().Nombre;
+            foreach (Nodo busca in grafo)
+            {
+                dataGridRecorridos.Rows.Add(MetodosAuxiliares.vectorNodo(busca.Nombre, grafo.encuentraIndice(busca), matrizRecorridos));
             }
             foreach (Nodo nodo in grafo)
             {
@@ -81,85 +91,6 @@ namespace EditorDeGrafos
             comboOrigen.Text = comboOrigen.Items[0].ToString();
             comboOrigen.Text = "";
         }
-
-        #endregion
-
-        #region Metodos
-        public void actualizaVector()
-        {
-            dataGridVector.Rows.Clear();
-            string[] vector = this.vector(comboOrigen.Text);
-            for (int i = 0; i < grafo.Count; i++)
-            {
-                dataGridVector.Rows.Add(grafo[i].Nombre, vector[i]);
-            }
-            label2.Text = "Vector de origen: " + comboOrigen.Text;
-        }
-
-        #endregion
-
-        #region Eventos
-
-        #region ComboBox
-
-        private void comboOrigen_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(comboOrigen.Text))
-            {
-                this.actualizaVector();
-                if (!string.IsNullOrEmpty(comboDestino.Text))
-                {
-                    this.richTextBoxRecorrido.Text = "";
-                    if (this.reloj.Enabled)
-                    {
-                        this.reloj.Enabled = false;
-                        this.borraRecorrido();
-                    }
-                    this.recorrido = this.dijsktra(comboOrigen.Text, comboDestino.Text);
-                    if (!recorrido.Equals("No existe Camino"))
-                    {
-                        for (int i = 0; i < recorrido.Count - 1; i++)
-                        {
-                            this.richTextBoxRecorrido.Text += recorrido[i];
-                            this.richTextBoxRecorrido.Text += "->";
-                        }
-                        this.richTextBoxRecorrido.Text += recorrido.Last();
-                    }
-                    else
-                    {
-                        this.richTextBoxRecorrido.Text = "No existe Camino";
-                    }
-                }
-            }
-        }
-
-        private void comboDestino_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(comboOrigen.Text) && !string.IsNullOrEmpty(comboDestino.Text))
-            {
-                this.richTextBoxRecorrido.Text = "";
-                if (this.reloj.Enabled)
-                {
-                    this.reloj.Enabled = false;
-                    this.borraRecorrido();
-                }
-                this.recorrido = this.dijsktra(comboOrigen.Text, comboDestino.Text);
-                if (!recorrido.Equals("No existe Camino"))
-                {
-                    for (int i = 0; i < recorrido.Count - 1; i++)
-                    {
-                        this.richTextBoxRecorrido.Text += recorrido[i];
-                        this.richTextBoxRecorrido.Text += "->";
-                    }
-                    this.richTextBoxRecorrido.Text += recorrido.Last();
-                }
-                else
-                {
-                    this.richTextBoxRecorrido.Text = "No existe Camino";
-                }
-            }
-        }
-
         #endregion
 
         #region Botones
@@ -196,15 +127,65 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Area Cliente
-        private void Dijkstra_Resize(object sender, EventArgs e)
+        #region ComboBox
+
+        private void comboOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*Size size = new Size(this.Size.Width - 40, this.Size.Height - 162);
-            this.DataGridMatriz.Size = size;
-            Point p = new Point((this.Size.Width / 2) - 45, (this.Size.Height) - 74);
-            this.Cerrar.Location = p;
-            p = new Point((this.Size.Width / 2) - 45, (this.Size.Height) - 144);*/
+            if (!string.IsNullOrEmpty(comboOrigen.Text))
+            {
+                if (!string.IsNullOrEmpty(comboDestino.Text))
+                {
+                    this.richTextBoxRecorrido.Text = "";
+                    if (this.reloj.Enabled)
+                    {
+                        this.reloj.Enabled = false;
+                        this.borraRecorrido();
+                    }
+                    this.recorrido = this.floyd(comboOrigen.Text, comboDestino.Text);
+                    if (!recorrido.Equals("No existe Camino"))
+                    {
+                        for (int i = 0; i < recorrido.Count - 1; i++)
+                        {
+                            this.richTextBoxRecorrido.Text += recorrido[i];
+                            this.richTextBoxRecorrido.Text += "->";
+                        }
+                        this.richTextBoxRecorrido.Text += recorrido.Last();
+                    }
+                    else
+                    {
+                        this.richTextBoxRecorrido.Text = "No existe Camino";
+                    }
+                }
+            }
         }
+
+        private void comboDestino_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(comboOrigen.Text) && !string.IsNullOrEmpty(comboDestino.Text))
+            {
+                this.richTextBoxRecorrido.Text = "";
+                if (this.reloj.Enabled)
+                {
+                    this.reloj.Enabled = false;
+                    this.borraRecorrido();
+                }
+                this.recorrido = this.floyd(comboOrigen.Text, comboDestino.Text);
+                if (!recorrido.Equals("No existe Camino"))
+                {
+                    for (int i = 0; i < recorrido.Count - 1; i++)
+                    {
+                        this.richTextBoxRecorrido.Text += recorrido[i];
+                        this.richTextBoxRecorrido.Text += "->";
+                    }
+                    this.richTextBoxRecorrido.Text += recorrido.Last();
+                }
+                else
+                {
+                    this.richTextBoxRecorrido.Text = "No existe Camino";
+                }
+            }
+        }
+
         #endregion
 
         #region TrackBar
@@ -214,6 +195,5 @@ namespace EditorDeGrafos
         }
         #endregion
 
-        #endregion
     }
 }

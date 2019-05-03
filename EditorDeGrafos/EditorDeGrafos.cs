@@ -35,6 +35,7 @@ namespace EditorDeGrafos
         private bool bandNombre;
         private bool bandArista;
         private bool bandRecorrido;
+        private bool bandPeso;
         private string directorio;
         private List<string> recorrido;
         #endregion
@@ -62,6 +63,7 @@ namespace EditorDeGrafos
         private Nodo nodo;
         private Nodo anterior;
         private Nodo actual;
+        private Arista arista;
         private Grafo grafo;
         #endregion
 
@@ -93,6 +95,7 @@ namespace EditorDeGrafos
             this.bandNombre = false;
             this.bandArista = false;
             this.bandRecorrido = false;
+            this.bandPeso = false;
             //this.recorrido = "";
             #endregion
 
@@ -184,13 +187,10 @@ namespace EditorDeGrafos
                             this.habilitaOpcionesGrafoDirigido();
                                 this.numAristas = this.grafo.Aristas;
                         }
-                        else
+                        else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
                         {
-                            if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
-                            {
-                                this.habilitaOpcionesGrafoNoDirigido();
-                            this.numAristas = this.grafo.Aristas / 2;
-                            }
+                           this.habilitaOpcionesGrafoNoDirigido();
+                           this.numAristas = this.grafo.Aristas / 2;
                         }
                         this.EditorDeGrafos_Paint(this, null);
                     }
@@ -238,6 +238,50 @@ namespace EditorDeGrafos
                 case "MoverGrafo":
                     this.opcion = 5;
                 break;
+                case "Ponderación":
+                    bandPeso = !bandPeso;
+                    numericKn.Visible = false;
+                    numericCn.Visible = false;
+                    numericWn.Visible = false;
+                    if(bandPeso)
+                    {
+                        this.opcion = -1;
+                        this.activaSpin();
+                        this.deshabititaOpciones();
+                        Archivo.Enabled = false;
+                        CrearNodo.Enabled = false;
+                        pesosArista.Enabled = false;
+                        AbrirTool.Enabled = false;
+                        GuardarTool.Enabled = false;
+                        pesosAristaTool.Enabled = false;
+                        CrearNodoTool.Enabled = false;
+                        EspecialesTool.Enabled = false;
+                        ToolBarMetodos.Enabled = false;
+                        ToolBarMetodos2.Enabled = false;
+                        PonderaciónArista.Enabled = true;
+                        PonderaciónAristaTool.Enabled = true;
+                    }
+                    else
+                    {
+                        this.desactivaSpin();
+                        EspecialesTool.Enabled = true;
+                        ToolBarMetodos.Enabled = true;
+                        ToolBarMetodos2.Enabled = true;
+                        Archivo.Enabled = true;
+                        this.habilitaOpcionesGrafo();
+                        if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                        {
+                            habilitaOpcionesGrafoDirigido();
+                        }
+                        else
+                        {
+                            if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                            {
+                                habilitaOpcionesGrafoNoDirigido();
+                            }
+                        }
+                    }
+                break;
                 case "EliminarGrafo":
                    if (MessageBox.Show("¿Seguro quiere eliminar el grafo?", "No me quiero ir señor usuario :'(", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
@@ -271,6 +315,7 @@ namespace EditorDeGrafos
                 case "EliminarNodo":
                 case "AristaDirigida":
                 case "AristaNoDirigida":
+                case "Ponderación":
                 case "EliminarArista":
                 case "MoverGrafo":
                 case "EliminarGrafo":
@@ -407,10 +452,54 @@ namespace EditorDeGrafos
                     #region Dijkstra
                     Dijkstra dijkstra;
                     dijkstra = new Dijkstra(grafo, this.relojDijkstra);
-                    dijkstra.dijsktra += new Dijkstra.Evento_Dijkstra(this.dijkstra);
-                    dijkstra.borra_Recorrido += new Dijkstra.Borra_Recorrido(this.redibujaGrafo);
-                    dijkstra.vector += new Dijkstra.Vector_Origen(grafo.vectorDijkstra);
+                    dijkstra.dijsktra += new Dijkstra.EventoDijkstra(this.dijkstra);
+                    dijkstra.borraRecorrido += new Dijkstra.BorraRecorrido(this.redibujaGrafo);
+                    dijkstra.vector += new Dijkstra.VectorOrigen(grafo.vectorDijkstra);
+                    if(!grafo.Ponderado)
+                    {
+                        grafo.Ponderado = true;
+                    }
                     dijkstra.Show();
+                    #endregion
+                break;
+                case "BBP":
+                    #region Bosqueda de Busqueda Profunda
+                    SeleccionRaiz seleccion;
+                    seleccion = new SeleccionRaiz(grafo);
+                    if (seleccion.ShowDialog() == DialogResult.OK)
+                    {
+                        AristasBBP aristasBBP;
+                        aristasBBP = new AristasBBP(this.grafo);
+                        grafo.eliminaBosque();
+                        grafo.bosqueBusquedaProfunda(grafo.BuscaNodo(seleccion.Raiz),0);
+                        foreach (Nodo nodo in this.grafo)
+                        {
+                            if (nodo.Erdos == -1)
+                            {
+                                grafo.bosqueBusquedaProfunda(nodo, 0);
+                            }
+                        }
+                        g.Clear(BackColor);
+                        grafo.DibujaGrafoBosque(g);
+                        aristasBBP.ShowDialog();
+                        aristasBBP.Dispose();
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                    seleccion.Dispose();
+                    #endregion
+                break;
+                case "Floyd":
+                    #region Floyd
+                    Floyd floyd;
+                    floyd = new Floyd(this.grafo.matrizDeCostos(), this.grafo.FloydWarshall(), this.grafo,this.relojFloyd);
+                    floyd.floyd += new Floyd.EventoFloyd(this.floyd);
+                    floyd.borraRecorrido += new Floyd.BorraRecorrido(this.redibujaGrafo);
+                    floyd.Show();
+                    #endregion
+                break;
+                default:
+                    #region Inexistente
+                    MessageBox.Show("Este metodo no esta disponible para los Grafos Dirigidofos", "Metodo Inexistente");
                     #endregion
                 break;
             }
@@ -641,6 +730,11 @@ namespace EditorDeGrafos
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
                 break;
+                default:
+                    #region Inexistente
+                    MessageBox.Show("Este metodo no esta disponible para los Grafos No Dirigidofos", "Metodo Inexistente");
+                    #endregion
+                break;
             }
             #endregion
         }
@@ -688,8 +782,32 @@ namespace EditorDeGrafos
                     #endregion
 
                 break;
+            }            
+            #endregion
+        }
+
+        private void MetodosTool2_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+            #region GrafoDirigido
+            if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+            {
+                this.Dirigido_Clicked(sender, e);
             }
-            
+            #endregion
+
+            #region GrafoNoDirigido
+            else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+            {
+                this.NoDirigido_Clicked(sender, e);
+            }
+            #endregion
+
+            #region Grafo
+            else
+            {
+                MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");
+            }
             #endregion
         }
 
@@ -922,6 +1040,14 @@ namespace EditorDeGrafos
                     break;
                 case 6://EliminaArista
                     grafo.BorraArista(e.Location);
+                    if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                    {
+                        this.numAristas = grafo.Aristas;
+                    }
+                    else if(typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                    {
+                        this.numAristas = grafo.Aristas/2;
+                    }
                     if (grafo.Aristas == 0)
                     {
                         this.grafo = new Grafo(this.grafo);
@@ -1236,14 +1362,11 @@ namespace EditorDeGrafos
 
         #region Timer
 
-        private void relojHammilton_Tick(object sender, EventArgs e)
+        private void relojFloyd_Tick(object sender, EventArgs e)
         {
             Graphics gAux;
             gAux = CreateGraphics();
-            //gAux = Graphics.FromImage(bmp);
-            Pen penAux;
-            penAux = new Pen(Color.Green, this.anchoLineaN + 2);
-            penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
+            gAux = Graphics.FromImage(bmp);
             anterior = actual;
             if (rec > recorrido.Count - 1)
             {
@@ -1262,9 +1385,38 @@ namespace EditorDeGrafos
             {
                 anterior.dibujaNodo(gAux, Color.Red);
                 actual = grafo.BuscaNodo(recorrido[rec].ToString());
-                gAux.DrawLine(penAux,
-                              MetodosAuxiliares.PuntoInterseccion(anterior.Pc, actual.Pc, tamNodo / 2)
-                             , MetodosAuxiliares.PuntoInterseccion(actual.Pc, anterior.Pc, tamNodo / 2));
+                this.arista = grafo.buscaArista(anterior.Nombre, actual.Nombre);
+                this.arista.dibujaArista(gAux, true, true, Color.Green);
+            }
+            bandRecorrido = !bandRecorrido;
+            g.DrawImage(bmp, 0, 0);
+        }
+
+        private void relojDijkstra_Tick(object sender, EventArgs e)
+        {
+            Graphics gAux;
+            gAux = CreateGraphics();
+            gAux = Graphics.FromImage(bmp);
+            anterior = actual;
+            if (rec > recorrido.Count - 1)
+            {
+                rec = 0;
+                gAux.Clear(BackColor);
+                grafo.DibujaGrafo(gAux);
+                bandRecorrido = false;
+            }
+            if (!bandRecorrido)
+            {
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                actual.dibujaNodo(gAux, Color.Blue);
+                rec++;
+            }
+            else
+            {
+                anterior.dibujaNodo(gAux, Color.Red);
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                this.arista = grafo.buscaArista(anterior.Nombre, actual.Nombre);
+                this.arista.dibujaArista(gAux, true, true, Color.Green);
             }
             bandRecorrido = !bandRecorrido;
             g.DrawImage(bmp, 0, 0);
@@ -1275,9 +1427,6 @@ namespace EditorDeGrafos
             Graphics gAux;
             gAux = CreateGraphics();
             gAux = Graphics.FromImage(bmp);
-            Pen penAux;
-            penAux = new Pen(Color.Green, this.anchoLineaN + 1);
-            penAux.CustomEndCap = new AdjustableArrowCap(5, 5);
             anterior = actual;
             if (rec > recorrido.Count - 1)
             {
@@ -1296,9 +1445,8 @@ namespace EditorDeGrafos
             {
                 anterior.dibujaNodo(gAux, Color.Red);
                 actual = grafo.BuscaNodo(recorrido[rec].ToString());
-                gAux.DrawLine(penAux,
-                              MetodosAuxiliares.PuntoInterseccion(anterior.Pc, actual.Pc, tamNodo / 2)
-                             , MetodosAuxiliares.PuntoInterseccion(actual.Pc, anterior.Pc, tamNodo / 2));
+                this.arista = grafo.buscaArista(anterior.Nombre, actual.Nombre);
+                this.arista.dibujaArista(gAux, true, false, Color.Green);
             }
             bandRecorrido = !bandRecorrido;
             g.DrawImage(bmp, 0, 0);
@@ -1358,9 +1506,17 @@ namespace EditorDeGrafos
          */
         private void habilitaOpcionesGrafoNoDirigido()
         {
+            CrearNodo.Enabled = true;
+            CrearNodoTool.Enabled = true;
+            AbrirTool.Enabled = true;
+            GuardarTool.Enabled = true;
             grafoDirigidoToolStripMenuItem.Enabled = false;
             grafoNoDirigidoToolStripMenuItem.Enabled = true;
             AristaDirigida.Enabled = false;
+            PonderaciónArista.Enabled = true;
+            PonderaciónAristaTool.Enabled = true;
+            pesosArista.Enabled = true;
+            pesosAristaTool.Enabled = true;
             AristaDirigidaTool.Enabled = false;
             EliminarArista.Enabled = true;
             EliminarAristaTool.Enabled = true;
@@ -1370,10 +1526,18 @@ namespace EditorDeGrafos
          */
         private void habilitaOpcionesGrafoDirigido()
         {
+            CrearNodo.Enabled = true;
+            CrearNodoTool.Enabled = true;
+            AbrirTool.Enabled = true;
+            GuardarTool.Enabled = true;
             grafoDirigidoToolStripMenuItem.Enabled = true;
             grafoNoDirigidoToolStripMenuItem.Enabled = false;
             AristaNoDirigida.Enabled = false;
             AristaNoDirigidaTool.Enabled = false;
+            pesosArista.Enabled = true;
+            pesosAristaTool.Enabled = true;
+            PonderaciónArista.Enabled = true;
+            PonderaciónAristaTool.Enabled = true;
             EliminarArista.Enabled = true;
             EliminarAristaTool.Enabled = true;
         }
@@ -1391,6 +1555,8 @@ namespace EditorDeGrafos
             EliminarArista.Enabled = false;
             MoverGrafo.Enabled = false;
             EliminarGrafo.Enabled = false;
+            PonderaciónArista.Enabled = false;
+            PonderaciónAristaTool.Enabled = false;
             MoverNodoTool.Enabled = false;
             EliminarNodoTool.Enabled = false;
             AristaDirigidaTool.Enabled = false;
@@ -1420,7 +1586,115 @@ namespace EditorDeGrafos
         }
         #endregion
 
+        #region Floyd
+
+        private List<string> floyd(string origen, string destino)
+        {
+            this.recorrido = grafo.floyd(origen, destino);
+            this.bandRecorrido = false;
+            this.rec = 0;
+            this.EditorDeGrafos_Paint(this, null);
+            return this.recorrido;
+        }
         #endregion
 
+        #region Pesos
+
+        private void desactivaSpin()
+        {
+            if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+            {
+                #region Desactivacion y asignacion de pesos para grafos Dirigidos
+                foreach (Nodo nodo in grafo)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        arista.Peso = (int)arista.numericPeso.Value;
+                        this.Controls.Remove(arista.numericPeso);
+                        arista.numericPeso.Dispose();
+                    }
+                }
+                #endregion
+            }
+            if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+            {
+                #region Desactivacion y asignacion de pesos grafos no dirigidos
+                foreach (Nodo nodo in grafo)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        if (arista.numericPeso != null)//Si es diferente a null significa que a el y a su reciproca aun no se le asigna un peso
+                        {
+                            arista.Peso = (int)arista.numericPeso.Value;
+                            foreach (Arista reciproca in arista.Arriba.Aristas)
+                            {
+                                if (reciproca.Arriba.Nombre.Equals(nodo.Nombre))
+                                {
+                                    reciproca.Peso = (int)arista.numericPeso.Value;
+                                    reciproca.numericPeso = null;
+                                    break;
+                                }
+                            }
+                            this.Controls.Remove(arista.numericPeso);
+                            arista.numericPeso.Dispose();
+                        }
+                    }
+                }
+                #endregion
+            }
+        }
+
+        private void activaSpin()
+        {
+            if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
+            {
+                #region Activacion para grafos Dirigidos
+                foreach (Nodo nodo in grafo)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        arista.numericPeso = new NumericUpDown();
+                        arista.numericPeso.Value = arista.Peso;
+                        arista.numericPeso.Location = new Point((int)((nodo.Pc.X + arista.Arriba.Pc.X) / 2),
+                                             (int)((nodo.Pc.Y + arista.Arriba.Pc.Y) / 2));
+                        arista.numericPeso.Size = new Size(40, 20);
+                        this.Controls.Add(arista.numericPeso);
+                    }
+                }
+                #endregion
+            }
+            if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+            {
+                #region Activacion para grafos no dirigidos
+                foreach (Nodo nodo in grafo)
+                {
+                    foreach (Arista arista in nodo.Aristas)
+                    {
+                        if (arista.numericPeso == null)//Si es igual a null significa que a el y a su reciproca aun no se le asigna un spin
+                        {
+                            arista.numericPeso = new NumericUpDown();
+                            arista.numericPeso.Location = new Point((int)((nodo.Pc.X + arista.Arriba.Pc.X) / 2),
+                                                 (int)((nodo.Pc.Y + arista.Arriba.Pc.Y) / 2));
+                            arista.numericPeso.Size = new Size(40, 20);
+                            arista.numericPeso.Value = arista.Peso;
+                            foreach (Arista reciproca in arista.Arriba.Aristas)
+                            {
+                                if (reciproca.Arriba.Nombre.Equals(nodo.Nombre))
+                                {
+                                    reciproca.numericPeso = arista.numericPeso;
+                                    break;
+                                }
+                            }
+                            this.Controls.Add(arista.numericPeso);
+                        }
+                    }
+                }
+                #endregion
+            }
+        }
+        
+        #endregion
+
+        #endregion
     }
 }

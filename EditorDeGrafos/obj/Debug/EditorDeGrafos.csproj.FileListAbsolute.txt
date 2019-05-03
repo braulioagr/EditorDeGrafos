@@ -10,10 +10,12 @@ C:\Users\braul\Desktop\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pd
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe.config
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.pdb
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.AristasBBP.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Corolarios.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Dijkstra.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.EditorDeGrafos.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Euler.resources
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Floyd.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosDir.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosNoDir.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GrafoSecundario.resources
@@ -28,6 +30,7 @@ C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Properties.Resources.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Regiones.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.ReporteKuratowski.resources
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.SeleccionRaiz.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.TamañoYOrden.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.GenerateResource.Cache
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe

@@ -65,6 +65,7 @@ namespace EditorDeGrafos
                         if (nAux != null && nAux.Equals(n))
                         {
                             n.Aristas.Remove(arista);
+                            this.actualizaId();
                             return 1;
                         }
                     }
@@ -76,6 +77,7 @@ namespace EditorDeGrafos
                             if ((xp < xarista + sensibilidad && xp > xn - sensibilidad) || (xp > xarista - sensibilidad && xp < xn + sensibilidad))
                             {
                                 n.Aristas.Remove(arista);
+                                this.actualizaId();
                                 return 1;
                             }
                         }
@@ -90,6 +92,7 @@ namespace EditorDeGrafos
                         if ((xp < xarista + sensibilidad && xp > xn - sensibilidad) || (xp > xarista - sensibilidad && xp < xn + sensibilidad))
                         {
                             n.Aristas.Remove(arista);
+                            this.actualizaId();
                             return 1;
                         }
                     }
@@ -143,20 +146,6 @@ namespace EditorDeGrafos
             return matriz;
         }
 
-        private int encuentraIndice(Nodo nodo)
-        {
-            int j;
-            j = 0;
-            for (int i = 0; i < this.Count; i++)
-            {
-                if (nodo.Equals(this[i]))
-                {
-                    j = i;
-                    break;
-                }
-            }
-            return j;
-        }
         #endregion
 
         #region Eulerianos
@@ -319,59 +308,35 @@ namespace EditorDeGrafos
 
         #region Matriz de Costos
 
-        public override Grafo matrizDeCostos()
+        public override int[,] matrizDeCostos()
         {
-            Grafo grafoMatriz;
-            grafoMatriz = new GrafoDirigido(this, true);
-            Arista arista;
-            arista = base.buscaArista();
-            foreach (Nodo busca in grafoMatriz)
+            int[,] costos;
+            costos = new int[this.Count, this.Count];
+            for (int i = 0; i < this.Count; i++)
             {
-                busca.Aristas.Clear();
-            }
-            foreach (Nodo busca in grafoMatriz)
-            {
-                foreach (Nodo buscando in grafoMatriz)
+                for (int j = 0; j < this.Count; j++)
                 {
-                    arista = new Arista(int.MaxValue, MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, busca.TamNodo / 2),
-                                   MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, busca.TamNodo / 2), arista.AnchoLinea, arista.ColorLinea, buscando,0);
-                    busca.Aristas.Add(arista);
-                }
-            }
-            string origen, destino;
-            foreach (Nodo busca in grafoMatriz)
-            {
-                origen = busca.Nombre;
-                foreach (Arista buscando in busca.Aristas)
-                {
-                    destino = buscando.Arriba.Nombre;
-                    buscando.Peso = relacion(origen, destino);
-                }
-            }
-            for (int i = 0; i < grafoMatriz.Count; i++)
-            {
-                grafoMatriz[i].Aristas[i].Peso = 0;
-            }
-            return grafoMatriz;
-        }
-
-        private int relacion(string origen, string destino)
-        {
-            foreach (Nodo busca in this)
-            {
-                if (busca.Nombre.Equals(origen))
-                {
-                    foreach (Arista buscando in busca.Aristas)
+                    if (i != j)
                     {
-                        if (buscando.Arriba.Nombre.Equals(destino))
-                        {
-                            return buscando.Peso;
-                        }
+                        costos[i, j] = int.MaxValue/3;
                     }
-                    break;
+                    else
+                    {
+                        costos[i, j] = 0;
+                    }
                 }
             }
-            return int.MaxValue;
+            foreach (Nodo nodo in this)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    if(!nodo.Equals(arista.Arriba))
+                    {
+                        costos[this.encuentraIndice(arista.Arriba),this.encuentraIndice(nodo)] =  arista.Peso;
+                    }
+                }
+            }
+            return costos;
         }
 
         #endregion
@@ -411,9 +376,6 @@ namespace EditorDeGrafos
                     recorrido.Add(nodo.Nombre);
                 }
                 recorrido.Reverse();
-                /*char[] aux = recorrido.ToCharArray();
-                Array.Reverse(aux);
-                recorrido = new string(aux);*/
                 recorrido.Add(centinela.Nombre);
             }
             else
@@ -474,7 +436,7 @@ namespace EditorDeGrafos
             int peso;
             peso = 0;
             List<string> recorrido = dijkstra(origen, destino.Nombre);
-            if (!recorrido.Equals("No existe Camino"))
+            if (!recorrido.First().Equals("No existe Camino"))
             {
                 peso = this.calculaPeso(recorrido);
             }
@@ -537,5 +499,100 @@ namespace EditorDeGrafos
 
         #endregion
 
+        #region Bosque de Busqueda Profunda
+        public override void bosqueBusquedaProfunda(Nodo nodo, int erdoz)
+        {
+            nodo.Erdos = erdoz;
+            //Arbol, Avance, Cruce, Retroceso
+            foreach (Arista arista in nodo.Aristas)
+            {
+                if (arista.Arriba.Erdos == -1)//Arbol
+                {
+                    arista.Tipo = "Arbol";
+                    bosqueBusquedaProfunda(arista.Arriba, erdoz + 1);
+                }
+                else if (arista.Arriba.Erdos == nodo.Erdos)
+                {
+                    arista.Tipo = "Cruce";
+                }
+                else if (arista.Arriba.Erdos < nodo.Erdos)
+                {
+                    arista.Tipo = "Retroceso";
+                }
+                else if (arista.Arriba.Erdos > nodo.Erdos)
+                {
+                    arista.Tipo = "Avance";
+                }
+            }
+        }
+        #endregion
+
+        #region Floyd-Warshall
+
+        public override List<string> floyd(string origen, string destino)
+        {
+            List<string> recorrido;
+            Nodo centinela;
+            Stack<Nodo> recorridos;
+            recorridos = new Stack<Nodo>();
+            recorrido = new List<string>();
+            this.iniciaBanderaAristas();
+            centinela = base.BuscaNodo(origen);
+            while (!centinela.Nombre.Equals(destino))
+            {
+                if ((centinela.Nombre.Equals(origen) && !centinela.FataReccorer))
+                {
+                    break;
+                }
+                if (!this.nodoEnPila(centinela, recorridos))
+                {
+                    recorridos.Push(centinela);
+                }
+                centinela = MetodosAuxiliares.siguenteFloyd(centinela, ref recorridos,destino);
+            }
+            if (!centinela.Nombre.Equals(origen))
+            {
+                foreach (Nodo nodo in recorridos)
+                {
+                    recorrido.Add(nodo.Nombre);
+                }
+                recorrido.Reverse();
+                recorrido.Add(centinela.Nombre);
+            }
+            else
+            {
+                if (!origen.Equals(destino))
+                {
+                    recorrido.Clear();
+                    recorrido.Add("No existe Camino");
+                }
+                else
+                {
+                    recorrido.Add(origen);
+                }
+            }
+            return recorrido;
+        }
+
+        public override int[,] FloydWarshall()
+        {
+            int[,] distancia = this.matrizDeCostos();
+            for (int k = 0; k < distancia.GetLength(0); ++k)
+            {
+                for (int i = 0; i < distancia.GetLength(0); ++i)
+                {
+                    for (int j = 0; j < distancia.GetLength(0); ++j)
+                    {
+                        if ( distancia[i, j] > (distancia[i, k] + distancia[k, j]) )
+                        {
+                            distancia[i, j] = distancia[i, k] + distancia[k, j];
+                        }
+                    }
+                }
+            }
+            return distancia;
+        }
+
+        #endregion
     }
 }

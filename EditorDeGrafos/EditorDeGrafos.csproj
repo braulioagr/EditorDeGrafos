@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arista.cs" />
+    <Compile Include="AristasBBP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AristasBBP.Designer.cs">
+      <DependentUpon>AristasBBP.cs</DependentUpon>
+    </Compile>
     <Compile Include="Corolarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +77,12 @@
     </Compile>
     <Compile Include="Euler.Designer.cs">
       <DependentUpon>Euler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Floyd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Floyd.Designer.cs">
+      <DependentUpon>Floyd.cs</DependentUpon>
     </Compile>
     <Compile Include="GradosDir.cs">
       <SubType>Form</SubType>
@@ -147,6 +159,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Punto.cs" />
     <Compile Include="Regiones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,12 +172,22 @@
     <Compile Include="ReporteKuratowski.Designer.cs">
       <DependentUpon>ReporteKuratowski.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionRaiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionRaiz.Designer.cs">
+      <DependentUpon>SeleccionRaiz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Spline.cs" />
     <Compile Include="TamañoYOrden.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TamañoYOrden.Designer.cs">
       <DependentUpon>TamañoYOrden.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AristasBBP.resx">
+      <DependentUpon>AristasBBP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Corolarios.resx">
       <DependentUpon>Corolarios.cs</DependentUpon>
     </EmbeddedResource>
@@ -176,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Euler.resx">
       <DependentUpon>Euler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Floyd.resx">
+      <DependentUpon>Floyd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GradosDir.resx">
       <DependentUpon>GradosDir.cs</DependentUpon>
@@ -224,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteKuratowski.resx">
       <DependentUpon>ReporteKuratowski.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionRaiz.resx">
+      <DependentUpon>SeleccionRaiz.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TamañoYOrden.resx">
       <DependentUpon>TamañoYOrden.cs</DependentUpon>

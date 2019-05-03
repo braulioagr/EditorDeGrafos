@@ -541,7 +541,74 @@ namespace EditorDeGrafos
             return siguiente;
         }
 
+        public static object[] vectorNodo(string nombre, int indice, int[,] matrizCostos)
+        {
+            string[] vector;
+            vector = new string[matrizCostos.GetLength(0) + 1];
+            vector[0] = nombre;
+            for (int i = 0 ;  i < matrizCostos.GetLength(0) ; i++)
+            {
+                if (matrizCostos[i, indice] >= int.MaxValue /3)
+                {
+                    vector[i + 1] = "∞";
+                }
+                else
+                {
+                    vector[i+1] = matrizCostos[i,indice].ToString();
+                }
+            }
+            return vector;
+        }
+
         #endregion
 
+        #region Floyd
+
+        public static Nodo siguenteFloyd(Nodo actual, ref Stack<Nodo> recorridos, string destino)
+        {
+            Nodo siguiente;
+            Arista aristaAux;
+            siguiente = null;
+            int pesoMenor;
+            pesoMenor = int.MaxValue;
+            aristaAux = null;
+            foreach (Arista arista in actual.Aristas)
+            {
+                if (arista.Arriba.Nombre.Equals(destino))
+                {
+                    siguiente = arista.Arriba;
+                    aristaAux = null;
+                    break;
+                }
+                else if (arista.Peso < pesoMenor && !arista.recorrida)
+                {
+                    if (!arista.Arriba.visitado)
+                    {
+                        pesoMenor = arista.Peso;
+                        aristaAux = arista;
+                    }
+                    else
+                    {
+                        arista.recorrida = true;
+                    }
+                }
+            }
+            if (aristaAux != null )
+            {
+                aristaAux.recorrida = true;
+                aristaAux.Arriba.visitado = true;
+                siguiente = aristaAux.Arriba;
+            }
+            else if (siguiente == null)
+            {
+                if (recorridos.Count != 1)
+                {
+                    recorridos.Pop();
+                }
+                siguiente = recorridos.Peek();
+            }
+            return siguiente;
+        }
+        #endregion
     }
 }
