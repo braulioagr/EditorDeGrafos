@@ -35,3 +35,5 @@ C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.GenerateResource.Cache
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csprojResolveAssemblyReference.cache
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.PesosAristas.resources

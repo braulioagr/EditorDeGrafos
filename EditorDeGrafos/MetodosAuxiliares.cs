@@ -247,7 +247,6 @@ namespace EditorDeGrafos
             return inicio;
         }
 
-
         public static Nodo siguienteEnCircuito(Nodo actual, List<Arista> recorridas)
         {
             Nodo siguiente;

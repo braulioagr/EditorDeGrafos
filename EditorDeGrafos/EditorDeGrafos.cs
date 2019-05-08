@@ -971,6 +971,7 @@ namespace EditorDeGrafos
                 case "pesosArista":
                     #region Pesos Arista
                     grafo.Ponderado = !grafo.Ponderado;
+                    this.EditorDeGrafos_Paint(this,null);
                     #endregion
                 break;
             }
@@ -1123,35 +1124,40 @@ namespace EditorDeGrafos
 
         private void EditorDeGrafos_MouseUp(object sender, MouseEventArgs e)
         {
+            PesosAristas pesos;
             switch (opcion)
             {
                 case 2://AristaNoDirigida
                     #region  Arista no Dirigida
+                    pesos = new PesosAristas();
                     if (grafo.BuscaNodo(ref p2) && bandArista && band)
                     {
-                        if (!typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                        if (pesos.ShowDialog().Equals(DialogResult.OK))
                         {
-                            grafo = new GrafoNoDirigido(grafo);
-                            this.habilitaOpcionesGrafoNoDirigido();
-                        }
-                        if (!p1.Equals(p2))
-                        {
-                            numAristas++;
-                            this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color, numAristas);
-                            this.grafo.InsertaArista(this.p2, this.p1, 0, this.anchoLineaA, this.penArista.Color,numAristas);
-                            band = false;
-                            bandFinal = true;
-                            bandArista = false;
-                        }
-                        else
-                        {
-                            numAristas++;
-                            this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
-                            band = false;
-                            bandFinal = true;
-                            bandArista = false;
+                            if (!typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
+                            {
+                                grafo = new GrafoNoDirigido(grafo);
+                                this.habilitaOpcionesGrafoNoDirigido();
+                            }
+                            if (!p1.Equals(p2))
+                            {
+                                    numAristas++;
+                                    this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
+                                    this.grafo.InsertaArista(this.p1, this.p2, pesos.Valor, this.anchoLineaA, this.penArista.Color, numAristas);
+                                    this.grafo.InsertaArista(this.p2, this.p1, pesos.Valor, this.anchoLineaA, this.penArista.Color, numAristas);
+                                    band = false;
+                                    bandFinal = true;
+                                    bandArista = false;
+                            }
+                            else
+                            {
+                                    numAristas++;
+                                    this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
+                                    this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
+                                    band = false;
+                                    bandFinal = true;
+                                    bandArista = false;
+                            }
                         }
                     }
                     else
@@ -1169,32 +1175,36 @@ namespace EditorDeGrafos
                     break;
                 case 7://AristaDirigida
                     #region AristaDirigida
+                    pesos = new PesosAristas();
                     if (grafo.BuscaNodo(ref p2) && bandArista && band)
                     {
-                        if (!typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                        if (pesos.ShowDialog().Equals(DialogResult.OK))
                         {
-                            grafo = new GrafoDirigido(grafo);
-                            this.habilitaOpcionesGrafoDirigido();
-                        }
-                        if (!p1.Equals(p2))
-                        {
-                            numAristas++;
-                            this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
-                            band = false;
-                            bandFinal = true;
-                            bandArista = false;
-                        }
-                        else
-                        {
-                            numAristas++;
-                            this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
-                            this.grafo.InsertaArista(this.p1, this.p2, 0, this.anchoLineaA, this.penArista.Color,numAristas);
-                            band = false;
-                            bandFinal = true;
-                            bandArista = false;
-                            bandFinal = false;
-                            band = false;
+                            if (!typeof(GrafoDirigido).IsInstanceOfType(grafo))
+                            {
+                                grafo = new GrafoDirigido(grafo);
+                                this.habilitaOpcionesGrafoDirigido();
+                            }
+                            if (!p1.Equals(p2))
+                            {
+                                numAristas++;
+                                this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
+                                this.grafo.InsertaArista(this.p1, this.p2, pesos.Valor, this.anchoLineaA, this.penArista.Color, numAristas);
+                                band = false;
+                                bandFinal = true;
+                                bandArista = false;
+                            }
+                            else
+                            {
+                                numAristas++;
+                                this.pI2 = MetodosAuxiliares.PuntoInterseccion(this.p2, this.p1, tamNodo / 2);
+                                this.grafo.InsertaArista(this.p1, this.p2, pesos.Valor, this.anchoLineaA, this.penArista.Color, numAristas);
+                                band = false;
+                                bandFinal = true;
+                                bandArista = false;
+                                bandFinal = false;
+                                band = false;
+                            }
                         }
                     }
                     else
@@ -1433,7 +1443,7 @@ namespace EditorDeGrafos
                 rec = 0;
                 gAux.Clear(BackColor);
                 grafo.DibujaGrafo(gAux);
-                bandRecorrido = false;
+                bandRecorrido = false;  
             }
             if (!bandRecorrido)
             {

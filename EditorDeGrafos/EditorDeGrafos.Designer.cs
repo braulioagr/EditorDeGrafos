@@ -194,6 +194,7 @@
             this.MenuPrincipal.Size = new System.Drawing.Size(1047, 24);
             this.MenuPrincipal.TabIndex = 0;
             this.MenuPrincipal.Text = "menuPrincipal";
+            this.MenuPrincipal.Visible = false;
             // 
             // Archivo
             // 
@@ -748,7 +749,7 @@
             this.toolStripSeparator36,
             this.EtiquetasNodoTool,
             this.pesosAristaTool});
-            this.ToolBar.Location = new System.Drawing.Point(0, 24);
+            this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
             this.ToolBar.Size = new System.Drawing.Size(1047, 37);
             this.ToolBar.TabIndex = 1;
@@ -943,9 +944,9 @@
             this.GrafosWn,
             this.toolStripSeparator35,
             this.GrafoQ3});
-            this.EspecialesTool.Location = new System.Drawing.Point(1007, 61);
+            this.EspecialesTool.Location = new System.Drawing.Point(1007, 37);
             this.EspecialesTool.Name = "EspecialesTool";
-            this.EspecialesTool.Size = new System.Drawing.Size(40, 604);
+            this.EspecialesTool.Size = new System.Drawing.Size(40, 628);
             this.EspecialesTool.TabIndex = 3;
             this.EspecialesTool.Text = "toolStrip1";
             this.EspecialesTool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Especiales_Clicked);
@@ -1106,9 +1107,10 @@
             this.DijkstraATool.AccessibleName = "Dijkstra";
             this.DijkstraATool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.DijkstraATool.Image = ((System.Drawing.Image)(resources.GetObject("DijkstraATool.Image")));
+            this.DijkstraATool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.DijkstraATool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DijkstraATool.Name = "DijkstraATool";
-            this.DijkstraATool.Size = new System.Drawing.Size(23, 34);
+            this.DijkstraATool.Size = new System.Drawing.Size(34, 34);
             this.DijkstraATool.Text = "Algoritmo de Dijkstra";
             // 
             // toolStripSeparator55
@@ -1124,7 +1126,7 @@
             this.FloydTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.FloydTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.FloydTool.Name = "FloydTool";
-            this.FloydTool.Size = new System.Drawing.Size(23, 34);
+            this.FloydTool.Size = new System.Drawing.Size(34, 34);
             this.FloydTool.Text = "Algoritmo de Floyd";
             // 
             // toolStripSeparator52
@@ -1344,7 +1346,7 @@
             this.Teorema4CTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Teorema4CTool.Name = "Teorema4CTool";
             this.Teorema4CTool.Size = new System.Drawing.Size(34, 34);
-            this.Teorema4CTool.Text = "Coloreados";
+            this.Teorema4CTool.Text = "4Colores";
             // 
             // toolStripSeparator47
             // 
@@ -1395,10 +1397,10 @@
             this.Teorema4CTool,
             this.toolStripSeparator47,
             this.NumeroCTool});
-            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
+            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 37);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 604);
+            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 628);
             this.ToolBarMetodos.TabIndex = 2;
             this.ToolBarMetodos.Text = "Metodos";
             this.ToolBarMetodos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);

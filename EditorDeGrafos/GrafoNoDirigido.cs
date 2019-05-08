@@ -313,7 +313,7 @@ namespace EditorDeGrafos
         {
             Arista a;
             Nodo nodo;
-            Point p1 = new Point(s.Width / 2, s.Height / 2 + 37);
+            Point p1 = new Point(s.Width / 2, (s.Height / 2)+12);
             Point Pc = p1;
             Point Pe = new Point();
             int ancho = s.Height / 2 - 50;
@@ -354,7 +354,7 @@ namespace EditorDeGrafos
             Nodo nodo;
             Nodo ant = null;
             Arista a;
-            Point p1 = new Point(s.Width / 2, s.Height / 2 + 37);
+            Point p1 = new Point(s.Width / 2, s.Height / 2 + 12);
             Point Pc = p1;
             Point Pe = new Point();
             int ancho = s.Height / 2 - 50;
@@ -403,7 +403,7 @@ namespace EditorDeGrafos
         {
             Arista a;
             Nodo fin;
-            Point Pc = new Point(s.Width / 2, s.Height / 2 + 37);
+            Point Pc = new Point(s.Width / 2, s.Height / 2 + 12);
             Point Pe = new Point((Pc.X - (tam / 2)), (Pc.Y - (tam / 2)));
             this.CreaCn(s, n, ref num, tam, tamL, brushRelleno, brushName, penNodo, penArista, fuente);
             fin = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color,
