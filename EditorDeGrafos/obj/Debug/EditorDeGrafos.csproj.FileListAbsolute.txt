@@ -37,3 +37,4 @@ C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csprojResolveAssemblyReference.cache
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.PesosAristas.resources
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.CambiaPesoArista.resources

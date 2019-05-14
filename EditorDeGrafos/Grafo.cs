@@ -119,7 +119,7 @@ namespace EditorDeGrafos
                     {
                         if (arista.Tipo.Equals("Arbol"))
                         {
-                            aristasArbol += ", e:" + arista.Id;
+                            aristasArbol += ", e" + arista.Id;
                         }
                     }
                 }
@@ -148,7 +148,7 @@ namespace EditorDeGrafos
                     {
                         if (arista.Tipo.Equals("Cruce"))
                         {
-                            aristasCruce += ", e:" + arista.Id;
+                            aristasCruce += ", e" + arista.Id;
                         }
                     }
                 }
@@ -176,7 +176,7 @@ namespace EditorDeGrafos
                     {
                         if (arista.Tipo.Equals("Avance"))
                         {
-                            aristasAvance += ", e:" + arista.Id;
+                            aristasAvance += ", e" + arista.Id;
                         }
                     }
                 }
@@ -204,7 +204,7 @@ namespace EditorDeGrafos
                     {
                         if (arista.Tipo.Equals("Retroceso"))
                         {
-                            aristasRetroceso += ", e:" + arista.Id;
+                            aristasRetroceso += ", e" + arista.Id;
                         }
                     }
                 }

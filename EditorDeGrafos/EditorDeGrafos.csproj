@@ -54,6 +54,12 @@
     <Compile Include="AristasBBP.Designer.cs">
       <DependentUpon>AristasBBP.cs</DependentUpon>
     </Compile>
+    <Compile Include="CambiaPesoArista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambiaPesoArista.Designer.cs">
+      <DependentUpon>CambiaPesoArista.cs</DependentUpon>
+    </Compile>
     <Compile Include="Corolarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +199,9 @@
     </Compile>
     <EmbeddedResource Include="AristasBBP.resx">
       <DependentUpon>AristasBBP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CambiaPesoArista.resx">
+      <DependentUpon>CambiaPesoArista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Corolarios.resx">
       <DependentUpon>Corolarios.cs</DependentUpon>

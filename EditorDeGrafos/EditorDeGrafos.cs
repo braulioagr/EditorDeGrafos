@@ -70,6 +70,7 @@ namespace EditorDeGrafos
         #endregion
 
         #region Constructores
+
         public EditorDeGrafos()
         {
             InitializeComponent();
@@ -119,6 +120,7 @@ namespace EditorDeGrafos
             #endregion
 
         }
+
         #endregion
 
         #region Eventos
@@ -981,6 +983,7 @@ namespace EditorDeGrafos
         #endregion
 
         #region Mouse
+
         private void EditorDeGrafos_MouseDown(object sender, MouseEventArgs e)
         {
             switch (opcion)
@@ -1167,12 +1170,12 @@ namespace EditorDeGrafos
                     }
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
-                    break;
+                break;
                 case 4://MueveNodo
                     #region Mueve Nodo
                     bandFinal = false;
                     #endregion
-                    break;
+                break;
                 case 7://AristaDirigida
                     #region AristaDirigida
                     pesos = new PesosAristas();
@@ -1214,10 +1217,11 @@ namespace EditorDeGrafos
                     }
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
-                    break;
+                break;
             }
             this.EditorDeGrafos_Paint(this, null);
         }
+
         #endregion
 
         #region Area Cliente
@@ -1297,6 +1301,7 @@ namespace EditorDeGrafos
         #endregion
 
         #region numeric
+
         private void numericKn_ValueChanged(object sender, EventArgs e)
         {
             this.deshabititaOpciones();
@@ -1368,6 +1373,7 @@ namespace EditorDeGrafos
             this.numAristas = grafo.Aristas/2;
             this.EditorDeGrafos_Paint(this, null);
         }
+
         #endregion
 
         #region Timer

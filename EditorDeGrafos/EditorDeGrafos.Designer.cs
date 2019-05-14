@@ -1012,7 +1012,7 @@
             // 
             // numericKn
             // 
-            this.numericKn.Location = new System.Drawing.Point(963, 76);
+            this.numericKn.Location = new System.Drawing.Point(963, 46);
             this.numericKn.Minimum = new decimal(new int[] {
             1,
             0,
@@ -1033,7 +1033,7 @@
             // numericCn
             // 
             this.numericCn.AccessibleName = "Cn";
-            this.numericCn.Location = new System.Drawing.Point(963, 115);
+            this.numericCn.Location = new System.Drawing.Point(963, 85);
             this.numericCn.Minimum = new decimal(new int[] {
             3,
             0,
@@ -1054,7 +1054,7 @@
             // numericWn
             // 
             this.numericWn.AccessibleName = "Wn";
-            this.numericWn.Location = new System.Drawing.Point(963, 155);
+            this.numericWn.Location = new System.Drawing.Point(963, 125);
             this.numericWn.Minimum = new decimal(new int[] {
             3,
             0,
