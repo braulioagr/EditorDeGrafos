@@ -116,7 +116,7 @@ namespace EditorDeGrafos
                         this.borraRecorrido();
                     }
                     this.recorrido = this.dijsktra(comboOrigen.Text, comboDestino.Text);
-                    if (!recorrido.Equals("No existe Camino"))
+                    if (!recorrido.First().Equals("No existe Camino"))
                     {
                         for (int i = 0; i < recorrido.Count - 1; i++)
                         {

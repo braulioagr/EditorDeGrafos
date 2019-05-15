@@ -623,6 +623,32 @@
         8D+FrKZcQCdBP//Z+FeED8L/wv8RwJ9WAO5+BkEb0AAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="AciclicidadTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAS5SURBVEhLjdb/TxNnHAfw/ilmjCBfWqCFthSL6CY6oOWb
+        fCuMObcfFnRzc5tBs2RzZnHLXJZsEbLFyIKY4FxnjNlcRqBcEaJ8KzBwMmQIBmbFQo8iSil97567Xnt3
+        fVr8kPcPPZ7P8+rTe65PVdZrJ5DWapMl+4dqfFufB8tXZVH/I0ltrUUp13dp4nd4nrGg1ebQCNZOfxF6
+        BQS59C6MQX/pTaRdtCEKJuj3tWY4czLQZc5EsQIvuPoe7FPdeB7YEGak1KZrDGztG/BaD8J34lToqoD/
+        szyPrLZDcliKihHxzLYGfDnQBu8znzBLjJKiYqQ4Kcf8cASmoWKY3dm45fgVwSB5z7GLhtJwMgsPx0OH
+        8ox4XFQCb6UNgalpoZNSPGqjo2KkuKrmyocx0bH8XfBYysONbAxcii4Xl+NJYWm4R5m1pk/4HtWNd6qo
+        6DiHLktQMUp8Y8SFBWsF7uXmYdiQjV6tBlNGc1SfNGtnzkJ1vOUoGJMcHd2dS0XFsJV1CEzPwD95F0PG
+        XDB6Tbi3R5uG+fwCah8J+WT8dwaFe1x6tjTcOGDW40lxGbVJGra6Ht6aBozrjWAM6eF+Rp0CTxG9n2w8
+        /+0B/pMK72qC9+Vq8ajQQm1SZsVSgb8MOTKUZDBTSx0vRUmFYU1rHf78o53apAxBxznUKUEd6SlwJCXh
+        rt4UNZ6teV2GkgrDJ3ubsRXcwub4RFSjNCIqXalDk4KxjGw8PmDF4quFsvE82n87xEWKh42X38asdzF0
+        iXs84uCTOdxmUqC9CTv5x0g5NhZKioM/RrPLHnoZKRq+9FoJnLrIDnakJ6Nzx0vo0akxa35FNjYeurS+
+        AlXdb5/B/XQ5dEleSnwufx8Yo7Bah0ZAxUepPyXthVBSLaN2qOz3HPx3J60C0/dlX4PuAxYw2Rp+I0lR
+        EublJAncgMDMv6FZ5OXbWEfhLx9AxT6nnzYCeig8mZjhTF0U2q1Ohkutk41jawk+G5pNqCD39+PYdeE8
+        Dl2TVSyUhH92JShZfc+ORH5HK8cqcc+6F3s6GukwDSU71pWRhQmjSb6jMwT0UUGxbLw0Ir7FHalNzvP8
+        oxsFBx7MUVf6cO9+/t7SVhoPFUPwG90dSP+pPhrm0Tr6x/v3rrww+KIrlcbNneede/Uo+KZCDsdDSQb1
+        WTK4KyEB7hL6WGXIgUN+TJC+m/k6ASdw4ME82PrD1CYSctI4tWowWWp0p+5EV2IinMlqzNmvYXN0nNoj
+        xmMpg2u3Sfamb+7RYR+Hq9ZOfUptEuPeb8FASjqGUzMxpTfDzW20Dect/vaQ2hwZpfZ5uJWSc12KirlQ
+        ngtVkF2F793j1GZl2IM2+Hv7QmSklDj5eEcUKxXTUWSAsaVKuMcEX208JmtWJhYqloj/x53n5McEDf25
+        0ABDS7Vwj5eervCNwRUvVo+8HwWSbIeS8gcDsF/9Dn0mLRW9wqGm5qrIrm5iziPAncOkaPh2KPmpPeNd
+        wJHOr/lJK89Y46MiTM7jo53nOFw4Kni8UcC3Qxd9Szg3eBn69sORSRV4FEoiwvzg6ydxf+Uh/0VOcN+x
+        j+BnIruXFHlvGwE/7ixO4nT/BRja35JPKEnV51Y6SnLRhv8Bs4rfwKAFMtQAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="GradosTool.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -923,6 +949,9 @@
   </data>
   <metadata name="ToolBarMetodos.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>375, 17</value>
+  </metadata>
+  <metadata name="relojCiclos.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>198, 56</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>78</value>

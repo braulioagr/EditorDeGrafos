@@ -72,6 +72,8 @@
             this.DijkstraA = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator54 = new System.Windows.Forms.ToolStripSeparator();
             this.Floyd = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator53 = new System.Windows.Forms.ToolStripSeparator();
+            this.Aciclicidad = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.grafoNoDirigidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GradosNoDir = new System.Windows.Forms.ToolStripMenuItem();
@@ -172,6 +174,9 @@
             this.toolStripSeparator47 = new System.Windows.Forms.ToolStripSeparator();
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
+            this.relojCiclos = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator56 = new System.Windows.Forms.ToolStripSeparator();
+            this.AciclicidadTool = new System.Windows.Forms.ToolStripButton();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
@@ -194,7 +199,6 @@
             this.MenuPrincipal.Size = new System.Drawing.Size(1047, 24);
             this.MenuPrincipal.TabIndex = 0;
             this.MenuPrincipal.Text = "menuPrincipal";
-            this.MenuPrincipal.Visible = false;
             // 
             // Archivo
             // 
@@ -391,7 +395,9 @@
             this.toolStripSeparator51,
             this.DijkstraA,
             this.toolStripSeparator54,
-            this.Floyd});
+            this.Floyd,
+            this.toolStripSeparator53,
+            this.Aciclicidad});
             this.grafoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoDirigidoToolStripMenuItem.Name = "grafoDirigidoToolStripMenuItem";
             this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -500,6 +506,18 @@
             this.Floyd.Name = "Floyd";
             this.Floyd.Size = new System.Drawing.Size(220, 22);
             this.Floyd.Text = "Algoritmo de Floyd";
+            // 
+            // toolStripSeparator53
+            // 
+            this.toolStripSeparator53.Name = "toolStripSeparator53";
+            this.toolStripSeparator53.Size = new System.Drawing.Size(217, 6);
+            // 
+            // Aciclicidad
+            // 
+            this.Aciclicidad.AccessibleName = "Aciclicidad";
+            this.Aciclicidad.Name = "Aciclicidad";
+            this.Aciclicidad.Size = new System.Drawing.Size(220, 22);
+            this.Aciclicidad.Text = "Grafo Aciclico";
             // 
             // toolStripSeparator2
             // 
@@ -749,7 +767,7 @@
             this.toolStripSeparator36,
             this.EtiquetasNodoTool,
             this.pesosAristaTool});
-            this.ToolBar.Location = new System.Drawing.Point(0, 0);
+            this.ToolBar.Location = new System.Drawing.Point(0, 24);
             this.ToolBar.Name = "ToolBar";
             this.ToolBar.Size = new System.Drawing.Size(1047, 37);
             this.ToolBar.TabIndex = 1;
@@ -944,9 +962,9 @@
             this.GrafosWn,
             this.toolStripSeparator35,
             this.GrafoQ3});
-            this.EspecialesTool.Location = new System.Drawing.Point(1007, 37);
+            this.EspecialesTool.Location = new System.Drawing.Point(1007, 61);
             this.EspecialesTool.Name = "EspecialesTool";
-            this.EspecialesTool.Size = new System.Drawing.Size(40, 628);
+            this.EspecialesTool.Size = new System.Drawing.Size(40, 604);
             this.EspecialesTool.TabIndex = 3;
             this.EspecialesTool.Text = "toolStrip1";
             this.EspecialesTool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Especiales_Clicked);
@@ -1093,7 +1111,9 @@
             this.toolStripSeparator55,
             this.FloydTool,
             this.toolStripSeparator52,
-            this.BBPTool});
+            this.BBPTool,
+            this.toolStripSeparator56,
+            this.AciclicidadTool});
             this.ToolBarMetodos2.Location = new System.Drawing.Point(36, 628);
             this.ToolBarMetodos2.Name = "ToolBarMetodos2";
             this.ToolBarMetodos2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -1397,13 +1417,33 @@
             this.Teorema4CTool,
             this.toolStripSeparator47,
             this.NumeroCTool});
-            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 37);
+            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 628);
+            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 604);
             this.ToolBarMetodos.TabIndex = 2;
             this.ToolBarMetodos.Text = "Metodos";
             this.ToolBarMetodos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);
+            // 
+            // relojCiclos
+            // 
+            this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
+            // 
+            // toolStripSeparator56
+            // 
+            this.toolStripSeparator56.Name = "toolStripSeparator56";
+            this.toolStripSeparator56.Size = new System.Drawing.Size(6, 37);
+            // 
+            // AciclicidadTool
+            // 
+            this.AciclicidadTool.AccessibleName = "Aciclicidad";
+            this.AciclicidadTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AciclicidadTool.Image = ((System.Drawing.Image)(resources.GetObject("AciclicidadTool.Image")));
+            this.AciclicidadTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.AciclicidadTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AciclicidadTool.Name = "AciclicidadTool";
+            this.AciclicidadTool.Size = new System.Drawing.Size(34, 34);
+            this.AciclicidadTool.Text = "Prueba de Aciclicidad";
             // 
             // EditorDeGrafos
             // 
@@ -1418,6 +1458,7 @@
             this.Controls.Add(this.ToolBarMetodos);
             this.Controls.Add(this.ToolBar);
             this.Controls.Add(this.MenuPrincipal);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.MenuPrincipal;
             this.Name = "EditorDeGrafos";
@@ -1590,6 +1631,11 @@
         private System.Windows.Forms.ToolStrip ToolBarMetodos;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator52;
         private System.Windows.Forms.ToolStripButton BBPTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator53;
+        private System.Windows.Forms.ToolStripMenuItem Aciclicidad;
+        private System.Windows.Forms.Timer relojCiclos;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator56;
+        private System.Windows.Forms.ToolStripButton AciclicidadTool;
 
     }
 }

@@ -609,5 +609,38 @@ namespace EditorDeGrafos
             return siguiente;
         }
         #endregion
+
+        #region BBP
+
+        public static bool NodoEnRamas(string origen, string destino, List<List<string>> ramas)
+        {
+            bool band;
+            band = false;
+            foreach (List<string> rama in ramas)
+            {
+                foreach (string nodo in rama)
+                {
+                    if (nodo.Equals(origen))
+                    {
+                        foreach (string nodo2 in rama)
+                        {
+                            if (nodo2.Equals(destino))
+                            {
+                                band = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                if (band)
+                {
+                    break;
+                }
+            }
+            return band;
+        }
+        #endregion
+
     }
 }

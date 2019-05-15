@@ -125,7 +125,7 @@ namespace EditorDeGrafos
 
         #region Eventos
 
-        #region Eventos Menu
+        #region Menu
 
         private void Archivo_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -464,23 +464,28 @@ namespace EditorDeGrafos
                     dijkstra.Show();
                     #endregion
                 break;
-                case "BBP":
+                case "BBP":                
                     #region Bosqueda de Busqueda Profunda
                     SeleccionRaiz seleccion;
+                    AristasBBP aristasBBP;
+                    Stack<string> rama;
+                    List<List<string>> ramas;
+                    rama = new Stack<string>();
+                    ramas = new List<List<string>>();
                     seleccion = new SeleccionRaiz(grafo);
                     if (seleccion.ShowDialog() == DialogResult.OK)
                     {
-                        AristasBBP aristasBBP;
-                        aristasBBP = new AristasBBP(this.grafo);
                         grafo.eliminaBosque();
-                        grafo.bosqueBusquedaProfunda(grafo.BuscaNodo(seleccion.Raiz),0);
+                        grafo.bosqueBusquedaProfunda(grafo.BuscaNodo(seleccion.Raiz), 0, rama, ref ramas);
                         foreach (Nodo nodo in this.grafo)
                         {
                             if (nodo.Erdos == -1)
                             {
-                                grafo.bosqueBusquedaProfunda(nodo, 0);
+                                rama = new Stack<string>();
+                                grafo.bosqueBusquedaProfunda(nodo, 0, rama, ref ramas);
                             }
                         }
+                        aristasBBP = new AristasBBP(this.grafo);
                         g.Clear(BackColor);
                         grafo.DibujaGrafoBosque(g);
                         aristasBBP.ShowDialog();
@@ -488,6 +493,27 @@ namespace EditorDeGrafos
                         this.EditorDeGrafos_Paint(this, null);
                     }
                     seleccion.Dispose();
+                    #endregion
+                break;
+                case "Aciclicidad":
+                    #region Prueba de  Aciclicidad
+                    List<List<string>> bucles;
+                    bucles = new List<List<string>>();
+                    if (!grafo.pruebaDeAciclicidad(ref bucles))
+                    {
+                        if ((MessageBox.Show("Existen: "+bucles.Count.ToString() +" ciclos en el grafo \n ¿Desea ver la simulación de los ciclos?", bucles.Count.ToString() + " ciclos", MessageBoxButtons.YesNo).Equals(DialogResult.Yes)))
+                        {
+                            Ciclos ciclos;
+                            ciclos = new Ciclos(bucles, relojCiclos);
+                            ciclos.ciclo += new Ciclos.EventoCiclos(this.actualizaCiclo);
+                            ciclos.borraRecorrido += new Ciclos.BorraRecorrido(this.redibujaGrafo);
+                            ciclos.Show();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El grafo no presenta ningun ciclo");
+                    }
                     #endregion
                 break;
                 case "Floyd":
@@ -1377,6 +1403,35 @@ namespace EditorDeGrafos
         #endregion
 
         #region Timer
+        private void relojCiclos_Tick(object sender, EventArgs e)
+        {
+            Graphics gAux;
+            gAux = CreateGraphics();
+            gAux = Graphics.FromImage(bmp);
+            anterior = actual;
+            if (rec > recorrido.Count - 1)
+            {
+                rec = 0;
+                gAux.Clear(BackColor);
+                grafo.DibujaGrafo(gAux);
+                bandRecorrido = false;
+            }
+            if (!bandRecorrido)
+            {
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                actual.dibujaNodo(gAux, Color.Blue);
+                rec++;
+            }
+            else
+            {
+                anterior.dibujaNodo(gAux, Color.Red);
+                actual = grafo.BuscaNodo(recorrido[rec].ToString());
+                this.arista = grafo.buscaArista(anterior.Nombre, actual.Nombre);
+                this.arista.dibujaArista(gAux, true, true, Color.Green);
+            }
+            bandRecorrido = !bandRecorrido;
+            g.DrawImage(bmp, 0, 0);
+        }
 
         private void relojFloyd_Tick(object sender, EventArgs e)
         {
@@ -1710,6 +1765,19 @@ namespace EditorDeGrafos
         }
         
         #endregion
+
+        #region Ciclos
+
+        public void actualizaCiclo(List<string> ciclo)
+        {
+            this.recorrido = ciclo;
+            this.bandRecorrido = false;
+            this.rec = 0;
+            this.EditorDeGrafos_Paint(this, null);
+        }
+
+        #endregion
+
 
         #endregion
     }

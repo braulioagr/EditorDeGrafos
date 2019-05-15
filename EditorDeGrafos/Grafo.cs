@@ -981,7 +981,7 @@ namespace EditorDeGrafos
 
         #region Bosque de Busqueda Profunda
 
-        public virtual void bosqueBusquedaProfunda(Nodo nodo, int erdoz)
+        public virtual void bosqueBusquedaProfunda(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas)
         {
             throw new NotImplementedException();
         }
@@ -1001,11 +1001,35 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #endregion
+        #region Prueba De Aciclicidad
+
+        public virtual bool pruebaDeAciclicidad(ref List<List<string>> ciclo)
+        {
+ 	        throw new NotImplementedException();
+        }
+
+        public virtual void buscaCiclos(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas, ref List<List<string>> ciclos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual List<string> refinaCiclos(Stack<string> rama, string origen, string destino)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual List<List<string>> eliminaRepetidos(List<List<string>> ciclos)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
         #endregion
 
-    }
+        #endregion
+
+        #endregion
+
+ }
 }

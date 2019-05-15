@@ -499,34 +499,6 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Bosque de Busqueda Profunda
-        public override void bosqueBusquedaProfunda(Nodo nodo, int erdoz)
-        {
-            nodo.Erdos = erdoz;
-            //Arbol, Avance, Cruce, Retroceso
-            foreach (Arista arista in nodo.Aristas)
-            {
-                if (arista.Arriba.Erdos == -1)//Arbol
-                {
-                    arista.Tipo = "Arbol";
-                    bosqueBusquedaProfunda(arista.Arriba, erdoz + 1);
-                }
-                else if (arista.Arriba.Erdos == nodo.Erdos)
-                {
-                    arista.Tipo = "Cruce";
-                }
-                else if (arista.Arriba.Erdos < nodo.Erdos)
-                {
-                    arista.Tipo = "Retroceso";
-                }
-                else if (arista.Arriba.Erdos > nodo.Erdos)
-                {
-                    arista.Tipo = "Avance";
-                }
-            }
-        }
-        #endregion
-
         #region Floyd-Warshall
 
         public override List<string> floyd(string origen, string destino)
@@ -594,5 +566,156 @@ namespace EditorDeGrafos
         }
 
         #endregion
+        
+        #region Bosque de Busqueda Profunda
+        public override void bosqueBusquedaProfunda(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas)
+        {
+            List<string> aux;
+            nodo.Erdos = erdoz;
+            rama.Push(nodo.Nombre);
+            aux = rama.ToList();
+            ramas.Add(aux);
+            //Arbol, Avance, Cruce, Retroceso
+            foreach (Arista arista in nodo.Aristas)
+            {
+                if (arista.Arriba.Erdos == -1)//Arbol
+                {                    
+                    arista.Tipo = "Arbol";
+                    bosqueBusquedaProfunda(arista.Arriba, erdoz + 1, rama, ref ramas);
+                }
+                else if (MetodosAuxiliares.NodoEnRamas (nodo.Nombre, arista.Arriba.Nombre, ramas))
+                {
+                    if (arista.Arriba.Erdos > nodo.Erdos)
+                    {
+                        arista.Tipo = "Avance";
+                    }
+                    else if (arista.Arriba.Erdos < nodo.Erdos)
+                    {
+                        arista.Tipo = "Retroceso";
+                    }
+                }
+                else
+                {
+                    arista.Tipo = "Cruce";
+                }
+            }
+           /**/
+            rama.Pop();
+        }
+        #endregion
+
+        #region Prueba de Aciclicdad
+        public override bool pruebaDeAciclicidad(ref List<List<string>> ciclos)
+        {
+            Stack<string> rama;
+            List<List<string>> ramas;
+            rama = new Stack<string>();
+            ramas = new List<List<string>>();
+            bool band;
+            band = false;
+            foreach (Nodo nodo in this)
+            {
+                base.eliminaBosque();
+                this.buscaCiclos(nodo, 0, rama, ref ramas, ref ciclos);
+                foreach (Nodo nodo2 in this)
+                {
+                    if (nodo.Erdos == -1)
+                    {
+                        rama = new Stack<string>();
+                        this.buscaCiclos(nodo, 0, rama, ref ramas, ref ciclos);
+                    }
+                }
+            }
+            if (ciclos.Count == 0)
+            {
+                band = true;
+            }
+            return band;
+        }
+
+        public override void buscaCiclos(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas, ref List<List<string>> ciclos)
+        {
+            List<string> aux;
+            nodo.Erdos = erdoz;
+            rama.Push(nodo.Nombre);
+            aux = rama.ToList();
+            ramas.Add(aux);
+            //Arbol, Avance, Cruce, Retroceso
+            foreach (Arista arista in nodo.Aristas)
+            {
+                if (arista.Arriba.Erdos == -1)//Arbol
+                {
+                    arista.Tipo = "Arbol";
+                    this.buscaCiclos(arista.Arriba, erdoz + 1, rama, ref ramas,ref ciclos);
+                }
+                else if (MetodosAuxiliares.NodoEnRamas(nodo.Nombre, arista.Arriba.Nombre, ramas))
+                {
+                    if (arista.Arriba.Erdos > nodo.Erdos)
+                    {
+                        arista.Tipo = "Avance";
+                    }
+                    else if (arista.Arriba.Erdos < nodo.Erdos)
+                    {
+                        arista.Tipo = "Retroceso";
+                        ciclos.Add(this.refinaCiclos(rama,arista.Arriba.Nombre,nodo.Nombre));
+                    }
+                }
+                else
+                {
+                    arista.Tipo = "Cruce";
+                }
+            }
+            rama.Pop();
+        }
+
+        public override List<string> refinaCiclos(Stack<string> rama, string origen, string destino)
+        {
+            List<string> ciclo;
+            List<string> nociclo;
+            nociclo = new List<string>();
+            ciclo = rama.ToList();
+            ciclo.Reverse();
+            ciclo.Add(origen);
+            foreach(string nodo in ciclo)
+            {
+                if (nodo.Equals(origen))
+                {
+                    break;
+                }
+                nociclo.Add(nodo);
+            }
+            foreach (string nodo in nociclo)
+            {
+                ciclo.Remove(nodo);
+            }
+            return ciclo;
+        }
+
+        public override List<List<string>> eliminaRepetidos(List<List<string>> ciclos)
+        {
+            List<List<string>> noRepetidos;
+            noRepetidos = new List<List<string>>();
+            noRepetidos.Add(ciclos.First());
+            bool existe;
+            foreach(List<string> ciclo in ciclos)
+            {
+                existe = true;
+                foreach (List<string> cicloAux in noRepetidos)
+                {
+                    if (!ciclo.SequenceEqual(cicloAux))
+                    {
+                        existe = false;
+                    }
+                }
+                if (!existe)
+                {
+                    noRepetidos.Add(ciclo);
+                }
+            }
+            return noRepetidos;
+        }
+
+        #endregion
+
     }
 }
