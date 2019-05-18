@@ -307,32 +307,33 @@ namespace EditorDeGrafos
         }
         #endregion
 
-        #region GrafosEspeciales
+        #region Especiales
         public override void CreaKn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
                                     SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
         {
-            Arista a;
+            int ancho;
+            double grados, x, y,contG;
             Nodo nodo;
-            Point p1 = new Point(s.Width / 2, (s.Height / 2)+12);
-            Point Pc = p1;
-            Point Pe = new Point();
-            int ancho = s.Height / 2 - 50;
-            double grados = 360 / (double)n;
-            grados = grados * Math.PI / 180;
-            double contG = 0;
-            double x, y;
+            Arista arista;
+            Point p1, pc, pe;
+            ancho = ((s.Height - 50)/ 2) - 50;
+            grados = ((360 / (double)n) * Math.PI)/ 180;
+            contG = 0;
+            p1 = new Point(s.Width / 2, (s.Height / 2) + 12);
+            pc = p1;
+            pe = new Point();
             for (int i = 0; i < n; i++)
             {
                 x = Math.Round(ancho * Math.Sin(contG));
                 y = Math.Round(ancho * Math.Cos(contG));
-                Pc.X += (int)x;
-                Pc.Y -= (int)y;
+                pc.X += (int)x;
+                pc.Y -= (int)y;
                 contG += grados;
-                Pe.X = Pc.X - (tam / 2);
-                Pe.Y = Pc.Y - (tam / 2);
-                nodo = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color, brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
+                pe.X = pc.X - (tam / 2);
+                pe.Y = pc.Y - (tam / 2);
+                nodo = new Nodo(num.ToString(), pe, pc, penNodo.Color, brushRelleno.Color, brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
                 this.Add(nodo);
-                Pc = p1;
+                pc = p1;
                 num++;
             }
             foreach (Nodo busca in this)
@@ -341,9 +342,10 @@ namespace EditorDeGrafos
                 {
                     if (!busca.Equals(buscando))
                     {
-                        a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, tam / 2),
-                                       MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, tam / 2), (int)penArista.Width, penArista.Color,buscando,0);
-                        busca.Aristas.Add(a);
+                        arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(busca.Pc, buscando.Pc, tam / 2),
+                                               MetodosAuxiliares.PuntoInterseccion(buscando.Pc, busca.Pc, tam / 2),
+                                               (int)penArista.Width, penArista.Color,buscando,0);
+                        busca.Aristas.Add(arista);
                     }
                 }
             }
@@ -351,51 +353,53 @@ namespace EditorDeGrafos
         public override void CreaCn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
                                     SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
         {
+            int ancho;
+            double grados, x, y, contG;
             Nodo nodo;
-            Nodo ant = null;
-            Arista a;
-            Point p1 = new Point(s.Width / 2, s.Height / 2 + 12);
-            Point Pc = p1;
-            Point Pe = new Point();
-            int ancho = s.Height / 2 - 50;
-            double grados = 360 / (double)n;
-            grados = grados * Math.PI / 180;
-            double contG = 0;
-            double x, y;
+            Nodo anterior;
+            Arista arista;
+            Point p1, pc, pe;
+            ancho = ((s.Height - 50) / 2) - 50;
+            grados = ((360 / (double)n) * Math.PI) / 180;
+            contG = 0;
+            p1 = new Point(s.Width / 2, (s.Height / 2) + 12);
+            pc = p1;
+            pe = new Point();
+            anterior = null;
             for (int i = 0; i < n; i++)
             {
                 x = Math.Round(ancho * Math.Sin(contG));
                 y = Math.Round(ancho * Math.Cos(contG));
-                Pc.X += (int)x;
-                Pc.Y -= (int)y;
+                pc.X += (int)x;
+                pc.Y -= (int)y;
                 contG += grados;
-                Pe.X = Pc.X - (tam / 2);
-                Pe.Y = Pc.Y - (tam / 2);
-                nodo = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color, brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
+                pe.X = pc.X - (tam / 2);
+                pe.Y = pc.Y - (tam / 2);
+                nodo = new Nodo(num.ToString(), pe, pc, penNodo.Color, brushRelleno.Color, brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
                 if (i > 0)
                 {
-                    a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, ant.Pc, tam / 2),
-                                   MetodosAuxiliares.PuntoInterseccion(ant.Pc, nodo.Pc, tam / 2),
-                                   (int)penArista.Width, penArista.Color, ant, 0);
-                    nodo.Aristas.Add(a);
-                    a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(ant.Pc, nodo.Pc, tam / 2),
-                                   MetodosAuxiliares.PuntoInterseccion(nodo.Pc, ant.Pc, tam / 2),
-                                   (int)penArista.Width, penArista.Color, nodo, 0);
-                    ant.Aristas.Add(a);
+                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(nodo.Pc, anterior.Pc, tam / 2),
+                                           MetodosAuxiliares.PuntoInterseccion(anterior.Pc, nodo.Pc, tam / 2),
+                                           (int)penArista.Width, penArista.Color, anterior, 0);
+                    nodo.Aristas.Add(arista);
+                    arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(anterior.Pc, nodo.Pc, tam / 2),
+                                           MetodosAuxiliares.PuntoInterseccion(nodo.Pc, anterior.Pc, tam / 2),
+                                           (int)penArista.Width, penArista.Color, nodo, 0);
+                    anterior.Aristas.Add(arista);
                 }
                 this.Add(nodo);
-                ant = nodo;
-                Pc = p1;
+                anterior = nodo;
+                pc = p1;
                 num++;
             }
-            a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(this[0].Pc, ant.Pc, tam / 2),
-                           MetodosAuxiliares.PuntoInterseccion(ant.Pc, this[0].Pc, tam / 2),
-                           (int)penArista.Width, penArista.Color, ant, 0);
-            this[0].Aristas.Add(a);
-            a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(ant.Pc, this[0].Pc, tam / 2),
-                           MetodosAuxiliares.PuntoInterseccion(this[0].Pc, ant.Pc, tam / 2),
-                           (int)penArista.Width, penArista.Color, this[0], 0);
-            ant.Aristas.Add(a);
+            arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(this[0].Pc, anterior.Pc, tam / 2),
+                                   MetodosAuxiliares.PuntoInterseccion(anterior.Pc, this[0].Pc, tam / 2),
+                                   (int)penArista.Width, penArista.Color, anterior, 0);
+            this[0].Aristas.Add(arista);
+            arista = new Arista(0, MetodosAuxiliares.PuntoInterseccion(anterior.Pc, this[0].Pc, tam / 2),
+                                   MetodosAuxiliares.PuntoInterseccion(this[0].Pc, anterior.Pc, tam / 2),
+                                   (int)penArista.Width, penArista.Color, this[0], 0);
+            anterior.Aristas.Add(arista);
 
         }
         public override void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno,
@@ -403,18 +407,22 @@ namespace EditorDeGrafos
         {
             Arista a;
             Nodo fin;
-            Point Pc = new Point(s.Width / 2, s.Height / 2 + 12);
-            Point Pe = new Point((Pc.X - (tam / 2)), (Pc.Y - (tam / 2)));
+            Point pc;
+            Point pe;
+            pc = new Point(s.Width / 2, s.Height / 2 + 12);
+            pe = new Point((pc.X - (tam / 2)), (pc.Y - (tam / 2)));
             this.CreaCn(s, n, ref num, tam, tamL, brushRelleno, brushName, penNodo, penArista, fuente);
-            fin = new Nodo(num.ToString(), Pe, Pc, penNodo.Color, brushRelleno.Color,
+            fin = new Nodo(num.ToString(), pe, pc, penNodo.Color, brushRelleno.Color,
                      brushName.Color, tam, tamL, (int)penNodo.Width, fuente);
             foreach (Nodo busca in this)
             {
                 a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(busca.Pc, fin.Pc, tam / 2),
-                              MetodosAuxiliares.PuntoInterseccion(fin.Pc, busca.Pc, tam / 2), (int)penArista.Width, penArista.Color, fin, 0);
+                                  MetodosAuxiliares.PuntoInterseccion(fin.Pc, busca.Pc, tam / 2),
+                                  (int)penArista.Width, penArista.Color, fin, 0);
                 busca.Aristas.Add(a);
                 a = new Arista(0, MetodosAuxiliares.PuntoInterseccion(fin.Pc, busca.Pc, tam / 2),
-                               MetodosAuxiliares.PuntoInterseccion(busca.Pc, fin.Pc, tam / 2), (int)penArista.Width, penArista.Color, busca, 0);
+                                  MetodosAuxiliares.PuntoInterseccion(busca.Pc, fin.Pc, tam / 2),
+                                  (int)penArista.Width, penArista.Color, busca, 0);
                 fin.Aristas.Add(a);
             }
             this.Add(fin);
@@ -980,6 +988,49 @@ namespace EditorDeGrafos
             return false;
         }
 
+
+        #endregion
+
+        #region Bosque de Busqueda en Amplitud
+
+        public override void bosqueBusquedaAmplitud(List<Nodo> nivel, ref List<string> arbol, ref List<string> cruce)
+        {
+            List<Nodo> sigNivel;
+            sigNivel = new List<Nodo>();
+            /*foreach (Nodo nodo in nivel)
+            {
+                nodo.visitado = true;
+            }*/
+            foreach (Nodo nodo in nivel)
+            {
+                foreach (Arista arista in nodo.Aristas)
+                {
+                    if (arista.Tipo.Equals("null"))//Si la arista no tiene tipo se le asigna uno
+                    {
+                        if (!arista.Arriba.visitado)//Si no esta visitado es de arbol y por consiguiente su nodo debe ser
+                        {
+                            arista.Tipo = "Arbol";
+                            base.buscaReciproca(nodo, arista.Arriba).Tipo = "Arbol";
+                            arbol.Add("e" + arista.Id.ToString());
+                            sigNivel.Add(arista.Arriba);
+                            arista.Arriba.visitado = true;
+
+                        }
+                        else//En caso contrario es de cruce
+                        {
+                            arista.Tipo = "Cruce";
+                            base.buscaReciproca(nodo, arista.Arriba).Tipo = "Cruce";
+                            cruce.Add("e" + arista.Id.ToString());
+                        }
+                    }
+                }
+            }
+            if (sigNivel.Count != 0)
+            {
+                this.bosqueBusquedaAmplitud(sigNivel, ref arbol, ref cruce);
+            }
+
+        }
 
         #endregion
 

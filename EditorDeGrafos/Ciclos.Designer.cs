@@ -75,7 +75,6 @@
             this.comboCiclos.Location = new System.Drawing.Point(104, 12);
             this.comboCiclos.Name = "comboCiclos";
             this.comboCiclos.Size = new System.Drawing.Size(64, 21);
-            this.comboCiclos.Sorted = true;
             this.comboCiclos.TabIndex = 3;
             this.comboCiclos.SelectedIndexChanged += new System.EventHandler(this.comboCiclos_SelectedIndexChanged);
             // 

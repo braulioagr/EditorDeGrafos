@@ -12,8 +12,12 @@ namespace EditorDeGrafos
 {
     public partial class PesosAristas : Form
     {
-        public PesosAristas()
+        private bool p;
+
+        public PesosAristas(bool p)
         {
+            // TODO: Complete member initialization
+            this.p = p;
             InitializeComponent();
         }
         public int Valor
@@ -21,6 +25,15 @@ namespace EditorDeGrafos
             get
             {
                 return (int)this.numericUpDown1.Value;
+            }
+        }
+
+        private void PesosAristas_Load(object sender, EventArgs e)
+        {
+            if (!p)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }

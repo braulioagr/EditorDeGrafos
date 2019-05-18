@@ -174,14 +174,21 @@ namespace EditorDeGrafos
             g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);
         }
 
-        public void dibujaAristaBosque(Graphics g)
+        public void dibujaAristaBosque(Graphics g, bool dirigido, bool ponderado, int erdos)
         {
             Spline spline;
             string etiqueta;
             spline = new Spline(this.p1, this.p2);
             Pen pen = new Pen(this.colorLinea, anchoLinea + 2);
             etiqueta = "e" + id.ToString();
-            pen.CustomEndCap = new AdjustableArrowCap(5, 5);
+            if (dirigido)
+            {
+                pen.CustomEndCap = new AdjustableArrowCap(5, 5);
+            }
+            if (ponderado)
+            {
+                etiqueta += ": " + this.peso.ToString();
+            }
             if(this.tipo.Equals("Arbol"))//Arbol, Avance, Cruce, Retroceso
             {
                 pen.Color = Color.Red;
@@ -191,8 +198,15 @@ namespace EditorDeGrafos
             else if (this.tipo.Equals("Cruce"))
             {
                 pen.Color = Color.Green;
-                g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);//Linea
-                g.DrawString(etiqueta, new Font("Times New Roman", 10), new SolidBrush(Color.Purple), (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+                if (erdos == this.arriba.Erdos)
+                {
+                    g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);//Linea
+                    g.DrawString(etiqueta, new Font("Times New Roman", 10), new SolidBrush(Color.Purple), (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+                }
+                else
+                {
+                    spline.PintaCurva(g, Color.Green, anchoLinea + 2, etiqueta);//Spline
+                }
             }
             else if (this.tipo.Equals("Avance"))
             {

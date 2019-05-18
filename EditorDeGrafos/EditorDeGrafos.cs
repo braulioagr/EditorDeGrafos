@@ -758,6 +758,45 @@ namespace EditorDeGrafos
                     this.EditorDeGrafos_Paint(this, null);
                     #endregion
                 break;
+                case "BBA":
+                    #region Bosqueda de Busqueda Profunda
+                    SeleccionRaiz seleccion;
+                    AristasBBA aristasBBA;
+                    seleccion = new SeleccionRaiz(grafo);
+                    if (seleccion.ShowDialog() == DialogResult.OK)
+                    {
+                        List<Nodo> nivel;
+                        List<string> aristasArbol;
+                        List<string> aristasCruce;
+                        Nodo raiz;
+                        nivel = new List<Nodo>();
+                        aristasArbol = new List<string>();
+                        aristasCruce = new List<string>();
+                        raiz = grafo.BuscaNodo(seleccion.Raiz);
+                        raiz.visitado = true;
+                        nivel.Add(raiz);
+                        grafo.eliminaBosque();
+                        grafo.bosqueBusquedaAmplitud(nivel,ref aristasArbol, ref aristasCruce);
+                        foreach (Nodo nodo in this.grafo)
+                        {
+                            if (!nodo.visitado)
+                            {
+                                nivel.Clear();
+                                nivel.Add(nodo);
+                                nodo.visitado = true;
+                                grafo.bosqueBusquedaAmplitud(nivel, ref aristasArbol, ref aristasCruce);
+                            }
+                        }
+                        aristasBBA = new AristasBBA(this.grafo,aristasArbol,aristasCruce);
+                        g.Clear(BackColor);
+                        grafo.DibujaGrafoBosque(g);
+                        aristasBBA.ShowDialog();
+                        aristasBBA.Dispose();
+                        this.EditorDeGrafos_Paint(this, null);
+                    }
+                    seleccion.Dispose();
+                    #endregion
+                break;
                 default:
                     #region Inexistente
                     MessageBox.Show("Este metodo no esta disponible para los Grafos No Dirigidofos", "Metodo Inexistente");
@@ -811,31 +850,6 @@ namespace EditorDeGrafos
 
                 break;
             }            
-            #endregion
-        }
-
-        private void MetodosTool2_Clicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-            #region GrafoDirigido
-            if (typeof(GrafoDirigido).IsInstanceOfType(grafo))
-            {
-                this.Dirigido_Clicked(sender, e);
-            }
-            #endregion
-
-            #region GrafoNoDirigido
-            else if (typeof(GrafoNoDirigido).IsInstanceOfType(grafo))
-            {
-                this.NoDirigido_Clicked(sender, e);
-            }
-            #endregion
-
-            #region Grafo
-            else
-            {
-                MessageBox.Show("Primero debe definir si un grafo es dirigido o no dirigido", "Por favor Inserte Arista");
-            }
             #endregion
         }
 
@@ -1158,7 +1172,7 @@ namespace EditorDeGrafos
             {
                 case 2://AristaNoDirigida
                     #region  Arista no Dirigida
-                    pesos = new PesosAristas();
+                    pesos = new PesosAristas(this.grafo.Ponderado);
                     if (grafo.BuscaNodo(ref p2) && bandArista && band)
                     {
                         if (pesos.ShowDialog().Equals(DialogResult.OK))
@@ -1188,6 +1202,11 @@ namespace EditorDeGrafos
                                     bandArista = false;
                             }
                         }
+                        else
+                        {
+                            bandFinal = false;
+                            band = false;
+                        }
                     }
                     else
                     {
@@ -1204,7 +1223,7 @@ namespace EditorDeGrafos
                 break;
                 case 7://AristaDirigida
                     #region AristaDirigida
-                    pesos = new PesosAristas();
+                    pesos = new PesosAristas(this.grafo.Ponderado);
                     if (grafo.BuscaNodo(ref p2) && bandArista && band)
                     {
                         if (pesos.ShowDialog().Equals(DialogResult.OK))
@@ -1234,6 +1253,11 @@ namespace EditorDeGrafos
                                 bandFinal = false;
                                 band = false;
                             }
+                        }
+                        else
+                        {
+                            bandFinal = false;
+                            band = false;
                         }
                     }
                     else

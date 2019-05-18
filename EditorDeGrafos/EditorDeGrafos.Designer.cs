@@ -102,6 +102,7 @@
             this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
             this.NumeroC = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator49 = new System.Windows.Forms.ToolStripSeparator();
+            this.BBA = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EtiquetasNodo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
@@ -146,6 +147,10 @@
             this.FloydTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator52 = new System.Windows.Forms.ToolStripSeparator();
             this.BBPTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator56 = new System.Windows.Forms.ToolStripSeparator();
+            this.AciclicidadTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator57 = new System.Windows.Forms.ToolStripSeparator();
+            this.BBATool = new System.Windows.Forms.ToolStripButton();
             this.GradosTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.MatrizAdyacenciaTool = new System.Windows.Forms.ToolStripButton();
@@ -175,8 +180,6 @@
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
             this.relojCiclos = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator56 = new System.Windows.Forms.ToolStripSeparator();
-            this.AciclicidadTool = new System.Windows.Forms.ToolStripButton();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
@@ -199,6 +202,7 @@
             this.MenuPrincipal.Size = new System.Drawing.Size(1047, 24);
             this.MenuPrincipal.TabIndex = 0;
             this.MenuPrincipal.Text = "menuPrincipal";
+            this.MenuPrincipal.Visible = false;
             // 
             // Archivo
             // 
@@ -408,115 +412,115 @@
             // 
             this.gradosDir.AccessibleName = "Grados";
             this.gradosDir.Name = "gradosDir";
-            this.gradosDir.Size = new System.Drawing.Size(220, 22);
+            this.gradosDir.Size = new System.Drawing.Size(237, 22);
             this.gradosDir.Text = "Grados";
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(234, 6);
             // 
             // MatrizAdyacenciaDir
             // 
             this.MatrizAdyacenciaDir.AccessibleName = "MAdyacencia";
             this.MatrizAdyacenciaDir.Name = "MatrizAdyacenciaDir";
-            this.MatrizAdyacenciaDir.Size = new System.Drawing.Size(220, 22);
+            this.MatrizAdyacenciaDir.Size = new System.Drawing.Size(237, 22);
             this.MatrizAdyacenciaDir.Text = "Matriz de Adyacencia";
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(234, 6);
             // 
             // MatrizIncidenciaDir
             // 
             this.MatrizIncidenciaDir.AccessibleName = "MIncidencia";
             this.MatrizIncidenciaDir.Name = "MatrizIncidenciaDir";
-            this.MatrizIncidenciaDir.Size = new System.Drawing.Size(220, 22);
+            this.MatrizIncidenciaDir.Size = new System.Drawing.Size(237, 22);
             this.MatrizIncidenciaDir.Text = "Matriz de Incidencia";
             // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator15.Size = new System.Drawing.Size(234, 6);
             // 
             // ListaIncidencia
             // 
             this.ListaIncidencia.AccessibleName = "LAdyacencia";
             this.ListaIncidencia.Name = "ListaIncidencia";
-            this.ListaIncidencia.Size = new System.Drawing.Size(220, 22);
+            this.ListaIncidencia.Size = new System.Drawing.Size(237, 22);
             this.ListaIncidencia.Text = "Lista de Adyacencia";
             // 
             // toolStripSeparator25
             // 
             this.toolStripSeparator25.Name = "toolStripSeparator25";
-            this.toolStripSeparator25.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator25.Size = new System.Drawing.Size(234, 6);
             // 
             // tamañoYOrdenDir
             // 
             this.tamañoYOrdenDir.AccessibleName = "TamOrd";
             this.tamañoYOrdenDir.Name = "tamañoYOrdenDir";
-            this.tamañoYOrdenDir.Size = new System.Drawing.Size(220, 22);
+            this.tamañoYOrdenDir.Size = new System.Drawing.Size(237, 22);
             this.tamañoYOrdenDir.Text = "Tamaño y Orden";
             // 
             // toolStripSeparator28
             // 
             this.toolStripSeparator28.Name = "toolStripSeparator28";
-            this.toolStripSeparator28.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator28.Size = new System.Drawing.Size(234, 6);
             // 
             // ComplementoDir
             // 
             this.ComplementoDir.AccessibleName = "Complemento";
             this.ComplementoDir.Name = "ComplementoDir";
-            this.ComplementoDir.Size = new System.Drawing.Size(220, 22);
+            this.ComplementoDir.Size = new System.Drawing.Size(237, 22);
             this.ComplementoDir.Text = "Complemento";
             // 
             // toolStripSeparator50
             // 
             this.toolStripSeparator50.Name = "toolStripSeparator50";
-            this.toolStripSeparator50.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator50.Size = new System.Drawing.Size(234, 6);
             // 
             // BBP
             // 
             this.BBP.AccessibleName = "BBP";
             this.BBP.Name = "BBP";
-            this.BBP.Size = new System.Drawing.Size(220, 22);
-            this.BBP.Text = "Bosque Busqueda Profunda";
+            this.BBP.Size = new System.Drawing.Size(237, 22);
+            this.BBP.Text = "Bosque Busqueda Profundidad";
             // 
             // toolStripSeparator51
             // 
             this.toolStripSeparator51.Name = "toolStripSeparator51";
-            this.toolStripSeparator51.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator51.Size = new System.Drawing.Size(234, 6);
             // 
             // DijkstraA
             // 
             this.DijkstraA.AccessibleName = "Dijkstra";
             this.DijkstraA.Name = "DijkstraA";
-            this.DijkstraA.Size = new System.Drawing.Size(220, 22);
+            this.DijkstraA.Size = new System.Drawing.Size(237, 22);
             this.DijkstraA.Text = "Dijkstra";
             // 
             // toolStripSeparator54
             // 
             this.toolStripSeparator54.Name = "toolStripSeparator54";
-            this.toolStripSeparator54.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator54.Size = new System.Drawing.Size(234, 6);
             // 
             // Floyd
             // 
             this.Floyd.AccessibleName = "Floyd";
             this.Floyd.Name = "Floyd";
-            this.Floyd.Size = new System.Drawing.Size(220, 22);
+            this.Floyd.Size = new System.Drawing.Size(237, 22);
             this.Floyd.Text = "Algoritmo de Floyd";
             // 
             // toolStripSeparator53
             // 
             this.toolStripSeparator53.Name = "toolStripSeparator53";
-            this.toolStripSeparator53.Size = new System.Drawing.Size(217, 6);
+            this.toolStripSeparator53.Size = new System.Drawing.Size(234, 6);
             // 
             // Aciclicidad
             // 
             this.Aciclicidad.AccessibleName = "Aciclicidad";
             this.Aciclicidad.Name = "Aciclicidad";
-            this.Aciclicidad.Size = new System.Drawing.Size(220, 22);
+            this.Aciclicidad.Size = new System.Drawing.Size(237, 22);
             this.Aciclicidad.Text = "Grafo Aciclico";
             // 
             // toolStripSeparator2
@@ -552,7 +556,8 @@
             this.Teorema4C,
             this.toolStripSeparator48,
             this.NumeroC,
-            this.toolStripSeparator49});
+            this.toolStripSeparator49,
+            this.BBA});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
             this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -563,157 +568,164 @@
             // 
             this.GradosNoDir.AccessibleName = "Grados";
             this.GradosNoDir.Name = "GradosNoDir";
-            this.GradosNoDir.Size = new System.Drawing.Size(187, 22);
+            this.GradosNoDir.Size = new System.Drawing.Size(237, 22);
             this.GradosNoDir.Text = "Grados";
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(234, 6);
             // 
             // MatrizDeAdyacenciaNoDir
             // 
             this.MatrizDeAdyacenciaNoDir.AccessibleName = "MAdyacencia";
             this.MatrizDeAdyacenciaNoDir.Name = "MatrizDeAdyacenciaNoDir";
-            this.MatrizDeAdyacenciaNoDir.Size = new System.Drawing.Size(187, 22);
+            this.MatrizDeAdyacenciaNoDir.Size = new System.Drawing.Size(237, 22);
             this.MatrizDeAdyacenciaNoDir.Text = "Matriz de Adyacencia";
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(234, 6);
             // 
             // MatrizIncidenciaNoDir
             // 
             this.MatrizIncidenciaNoDir.AccessibleName = "MIncidencia";
             this.MatrizIncidenciaNoDir.Name = "MatrizIncidenciaNoDir";
-            this.MatrizIncidenciaNoDir.Size = new System.Drawing.Size(187, 22);
+            this.MatrizIncidenciaNoDir.Size = new System.Drawing.Size(237, 22);
             this.MatrizIncidenciaNoDir.Text = "Matriz de Incidencia";
             // 
             // toolStripSeparator18
             // 
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(234, 6);
             // 
             // ListaAdyacenciaNoDir
             // 
             this.ListaAdyacenciaNoDir.AccessibleName = "LAdyacencia";
             this.ListaAdyacenciaNoDir.Name = "ListaAdyacenciaNoDir";
-            this.ListaAdyacenciaNoDir.Size = new System.Drawing.Size(187, 22);
+            this.ListaAdyacenciaNoDir.Size = new System.Drawing.Size(237, 22);
             this.ListaAdyacenciaNoDir.Text = "Lista de Adyacencia";
             // 
             // toolStripSeparator19
             // 
             this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator19.Size = new System.Drawing.Size(234, 6);
             // 
             // NodosPendienteNoDir
             // 
             this.NodosPendienteNoDir.AccessibleName = "Pendientes";
             this.NodosPendienteNoDir.Name = "NodosPendienteNoDir";
-            this.NodosPendienteNoDir.Size = new System.Drawing.Size(187, 22);
+            this.NodosPendienteNoDir.Size = new System.Drawing.Size(237, 22);
             this.NodosPendienteNoDir.Text = "Nodos Especiales";
             // 
             // toolStripSeparator24
             // 
             this.toolStripSeparator24.Name = "toolStripSeparator24";
-            this.toolStripSeparator24.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator24.Size = new System.Drawing.Size(234, 6);
             // 
             // tamañoYOrdenNoDir
             // 
             this.tamañoYOrdenNoDir.AccessibleName = "TamOrd";
             this.tamañoYOrdenNoDir.Name = "tamañoYOrdenNoDir";
-            this.tamañoYOrdenNoDir.Size = new System.Drawing.Size(187, 22);
+            this.tamañoYOrdenNoDir.Size = new System.Drawing.Size(237, 22);
             this.tamañoYOrdenNoDir.Text = "Tamaño y Orden";
             // 
             // toolStripSeparator29
             // 
             this.toolStripSeparator29.Name = "toolStripSeparator29";
-            this.toolStripSeparator29.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator29.Size = new System.Drawing.Size(234, 6);
             // 
             // ComplementoNoDir
             // 
             this.ComplementoNoDir.AccessibleName = "Complemento";
             this.ComplementoNoDir.Name = "ComplementoNoDir";
-            this.ComplementoNoDir.Size = new System.Drawing.Size(187, 22);
+            this.ComplementoNoDir.Size = new System.Drawing.Size(237, 22);
             this.ComplementoNoDir.Text = "Complemento";
             // 
             // toolStripSeparator32
             // 
             this.toolStripSeparator32.Name = "toolStripSeparator32";
-            this.toolStripSeparator32.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator32.Size = new System.Drawing.Size(234, 6);
             // 
             // IsomorfismoNoDir
             // 
             this.IsomorfismoNoDir.AccessibleName = "Isomorfismo";
             this.IsomorfismoNoDir.Name = "IsomorfismoNoDir";
-            this.IsomorfismoNoDir.Size = new System.Drawing.Size(187, 22);
+            this.IsomorfismoNoDir.Size = new System.Drawing.Size(237, 22);
             this.IsomorfismoNoDir.Text = "Isomorfismo";
             // 
             // toolStripSeparator39
             // 
             this.toolStripSeparator39.Name = "toolStripSeparator39";
-            this.toolStripSeparator39.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator39.Size = new System.Drawing.Size(234, 6);
             // 
             // EulerNoDir
             // 
             this.EulerNoDir.AccessibleName = "Euler";
             this.EulerNoDir.Name = "EulerNoDir";
-            this.EulerNoDir.Size = new System.Drawing.Size(187, 22);
+            this.EulerNoDir.Size = new System.Drawing.Size(237, 22);
             this.EulerNoDir.Text = "Euler";
             // 
             // toolStripSeparator44
             // 
             this.toolStripSeparator44.Name = "toolStripSeparator44";
-            this.toolStripSeparator44.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator44.Size = new System.Drawing.Size(234, 6);
             // 
             // kuratowskiNoDir
             // 
             this.kuratowskiNoDir.AccessibleName = "Kuratowski";
             this.kuratowskiNoDir.Name = "kuratowskiNoDir";
-            this.kuratowskiNoDir.Size = new System.Drawing.Size(187, 22);
+            this.kuratowskiNoDir.Size = new System.Drawing.Size(237, 22);
             this.kuratowskiNoDir.Text = "Kuratowski";
             // 
             // toolStripSeparator46
             // 
             this.toolStripSeparator46.Name = "toolStripSeparator46";
-            this.toolStripSeparator46.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator46.Size = new System.Drawing.Size(234, 6);
             // 
             // Regiones
             // 
             this.Regiones.AccessibleName = "Regiones";
             this.Regiones.Name = "Regiones";
-            this.Regiones.Size = new System.Drawing.Size(187, 22);
+            this.Regiones.Size = new System.Drawing.Size(237, 22);
             this.Regiones.Text = "Regiones";
             // 
             // toolStripSeparator43
             // 
             this.toolStripSeparator43.Name = "toolStripSeparator43";
-            this.toolStripSeparator43.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator43.Size = new System.Drawing.Size(234, 6);
             // 
             // Teorema4C
             // 
             this.Teorema4C.AccessibleName = "Teorema4C";
             this.Teorema4C.Name = "Teorema4C";
-            this.Teorema4C.Size = new System.Drawing.Size(187, 22);
+            this.Teorema4C.Size = new System.Drawing.Size(237, 22);
             this.Teorema4C.Text = "Teorema 4 Colores";
             // 
             // toolStripSeparator48
             // 
             this.toolStripSeparator48.Name = "toolStripSeparator48";
-            this.toolStripSeparator48.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator48.Size = new System.Drawing.Size(234, 6);
             // 
             // NumeroC
             // 
             this.NumeroC.AccessibleName = "NumeroC";
             this.NumeroC.Name = "NumeroC";
-            this.NumeroC.Size = new System.Drawing.Size(187, 22);
+            this.NumeroC.Size = new System.Drawing.Size(237, 22);
             this.NumeroC.Text = "Numero Cromatico";
             // 
             // toolStripSeparator49
             // 
             this.toolStripSeparator49.Name = "toolStripSeparator49";
-            this.toolStripSeparator49.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator49.Size = new System.Drawing.Size(234, 6);
+            // 
+            // BBA
+            // 
+            this.BBA.AccessibleName = "BBA";
+            this.BBA.Name = "BBA";
+            this.BBA.Size = new System.Drawing.Size(237, 22);
+            this.BBA.Text = "Bosque de Busqueda Amplitud";
             // 
             // configuraciónToolStripMenuItem
             // 
@@ -964,7 +976,7 @@
             this.GrafoQ3});
             this.EspecialesTool.Location = new System.Drawing.Point(1007, 61);
             this.EspecialesTool.Name = "EspecialesTool";
-            this.EspecialesTool.Size = new System.Drawing.Size(40, 604);
+            this.EspecialesTool.Size = new System.Drawing.Size(40, 621);
             this.EspecialesTool.TabIndex = 3;
             this.EspecialesTool.Text = "toolStrip1";
             this.EspecialesTool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Especiales_Clicked);
@@ -1113,14 +1125,16 @@
             this.toolStripSeparator52,
             this.BBPTool,
             this.toolStripSeparator56,
-            this.AciclicidadTool});
-            this.ToolBarMetodos2.Location = new System.Drawing.Point(36, 628);
+            this.AciclicidadTool,
+            this.toolStripSeparator57,
+            this.BBATool});
+            this.ToolBarMetodos2.Location = new System.Drawing.Point(36, 645);
             this.ToolBarMetodos2.Name = "ToolBarMetodos2";
             this.ToolBarMetodos2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.ToolBarMetodos2.Size = new System.Drawing.Size(971, 37);
             this.ToolBarMetodos2.TabIndex = 7;
             this.ToolBarMetodos2.Text = "toolStrip1";
-            this.ToolBarMetodos2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool2_Clicked);
+            this.ToolBarMetodos2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);
             // 
             // DijkstraATool
             // 
@@ -1164,6 +1178,38 @@
             this.BBPTool.Name = "BBPTool";
             this.BBPTool.Size = new System.Drawing.Size(34, 34);
             this.BBPTool.Text = "Bosque de Busqueda Profunda";
+            // 
+            // toolStripSeparator56
+            // 
+            this.toolStripSeparator56.Name = "toolStripSeparator56";
+            this.toolStripSeparator56.Size = new System.Drawing.Size(6, 37);
+            // 
+            // AciclicidadTool
+            // 
+            this.AciclicidadTool.AccessibleName = "Aciclicidad";
+            this.AciclicidadTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AciclicidadTool.Image = ((System.Drawing.Image)(resources.GetObject("AciclicidadTool.Image")));
+            this.AciclicidadTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.AciclicidadTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AciclicidadTool.Name = "AciclicidadTool";
+            this.AciclicidadTool.Size = new System.Drawing.Size(34, 34);
+            this.AciclicidadTool.Text = "Prueba de Aciclicidad";
+            // 
+            // toolStripSeparator57
+            // 
+            this.toolStripSeparator57.Name = "toolStripSeparator57";
+            this.toolStripSeparator57.Size = new System.Drawing.Size(6, 37);
+            // 
+            // BBATool
+            // 
+            this.BBATool.AccessibleName = "BBA";
+            this.BBATool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BBATool.Image = ((System.Drawing.Image)(resources.GetObject("BBATool.Image")));
+            this.BBATool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BBATool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BBATool.Name = "BBATool";
+            this.BBATool.Size = new System.Drawing.Size(23, 34);
+            this.BBATool.Text = "Bosque de Busaqueda Amplitud";
             // 
             // GradosTool
             // 
@@ -1420,7 +1466,7 @@
             this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 604);
+            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 621);
             this.ToolBarMetodos.TabIndex = 2;
             this.ToolBarMetodos.Text = "Metodos";
             this.ToolBarMetodos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);
@@ -1429,27 +1475,11 @@
             // 
             this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
             // 
-            // toolStripSeparator56
-            // 
-            this.toolStripSeparator56.Name = "toolStripSeparator56";
-            this.toolStripSeparator56.Size = new System.Drawing.Size(6, 37);
-            // 
-            // AciclicidadTool
-            // 
-            this.AciclicidadTool.AccessibleName = "Aciclicidad";
-            this.AciclicidadTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.AciclicidadTool.Image = ((System.Drawing.Image)(resources.GetObject("AciclicidadTool.Image")));
-            this.AciclicidadTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.AciclicidadTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AciclicidadTool.Name = "AciclicidadTool";
-            this.AciclicidadTool.Size = new System.Drawing.Size(34, 34);
-            this.AciclicidadTool.Text = "Prueba de Aciclicidad";
-            // 
             // EditorDeGrafos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 665);
+            this.ClientSize = new System.Drawing.Size(1047, 682);
             this.Controls.Add(this.ToolBarMetodos2);
             this.Controls.Add(this.numericWn);
             this.Controls.Add(this.numericCn);
@@ -1636,6 +1666,9 @@
         private System.Windows.Forms.Timer relojCiclos;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator56;
         private System.Windows.Forms.ToolStripButton AciclicidadTool;
+        private System.Windows.Forms.ToolStripMenuItem BBA;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator57;
+        private System.Windows.Forms.ToolStripButton BBATool;
 
     }
 }

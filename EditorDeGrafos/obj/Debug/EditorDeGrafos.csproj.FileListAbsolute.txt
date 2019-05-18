@@ -10,6 +10,7 @@ C:\Users\braul\Desktop\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pd
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe.config
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.pdb
+C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.AristasBBA.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.AristasBBP.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.CambiaPesoArista.resources
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Ciclos.resources
@@ -38,4 +39,3 @@ C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.GenerateResource.Cache
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe
 C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb
-C:\Users\braul\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csprojResolveAssemblyReference.cache

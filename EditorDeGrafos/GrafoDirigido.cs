@@ -567,7 +567,7 @@ namespace EditorDeGrafos
 
         #endregion
         
-        #region Bosque de Busqueda Profunda
+        #region Bosque de Busqueda Profundidad
         public override void bosqueBusquedaProfunda(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas)
         {
             List<string> aux;

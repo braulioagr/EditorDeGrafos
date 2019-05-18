@@ -285,7 +285,7 @@ namespace EditorDeGrafos
             {
                 foreach (Arista arista in nodo.Aristas)
                 {
-                    arista.dibujaAristaBosque(g);
+                    arista.dibujaAristaBosque(g, typeof(GrafoDirigido).IsInstanceOfType(this),this.ponderado,nodo.Erdos);
                 }
                 nodo.dibujaNodo(g);
             }
@@ -645,6 +645,22 @@ namespace EditorDeGrafos
             }
             return this.arista;
         }
+
+        public Arista buscaReciproca(Nodo origen, Nodo destino)
+        {
+            Arista reciproca;
+            reciproca = null;
+            foreach (Arista arista in destino.Aristas)
+            {
+                if (arista.Arriba.Equals(origen))
+                {
+                    reciproca = arista;
+                    break;
+                }
+            }
+            return reciproca;
+        }
+
         #endregion
 
         #endregion
@@ -995,7 +1011,8 @@ namespace EditorDeGrafos
                 {
                     arista.Tipo = "null";
                 }
-                nodo.Aristas = nodo.Aristas.OrderBy(arista => arista.Arriba.Nombre).ToList(); ;
+                nodo.Aristas = nodo.Aristas.OrderBy(arista => arista.Arriba.Nombre).ToList();
+                nodo.visitado = false;
             }
         }
 
@@ -1025,11 +1042,18 @@ namespace EditorDeGrafos
 
         #endregion
 
+        #region Bosque de Busqueda en Amplitud
+        public virtual void bosqueBusquedaAmplitud(List<Nodo> nivel, ref List<string> arbol, ref List<string> cruce)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #endregion
 
         #endregion
 
- }
+        #endregion
+
+    }
 }

@@ -75,6 +75,7 @@
             this.Controls.Add(this.Cancelar);
             this.Name = "PesosAristas";
             this.Text = "PesosAristas";
+            this.Load += new System.EventHandler(this.PesosAristas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 

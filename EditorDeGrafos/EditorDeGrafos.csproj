@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arista.cs" />
+    <Compile Include="AristasBBA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AristasBBA.Designer.cs">
+      <DependentUpon>AristasBBA.cs</DependentUpon>
+    </Compile>
     <Compile Include="AristasBBP.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     <Compile Include="TamañoYOrden.Designer.cs">
       <DependentUpon>TamañoYOrden.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AristasBBA.resx">
+      <DependentUpon>AristasBBA.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AristasBBP.resx">
       <DependentUpon>AristasBBP.cs</DependentUpon>
     </EmbeddedResource>
