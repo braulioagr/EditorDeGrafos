@@ -240,6 +240,22 @@ namespace EditorDeGrafos
             return j;
         }
 
+
+        public int encuentraIndice(string nodo)
+        {
+            int j;
+            j = 0;
+            for (int i = 0; i < this.Count; i++)
+            {
+                if (nodo.Equals(this[i].Nombre))
+                {
+                    j = i;
+                    break;
+                }
+            }
+            return j;
+        }
+
         public void InsertaArista(Point p1, Point p2, int peso, int AnchoLinea, Color colorLinea,int id)
         {
             Nodo np1, np2;
@@ -273,9 +289,21 @@ namespace EditorDeGrafos
             {
                 foreach (Arista arista in nodo.Aristas)
                 {
-                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),this.ponderado);
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),this.ponderado,arista.Arriba.existeReciproca(nodo));
                 }
                 nodo.dibujaNodo(g);
+            }
+        }
+
+        public void dibujaArbolCostoMinimo(Graphics g, List<Arista> ramas)
+        {
+            foreach (Nodo nodo in this)
+            {
+                nodo.dibujaNodo(g,Color.Green);
+            }
+            foreach (Arista arista in ramas)
+            {
+                arista.dibujaArista(g, false, true, Color.Red);
             }
         }
 
@@ -297,7 +325,7 @@ namespace EditorDeGrafos
             {
                 foreach (Arista arista in nodo.Aristas)
                 {
-                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this), this.ponderado);
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this), this.ponderado,arista.Arriba.existeReciproca(nodo));
                 }
                 if (conjunto.Contains(nodo))
                 {
@@ -467,6 +495,21 @@ namespace EditorDeGrafos
             this.Clear();
         }
 
+        public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
+        {
+            return null;
+        }
+
+        public virtual void DibujaGrafo(Graphics g, List<Partita> partitas)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual int BorraArista(Point p)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Busqueda
@@ -588,6 +631,7 @@ namespace EditorDeGrafos
             }
             return nodo;
         }
+
         #endregion
 
         #region Arista
@@ -800,61 +844,52 @@ namespace EditorDeGrafos
         }
 
         #endregion
-        
-        #endregion
-
-        #region Virtuales
-
-        #region Esenciales
-
-        public virtual List<Nodo> DibujaGrafo(Graphics g, List<Nodo> pendientes, List<Nodo> aislados)
-        {
-            return null;
-        }
-
-        public virtual void DibujaGrafo(Graphics g, List<Partita> partitas) { }
-
-        public virtual int BorraArista(Point p) { return 0; }
-
-        #endregion
-
-        #region Operaciones
 
         #region Pendientes & Aislados
+        
         public virtual List<Nodo> nodosPendientes()
         {
             throw new NotImplementedException();
         }
+
         public virtual List<Nodo> nodosAislados()
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
         #region Matriz de Incidencia
+
         public virtual int[,] matrizDeIncidencia()
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
         #region Grafos Especiales
+
         public virtual void CreaKn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno, SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
         {
             throw new NotImplementedException();
         }
+
         public virtual void CreaCn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno, SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
         {
             throw new NotImplementedException();
         }
+
         public virtual void CreaWn(Size s, int n, ref int num, int tam, int tamL, SolidBrush brushRelleno, SolidBrush brushName, Pen penNodo, Pen penArista, string fuente)
         {
             throw new NotImplementedException();
         }
+
         public virtual void actualizaId()
         {
             throw new NotImplementedException();
         }
+
         #endregion
 
         #region Isomorfismo
@@ -921,13 +956,16 @@ namespace EditorDeGrafos
         #endregion
 
         #region nPartitas
+
         public virtual List<Partita> nPartita()
         {
             throw new NotImplementedException();
         }
+        
         #endregion
 
         #region Corolarios
+
         public virtual bool corolario1()
         {
             throw new NotImplementedException();
@@ -937,6 +975,7 @@ namespace EditorDeGrafos
         {
             throw new NotImplementedException();
         }
+        
         #endregion
 
         #region Kuratoski
@@ -960,10 +999,11 @@ namespace EditorDeGrafos
         {
             throw new NotImplementedException();
         }
+        
         #endregion
 
         #region Dijkstra
-        
+
         public virtual List<string> dijkstra(string origen, string destino)
         {
             throw new NotImplementedException();
@@ -978,7 +1018,7 @@ namespace EditorDeGrafos
         {
             throw new NotImplementedException();
         }
-        
+
         #endregion
 
         #region Floyd
@@ -988,7 +1028,21 @@ namespace EditorDeGrafos
             throw new NotImplementedException();
         }
 
-        public virtual int[,] FloydWarshall()
+        public string[,] matrizCaminos()
+        {
+            string[,] caminos;
+            caminos = new string[this.Count,this.Count];
+            for (int i = 0; i < this.Count; i++)
+            {
+                for (int j = 0; j < this.Count; j++)
+                {
+                    caminos[i, j] = this[j].Nombre;
+                }
+            }
+            return caminos;
+        }
+
+        public virtual int[,] FloydWarshall(ref string[,] caminos)
         {
             throw new NotImplementedException();
         }
@@ -1022,7 +1076,7 @@ namespace EditorDeGrafos
 
         public virtual bool pruebaDeAciclicidad(ref List<List<string>> ciclo)
         {
- 	        throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public virtual void buscaCiclos(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas, ref List<List<string>> ciclos)
@@ -1049,11 +1103,17 @@ namespace EditorDeGrafos
         }
         #endregion
 
-        #endregion
+        #region Kruskal
+
+        public virtual List<Arista> Kruskal(ref List<List<string>> componentes, List<Arista> aristas)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
         #endregion
 
+        #endregion
     }
 }

@@ -399,6 +399,7 @@ namespace EditorDeGrafos
                 case "Euler":
                     #region Euler
                     Euler euler;
+                    grafo.setGrados();
                     if (!grafo.aislado())//Si no tiene un nodo aislado puede que tenga circuito o camino
                     {
                         #region Circuito
@@ -519,7 +520,9 @@ namespace EditorDeGrafos
                 case "Floyd":
                     #region Floyd
                     Floyd floyd;
-                    floyd = new Floyd(this.grafo.matrizDeCostos(), this.grafo.FloydWarshall(), this.grafo,this.relojFloyd);
+                    string[,] caminos;
+                    caminos = grafo.matrizCaminos();
+                    floyd = new Floyd(this.grafo.matrizDeCostos(), this.grafo.FloydWarshall(ref caminos), this.grafo, caminos,this.relojFloyd);
                     floyd.floyd += new Floyd.EventoFloyd(this.floyd);
                     floyd.borraRecorrido += new Floyd.BorraRecorrido(this.redibujaGrafo);
                     floyd.Show();
@@ -627,8 +630,8 @@ namespace EditorDeGrafos
                                 }
                                 else
                                 {
+                                    MessageBox.Show("Los grafos no son isomorficos", "No son isomorficos");
                                 }
-                                MessageBox.Show("Los grafos no son isomorficos", "No son isomorficos");
                             }
                             else
                             {
@@ -796,6 +799,28 @@ namespace EditorDeGrafos
                     }
                     seleccion.Dispose();
                     #endregion
+                break;
+                case "Kruskal":
+                    Kruskal kruskal;
+                    List<Arista> aristas;
+                    List<string> componente;
+                    List<List<string>> componentes;
+                    componentes = new List<List<string>>();//Genero una lista de listas
+                    aristas = grafo.LAristas.OrderBy(arista => arista.Peso).ToList();//Ordena las aristas segun su peso
+                    foreach (Nodo nodo in this.grafo)//Se crea un componente por cada nodo y se añade a la lista de nodos
+                    {
+                        componente = new List<string>();
+                        componente.Add(nodo.Nombre);
+                        componentes.Add(componente);
+                    }
+                    aristas = grafo.Kruskal(ref componentes, aristas);//Invocacmos al metodo en el grafo
+                    kruskal = new Kruskal(aristas);
+                    g.Clear(BackColor);
+                    grafo.dibujaArbolCostoMinimo(this.g, aristas);
+                    kruskal.ShowDialog();
+                    kruskal.Dispose();
+                    g.Clear(BackColor);
+                    grafo.DibujaGrafo(g);
                 break;
                 default:
                     #region Inexistente
@@ -1683,13 +1708,12 @@ namespace EditorDeGrafos
 
         #region Floyd
 
-        private List<string> floyd(string origen, string destino)
+        private void floyd(List<string> recorrido)
         {
-            this.recorrido = grafo.floyd(origen, destino);
+            this.recorrido = recorrido;
             this.bandRecorrido = false;
             this.rec = 0;
             this.EditorDeGrafos_Paint(this, null);
-            return this.recorrido;
         }
         #endregion
 
@@ -1750,8 +1774,17 @@ namespace EditorDeGrafos
                     {
                         arista.numericPeso = new NumericUpDown();
                         arista.numericPeso.Value = arista.Peso;
-                        arista.numericPeso.Location = new Point((int)((nodo.Pc.X + arista.Arriba.Pc.X) / 2),
-                                             (int)((nodo.Pc.Y + arista.Arriba.Pc.Y) / 2));
+                        if (arista.Arriba.existeReciproca(nodo))
+                        {
+                            Spline spline;
+                            spline = new Spline(arista.P1, arista.P2);
+                            arista.numericPeso.Location = new Point(spline.puntoMedio.X,spline.puntoMedio.Y);
+                        }
+                        else
+                        {
+                            arista.numericPeso.Location = new Point((int)((nodo.Pc.X + arista.Arriba.Pc.X) / 2),
+                                                                    (int)((nodo.Pc.Y + arista.Arriba.Pc.Y) / 2));
+                        }
                         arista.numericPeso.Size = new Size(40, 20);
                         this.Controls.Add(arista.numericPeso);
                     }

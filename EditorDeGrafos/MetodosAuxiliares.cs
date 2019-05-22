@@ -193,28 +193,21 @@ namespace EditorDeGrafos
             return bandera;
         }
 
-        public static int[,] CambioIsomorfico(int[,] matrix, int i1, int i2)
+        
+        public static long factorial(int numero)
         {
-            int aux;
-            aux = 0;
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            long factorial;
+            factorial = 1;
+            if (numero != 0)
             {
-                aux = matrix[i1, i];
-                matrix[i1, i] = matrix[i2, i];
-                matrix[i2, i] = aux;
+                for (int i = 1; i <= numero; i++)
+                {
+                    factorial = factorial * i;
+                }
             }
-            for (int j = 0; j < matrix.GetLength(0); j++)
-            {
-                aux = matrix[j, i1];
-                matrix[j, i1] = matrix[j, i2];
-                matrix[j, i2] = aux;
-            }
-            return matrix;
+            return factorial;
         }
-        public static void biyectividad(int[,] matriz, int[,] matrix, ref int i1, ref int i2)
-        {
-            throw new NotImplementedException();
-        }
+
         #endregion
 
         #region Eulerianos
@@ -540,7 +533,7 @@ namespace EditorDeGrafos
             return siguiente;
         }
 
-        public static object[] vectorNodo(string nombre, int indice, int[,] matrizCostos)
+        public static string[] vectorNodo(string nombre, int indice, int[,] matrizCostos)
         {
             string[] vector;
             vector = new string[matrizCostos.GetLength(0) + 1];
@@ -559,10 +552,20 @@ namespace EditorDeGrafos
             return vector;
         }
 
+        public static string[] vectorNodo(string nombre, int indice, string[,] caminos)
+        {
+            string[] vector;
+            vector = new string[caminos.GetLength(0) + 1];
+            vector[0] = nombre;
+            for (int i = 0; i < caminos.GetLength(0); i++)
+            {
+                vector[i + 1] = caminos[i, indice];
+            }
+            return vector;
+        }
         #endregion
 
         #region Floyd
-
         public static Nodo siguenteFloyd(Nodo actual, ref Stack<Nodo> recorridos, string destino)
         {
             Nodo siguiente;
@@ -639,6 +642,75 @@ namespace EditorDeGrafos
                 }
             }
             return band;
+        }
+        #endregion
+
+        #region Kruskal
+
+        public static void combinaComponentes(ref List<List<string>> componentes, int i, int j)
+        {
+            foreach (string cambio in componentes[j])//Itera el componente que se va a eliminar
+            {
+                componentes[i].Add(cambio);//Añade cada nodo del componente j al componente i
+            }
+            componentes[j].Clear();//Elimina todos los elementos de la lista
+            componentes.Remove(componentes[j]);//Elimina la lista vaciada
+            /* Nota:
+             * El List<List<string>> componentes deve venir por referencia para poder conservar los cambios
+             */
+        }
+
+        public static bool mismoComponente(List<List<string>> componentes, string origen, string destino)
+        {
+            bool band;
+            band = false;
+            foreach (List<string> componente in componentes)//Revisa cada lista de strings
+            {
+                foreach (string nodo in componente)//Busca el primer nodo en la lista
+                {
+                    if (nodo.Equals(origen))
+                    {
+                        foreach (string nodo2 in componente)//Si lo encuentra busca el  otro nodo en la misma lista
+                        {
+                            if (nodo2.Equals(destino))
+                            {
+                                band = true;//Si tambien lo encuentra en el mismo componente la bandera es true
+                                break;//Y se rompe el ciclo
+                            }
+                        }
+                        break;//Independientemente si lo encontro o no rompe el ciclo
+                    }
+                }
+                if (band)
+                {
+                    break;//Si la bandera esta en true significa que ambos estan en el mismo componente no es necesario iterar
+                }
+            }
+            return band;
+        }
+
+        public static int indiceDeComponente(List<List<string>> componentes, string origen)
+        {
+            int i,j;
+            i = -1;//Variable que se retornarra
+            j = -1;//Variable para iterar
+            foreach (List<string> componente in componentes)//Busca en cada componente
+            {
+                j++;//Incrementa J
+                foreach(string nodo in componente)//busca en el componente
+                {
+                    if (nodo.Equals(origen))
+                    {
+                        i = j;//Si encuentra el nodo en el componente se le asigna el valor de j a i
+                        break;
+                    }
+                }
+                if (i != -1)
+                {
+                    break;//Si i ya no vale -1 rompe el ciclo
+                }
+            }
+            return i;
         }
         #endregion
 

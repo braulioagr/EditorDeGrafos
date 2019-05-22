@@ -180,6 +180,8 @@
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
             this.relojCiclos = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator58 = new System.Windows.Forms.ToolStripSeparator();
+            this.KruskalTool = new System.Windows.Forms.ToolStripButton();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
@@ -779,7 +781,7 @@
             this.toolStripSeparator36,
             this.EtiquetasNodoTool,
             this.pesosAristaTool});
-            this.ToolBar.Location = new System.Drawing.Point(0, 24);
+            this.ToolBar.Location = new System.Drawing.Point(0, 0);
             this.ToolBar.Name = "ToolBar";
             this.ToolBar.Size = new System.Drawing.Size(1047, 37);
             this.ToolBar.TabIndex = 1;
@@ -974,9 +976,9 @@
             this.GrafosWn,
             this.toolStripSeparator35,
             this.GrafoQ3});
-            this.EspecialesTool.Location = new System.Drawing.Point(1007, 61);
+            this.EspecialesTool.Location = new System.Drawing.Point(1007, 37);
             this.EspecialesTool.Name = "EspecialesTool";
-            this.EspecialesTool.Size = new System.Drawing.Size(40, 621);
+            this.EspecialesTool.Size = new System.Drawing.Size(40, 645);
             this.EspecialesTool.TabIndex = 3;
             this.EspecialesTool.Text = "toolStrip1";
             this.EspecialesTool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Especiales_Clicked);
@@ -1127,7 +1129,9 @@
             this.toolStripSeparator56,
             this.AciclicidadTool,
             this.toolStripSeparator57,
-            this.BBATool});
+            this.BBATool,
+            this.toolStripSeparator58,
+            this.KruskalTool});
             this.ToolBarMetodos2.Location = new System.Drawing.Point(36, 645);
             this.ToolBarMetodos2.Name = "ToolBarMetodos2";
             this.ToolBarMetodos2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -1463,10 +1467,10 @@
             this.Teorema4CTool,
             this.toolStripSeparator47,
             this.NumeroCTool});
-            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
+            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 37);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 621);
+            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 645);
             this.ToolBarMetodos.TabIndex = 2;
             this.ToolBarMetodos.Text = "Metodos";
             this.ToolBarMetodos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);
@@ -1474,6 +1478,21 @@
             // relojCiclos
             // 
             this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
+            // 
+            // toolStripSeparator58
+            // 
+            this.toolStripSeparator58.Name = "toolStripSeparator58";
+            this.toolStripSeparator58.Size = new System.Drawing.Size(6, 37);
+            // 
+            // KruskalTool
+            // 
+            this.KruskalTool.AccessibleName = "Kruskal";
+            this.KruskalTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.KruskalTool.Image = ((System.Drawing.Image)(resources.GetObject("KruskalTool.Image")));
+            this.KruskalTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.KruskalTool.Name = "KruskalTool";
+            this.KruskalTool.Size = new System.Drawing.Size(23, 34);
+            this.KruskalTool.Text = "toolStripButton1";
             // 
             // EditorDeGrafos
             // 
@@ -1669,6 +1688,8 @@
         private System.Windows.Forms.ToolStripMenuItem BBA;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator57;
         private System.Windows.Forms.ToolStripButton BBATool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator58;
+        private System.Windows.Forms.ToolStripButton KruskalTool;
 
     }
 }

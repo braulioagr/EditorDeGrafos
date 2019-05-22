@@ -135,6 +135,12 @@
     <Compile Include="Isomorfismo.Designer.cs">
       <DependentUpon>Isomorfismo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Kruskal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kruskal.Designer.cs">
+      <DependentUpon>Kruskal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Kuratowski.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Isomorfismo.resx">
       <DependentUpon>Isomorfismo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Kruskal.resx">
+      <DependentUpon>Kruskal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Kuratowski.resx">
       <DependentUpon>Kuratowski.cs</DependentUpon>

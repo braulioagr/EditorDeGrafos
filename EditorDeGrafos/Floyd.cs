@@ -16,13 +16,14 @@ namespace EditorDeGrafos
         #region Variables de Instancia
         int[,] matrizCostos;
         int[,] matrizRecorridos;
+        private string[,] caminos;
         Grafo grafo;
         Timer reloj;
         List<string> recorrido;
         #endregion
 
         #region Declaracion de Delegados
-        public delegate List<string> EventoFloyd(string origen, string destino);
+        public delegate void EventoFloyd(List<string> recorrido);
         public delegate void BorraRecorrido();
         #endregion
 
@@ -32,18 +33,20 @@ namespace EditorDeGrafos
         #endregion
 
         #region Constructores
-        public Floyd(int[,] matrizCostos, int[,] matrizRecorridos, Grafo grafo,Timer reloj)
+        public Floyd(int[,] matrizCostos, int[,] matrizRecorridos, Grafo grafo, string[,] caminos, Timer reloj)
         {
             this.matrizCostos = matrizCostos;
             this.matrizRecorridos = matrizRecorridos;
             this.grafo = grafo;
             this.reloj = reloj;
+            this.caminos = caminos;
             InitializeComponent();
         }
 
         private void Floyd_Load(object sender, EventArgs e)
         {
             int gradoInterno;
+            string[] vector;
             dataGridCostos.ColumnCount = matrizCostos.GetLength(0) + 1;
             dataGridCostos.Columns[0].Name = "Nodos";
             for (int i = 1; i < grafo.Count; i++)
@@ -53,7 +56,8 @@ namespace EditorDeGrafos
             dataGridCostos.Columns[grafo.Count].Name = grafo.Last().Nombre;
             foreach (Nodo busca in grafo)
             {
-                dataGridCostos.Rows.Add(MetodosAuxiliares.vectorNodo(busca.Nombre, grafo.encuentraIndice(busca), matrizCostos));
+                vector = MetodosAuxiliares.vectorNodo(busca.Nombre, grafo.encuentraIndice(busca), matrizCostos);
+                dataGridCostos.Rows.Add(vector);
             }
             dataGridRecorridos.ColumnCount = matrizCostos.GetLength(0) + 1;
             dataGridRecorridos.Columns[0].Name = "Nodos";
@@ -141,8 +145,9 @@ namespace EditorDeGrafos
                         this.reloj.Enabled = false;
                         this.borraRecorrido();
                     }
-                    this.recorrido = this.floyd(comboOrigen.Text, comboDestino.Text);
-                    if (!recorrido.Equals("No existe Camino"))
+                    this.recorrido = recuperaRecorrido(comboOrigen.Text, comboDestino.Text);
+                    this.floyd(this.recorrido);
+                    if (!recorrido.First().Equals("No existe Camino"))
                     {
                         for (int i = 0; i < recorrido.Count - 1; i++)
                         {
@@ -169,7 +174,8 @@ namespace EditorDeGrafos
                     this.reloj.Enabled = false;
                     this.borraRecorrido();
                 }
-                this.recorrido = this.floyd(comboOrigen.Text, comboDestino.Text);
+                this.recorrido = recuperaRecorrido(comboOrigen.Text, comboDestino.Text);
+                this.floyd(this.recorrido);
                 if (!recorrido.Equals("No existe Camino"))
                 {
                     for (int i = 0; i < recorrido.Count - 1; i++)
@@ -194,6 +200,33 @@ namespace EditorDeGrafos
             this.reloj.Interval = BarVelocidad.Value * 100;
         }
         #endregion
+
+        private List<string> recuperaRecorrido(string origen, string destino)
+        {
+            int i,j;
+            string aux;
+            List<string> camino;
+            camino = new List<string>();
+            aux = "";
+            i = grafo.encuentraIndice(origen);
+            j = grafo.encuentraIndice(destino);
+            camino.Add(destino);
+            do
+            {
+                aux = caminos[j, i];
+                camino.Add(aux);
+                j = grafo.encuentraIndice(caminos[j, i]);
+            } while (!aux.Equals(origen));
+            camino.Reverse();
+            /*if (this.matrizRecorridos[i, j] < int.MaxValue / 3)
+            {
+            }
+            else
+            {
+                camino.Add("No existe Camino");
+            }*/
+            return camino;
+        }
 
     }
 }

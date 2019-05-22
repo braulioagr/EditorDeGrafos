@@ -122,7 +122,7 @@ namespace EditorDeGrafos
             {
                 foreach (Arista arista in nodo.Aristas)
                 {
-                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),ponderado);
+                    arista.dibujaArista(g, typeof(GrafoDirigido).IsInstanceOfType(this),ponderado,false);
                 }
                 if (MetodosAuxiliares.nodoEnLista(pendientes, nodo))
                 {
@@ -197,7 +197,7 @@ namespace EditorDeGrafos
                         {
                             foreach (Arista arista in nodo.Aristas)
                             {
-                                arista.dibujaArista(g, false, this.ponderado);
+                                arista.dibujaArista(g, false, this.ponderado,false);
                             }
                             nodo.dibujaNodo(g, colores[i]);
                         }
@@ -450,13 +450,13 @@ namespace EditorDeGrafos
             isomorfismo = MetodosAuxiliares.comparaMatrices(matriz, matrix);
             while (isomorfismo || cambios == limCambio)
             {
-                MetodosAuxiliares.biyectividad(matriz, matrix, ref i1, ref i2);
+                /*MetodosAuxiliares.biyectividad(matriz, matrix, ref i1, ref i2);
                 matrix = MetodosAuxiliares.CambioIsomorfico(matrix, i1, i2);
                 isomorfismo = MetodosAuxiliares.comparaMatrices(matriz, matrix);
                 cambio = grafito[i1].Nombre + "->" + grafito[i2].Nombre;
                 paso = new Paso(matrix, cambio);
                 pasos.Add(paso);
-                cambios++;
+                cambios++;*/
             }
             grafito = grafito.matrizAGrafo(matrix);
             return isomorfismo;
@@ -1030,6 +1030,34 @@ namespace EditorDeGrafos
                 this.bosqueBusquedaAmplitud(sigNivel, ref arbol, ref cruce);
             }
 
+        }
+
+        #endregion
+
+        #region Kruskal
+
+        public override List<Arista> Kruskal(ref List<List<string>> componentes, List<Arista> aristas)
+        {
+            List<Arista> ramas;
+            Arista arista2;
+            int i,j;
+            i = 0;
+            j = 0;
+            arista2 = null;
+            ramas = new List<Arista>();
+            foreach(Arista arista in aristas)
+            {
+                arista2 = arista.Arriba.buscaReciproca(arista.Id);//Busca la arista reciproca de esta
+                if(!MetodosAuxiliares.mismoComponente(componentes,arista2.Arriba.Nombre,arista.Arriba.Nombre))
+                {//Se verifica que no esten en el mismo componente (Misma list de string)
+                    //ramas.Add(arista);//Se añadan ambas aristas
+                    ramas.Add(arista2);//Se añadan ambas aristas
+                    i = MetodosAuxiliares.indiceDeComponente(componentes, arista2.Arriba.Nombre);//Encuentran los indices de los componentes a mezclar
+                    j = MetodosAuxiliares.indiceDeComponente(componentes, arista.Arriba.Nombre);//
+                    MetodosAuxiliares.combinaComponentes(ref componentes,i,j);//Se convinan las listas de string
+                }
+            }
+            return ramas;
         }
 
         #endregion

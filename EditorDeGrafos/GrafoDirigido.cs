@@ -148,7 +148,7 @@ namespace EditorDeGrafos
 
         #endregion
 
-        #region Eulerianos
+        #region Euler
         
         #region Validaciones
 
@@ -158,7 +158,7 @@ namespace EditorDeGrafos
             aislado = false;
             foreach (Nodo nodo in this)
             {
-                if (nodo.Aristas.Count == 0)//Si un nodo no tiene aristas regresa el true
+                if (nodo.Aristas.Count == 0 && nodo.GradoEntrada == 0)//Si un nodo no tiene aristas regresa el true
                 {
                     aislado = true;
                     break;
@@ -546,7 +546,7 @@ namespace EditorDeGrafos
             return recorrido;
         }
 
-        public override int[,] FloydWarshall()
+        public override int[,] FloydWarshall(ref string[,] caminos)
         {
             int[,] distancia = this.matrizDeCostos();
             for (int k = 0; k < distancia.GetLength(0); ++k)
@@ -558,6 +558,7 @@ namespace EditorDeGrafos
                         if ( distancia[i, j] > (distancia[i, k] + distancia[k, j]) )
                         {
                             distancia[i, j] = distancia[i, k] + distancia[k, j];
+                            caminos[i, j] = this[k].Nombre;
                         }
                     }
                 }

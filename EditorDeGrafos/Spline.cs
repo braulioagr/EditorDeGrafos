@@ -15,6 +15,7 @@ namespace EditorDeGrafos
         private Punto[] arrptos;
         private Pen pn;
 
+        
         /// <summary>
         /// Constructor del bezier que recibe los puntos iniciales y finales del mismo
         /// </summary>
@@ -32,6 +33,18 @@ namespace EditorDeGrafos
             for (int i = 0; i < numPtos; i++)
                 arrptos[i] = new Punto();
             Crea_Puntos();
+        }
+
+        public Point puntoMedio
+        {
+            get
+            {
+                int indiceMedio;
+                Point p;
+                indiceMedio = (int)Math.Round((double)arrptos.Length / 2);
+                p = new Point((int)arrptos[indiceMedio].X, (int)arrptos[indiceMedio].Y);
+                return p;
+            }
         }
         /// <summary>
         /// Crea los puntos de control en los que se basara para crear el bezier, dandoles 
@@ -175,6 +188,24 @@ namespace EditorDeGrafos
             g.DrawLine(pn, (int)arrptos[arrptos.Length - 2].X, (int)arrptos[arrptos.Length - 2].Y, (int)arrptos[arrptos.Length - 1].X, (int)arrptos[arrptos.Length - 1].Y);
             indiceMedio = (int)Math.Round((double)arrptos.Length / 2);
             g.DrawString(etiqueta, new Font("Times New Roman", 10), new SolidBrush(Color.Purple), new Point((int)arrptos[indiceMedio].X, (int)arrptos[indiceMedio].Y));
+        }
+
+        internal void PintaCurva(Graphics grp, string etiqueta)
+        {
+            float x, y, x2, y2;
+            int indiceMedio;
+            for (int i = 0; i < arrptos.Length - 1; i++)
+            {
+                x = (float)arrptos[i].X;
+                y = (float)arrptos[i].Y;
+                x2 = (float)arrptos[i + 1].X;
+                y2 = (float)arrptos[i + 1].Y;
+                grp.DrawLine(pn, x, y, x2, y2);
+            }
+            pn.CustomEndCap = new AdjustableArrowCap(5, 5);
+            grp.DrawLine(pn, (int)arrptos[arrptos.Length - 2].X, (int)arrptos[arrptos.Length - 2].Y, (int)arrptos[arrptos.Length - 1].X, (int)arrptos[arrptos.Length - 1].Y);
+            indiceMedio = (int)Math.Round((double)arrptos.Length / 2);
+            grp.DrawString(etiqueta, new Font("Times New Roman", 10), new SolidBrush(Color.Black), new Point((int)arrptos[indiceMedio].X, (int)arrptos[indiceMedio].Y));
         }
     }
 }

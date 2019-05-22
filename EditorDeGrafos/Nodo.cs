@@ -280,6 +280,50 @@ namespace EditorDeGrafos
 
         #endregion
         
+        public Arista buscaReciproca(int id)
+        {
+            Arista reciproca;
+            reciproca = null;
+            foreach (Arista arista in this.aristas)
+            {
+                if (arista.Id.Equals(id))
+                {
+                    reciproca = arista;
+                    break;
+                }
+            }
+            return reciproca;
+        }
 
+
+        public bool existeReciproca(int id)
+        {
+            bool existe;
+            existe = false;
+            foreach (Arista arista in this.aristas)
+            {
+                if (arista.Id.Equals(id))
+                {
+                    existe = true;
+                    break;
+                }
+            }
+            return existe;
+        }
+
+        public bool existeReciproca(Nodo nodo)
+        {
+            bool existe;
+            existe = false;
+            foreach (Arista arista in this.aristas)
+            {
+                if (arista.Arriba.Equals(nodo))
+                {
+                    existe = true;
+                    break;
+                }
+            }
+            return existe;
+        }
     }
 }

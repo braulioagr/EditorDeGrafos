@@ -82,7 +82,7 @@
             this.dataGridRecorridos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridRecorridos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridRecorridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridRecorridos.Location = new System.Drawing.Point(288, 32);
+            this.dataGridRecorridos.Location = new System.Drawing.Point(292, 32);
             this.dataGridRecorridos.Name = "dataGridRecorridos";
             this.dataGridRecorridos.RowHeadersVisible = false;
             this.dataGridRecorridos.Size = new System.Drawing.Size(258, 202);
@@ -90,7 +90,7 @@
             // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(237, 340);
+            this.Cerrar.Location = new System.Drawing.Point(247, 340);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 4;
@@ -110,7 +110,7 @@
             // BarVelocidad
             // 
             this.BarVelocidad.LargeChange = 1;
-            this.BarVelocidad.Location = new System.Drawing.Point(288, 261);
+            this.BarVelocidad.Location = new System.Drawing.Point(292, 262);
             this.BarVelocidad.Maximum = 5;
             this.BarVelocidad.Minimum = 1;
             this.BarVelocidad.Name = "BarVelocidad";
@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 372);
+            this.ClientSize = new System.Drawing.Size(562, 372);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.BarVelocidad);

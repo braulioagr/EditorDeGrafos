@@ -115,7 +115,7 @@ namespace EditorDeGrafos
          *            @param bool dirigido Bandera qye indica si el grafo al que pertenece la arista
          *                                 es dirigido o no.
          */
-        public void dibujaArista(Graphics g, bool dirigido,bool ponderado)
+        public void dibujaArista(Graphics g, bool dirigido,bool ponderado,bool existe)
         {
             Pen pen = new Pen(ColorLinea, anchoLinea);
             string etiqueta;
@@ -124,19 +124,28 @@ namespace EditorDeGrafos
             {
                 pen.CustomEndCap = new AdjustableArrowCap(5, 5);
             }
+            if (ponderado)
+            {
+                etiqueta += ": " + this.peso.ToString();
+            }
             if(p1.Equals(p2))
             {
                 g.DrawBezier(pen, arriba.Pc.X - 15, arriba.Pc.Y - 15, arriba.Pc.X - 20, arriba.Pc.Y - 60, arriba.Pc.X + 20, arriba.Pc.Y - 60, arriba.Pc.X + 15, arriba.Pc.Y - 15);
             }
             else
             {
+                /*if (dirigido && existe)
+                {
+                    Spline spline;
+                    spline = new Spline(this.p1, this.p2);
+                    spline.PintaCurva(g,etiqueta);
+                }
+                else
+                {
+                }*/
                 g.DrawLine(pen, p1.X, p1.Y, p2.X, p2.Y);
+                g.DrawString(etiqueta, new Font("Times New Roman", 10), new SolidBrush(pen.Color), (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
             }
-            if (ponderado)
-            {
-                etiqueta += ": " + this.peso.ToString();
-            }
-            g.DrawString(etiqueta, new Font("Times New Roman", 10), new SolidBrush(pen.Color), (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
 
         }
         public void dibujaArista(Graphics gAux, bool dirigido, bool ponderado, Color color)
