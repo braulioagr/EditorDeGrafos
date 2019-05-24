@@ -15,21 +15,58 @@ namespace EditorDeGrafos
 
         #region Variables de Instancia
         Grafo grafo;
-        List<Paso> pasos;
+        private Grafo grafito;
+        private List<int[,]> pasos;
+        private int[] cambios;
         #endregion
 
         #region Constructores
-        public Isomorfismo(Grafo grafo, List<Paso> pasos)
+
+        public Isomorfismo(Grafo grafo, Grafo grafito, List<int[,]> pasos1, int[] cambios)
         {
+            // TODO: Complete member initialization
             this.grafo = grafo;
-            this.pasos = pasos;
+            this.grafito = grafito;
+            this.pasos = pasos1;
+            this.cambios = cambios;
             InitializeComponent();
         }
 
         private void Isomorfismo_Load(object sender, EventArgs e)
         {
+            string[] vector;
+            dataGridG1.ColumnCount = grafo.Count + 1;
+            dataGridG1.Columns[0].Name = "Nodos";
+            label5.Text = "Nodos: " + grafo.Count.ToString() + "\n Aristas: " + (grafo.Aristas/2).ToString();
+            label6.Text = "Nodos: " + grafito.Count.ToString() + "\n Aristas: " + (grafito.Aristas/2).ToString();
+            for (int i = 1; i < grafo.Count + 1; i++)
+            {
+                dataGridG1.Columns[i].Name = grafo[i - 1].Nombre;
+            }
+            foreach (Nodo nodo in grafo)
+            {
+                vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafo.encuentraIndice(nodo), grafo.matrizDeAdyacencia());
+                dataGridG1.Rows.Add(vector);
+            }
+            dataGridG2.ColumnCount = grafo.Count + 1;
+            dataGridG2.Columns[0].Name = "Nodos";
+            for (int i = 1; i < grafo.Count + 1; i++)
+            {
+                dataGridG2.Columns[i].Name = grafito[i - 1].Nombre;
+            }
+            foreach (Nodo nodo in grafito)
+            {
+                vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafito.encuentraIndice(nodo), this.pasos.First());
+                dataGridG2.Rows.Add(vector);
+            }
+            comboPasos.Items.Add("Original");
+            comboPasos.Items.Add("Final");
+            comboPasos.Text = "Original";
+            for (int i = 0; i < this.cambios.Length; i++)
+            {
+                dataGridIntecambios.Rows.Add(grafo[i].Nombre, grafito[this.cambios[i]].Nombre);
+            }
         }
-
         #endregion
         
         #region Eventos
@@ -43,10 +80,32 @@ namespace EditorDeGrafos
         {
             Size size;
             size = new Size(this.Size.Width - 40, this.Size.Height - 92);
-            Pestañas.Size = size;
         }
 
         #endregion
+
+        private void comboPasos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] vector;
+            dataGridG2.Rows.Clear();
+            if (comboPasos.Text.Equals("Original"))
+            {
+                foreach (Nodo nodo in grafito)
+                {
+                    vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafito.encuentraIndice(nodo), this.grafito.matrizDeAdyacencia());
+                    dataGridG2.Rows.Add(vector);
+                }
+            }
+            else if (comboPasos.Text.Equals("Final"))
+            {
+                foreach (Nodo nodo in grafito)
+                {
+                    vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafito.encuentraIndice(nodo), this.grafo.matrizDeAdyacencia());
+                    dataGridG2.Rows.Add(vector);
+                }
+            }
+        }
+
 
 
     }

@@ -894,7 +894,7 @@ namespace EditorDeGrafos
 
         #region Isomorfismo
 
-        public virtual bool isomorfismo(ref Grafo grafito, ref List<Paso> pasos)
+        public virtual bool isomorfismo(int[,] p1, int[,] p2, ref List<int[,]> pasos, ref int[] cambios)
         {
             throw new NotImplementedException();
         }
@@ -1115,5 +1115,6 @@ namespace EditorDeGrafos
         #endregion
 
         #endregion
+
     }
 }

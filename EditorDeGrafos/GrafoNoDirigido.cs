@@ -430,36 +430,111 @@ namespace EditorDeGrafos
         #endregion
 
         #region Isomorfismo
-        public override bool isomorfismo(ref Grafo grafito, ref List<Paso> pasos)
+
+        public override bool isomorfismo(int[,] g1, int[,] g2, ref List<int[,]> pasos, ref int[] cambios)
         {
-            int limCambio;
-            int cambios;
-            int i1;
-            int i2;
-            bool isomorfismo;
-            string cambio;
-            int[,] matriz;
-            int[,] matrix;
-            Paso paso;
-            i1 = 0;
-            i2 = 0;
-            matriz = base.matrizDeAdyacencia();
-            matrix = grafito.matrizDeAdyacencia();
-            limCambio = Convert.ToInt32(Math.Pow((double)grafito.Count, (double)2));
-            cambios = 0;
-            isomorfismo = MetodosAuxiliares.comparaMatrices(matriz, matrix);
-            while (isomorfismo || cambios == limCambio)
+            int[] p;
+            List<int> p2 = new List<int>();
+            long fact = MetodosAuxiliares.factorial(this.Count);
+            int[] indexp = new int[this.Count]; 
+
+            for (int i = 0 ; i < this.Count ; i++)//se llena indexp con el numero de nodos
             {
-                /*MetodosAuxiliares.biyectividad(matriz, matrix, ref i1, ref i2);
-                matrix = MetodosAuxiliares.CambioIsomorfico(matrix, i1, i2);
-                isomorfismo = MetodosAuxiliares.comparaMatrices(matriz, matrix);
-                cambio = grafito[i1].Nombre + "->" + grafito[i2].Nombre;
-                paso = new Paso(matrix, cambio);
-                pasos.Add(paso);
-                cambios++;*/
+                indexp[i] = i;
             }
-            grafito = grafito.matrizAGrafo(matrix);
-            return isomorfismo;
+            
+            if (MetodosAuxiliares.comparaMatrices(g1,g2))
+            {
+                sep(ref p2, indexp);
+                return true;
+            }
+            p = indexp;
+            //creamos una permutacion y la probamos
+            for (int i = 0 ; i < fact ; i++)
+            {
+                biyeccion(indexp);
+                if (PruebaPermutacion(g1, g2, indexp, ref p, ref pasos))
+                {
+                    cambios = indexp;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void sep(ref List<int> p2, int[] p)
+        {
+            for (int i = 0; i < p.Length; i++)
+            {
+                p2.Add(p[i]);//El Orden de cambios
+            }
+        }
+        public bool PruebaPermutacion(int[,] M1, int[,] M2, int[] permutacion, ref int[] p, ref List<int[,]> pasos)
+        {
+            p = permutacion;
+            bool band;
+            band = true;
+            int x = permutacion.Length;
+            for (int i = 0; i < permutacion.Length; i++)
+            {
+                for (int j = 0; j < permutacion.Length; j++)
+                {
+                    if (M1[i, j] != M2[permutacion[i], permutacion[j]])
+                    {
+                        band = false;
+                        break;
+                    }
+                }
+                if (!band)
+                {
+                    break;
+                }
+            }
+            pasos.Add(MetodosAuxiliares.clonaMatriz(M1));
+            return band;
+        }
+
+        public static bool biyeccion(int[] numList)
+        {
+            /*
+            * Knuths 
+            * 1. Find the largest index j such that a[j] < a[j + 1]. If no such index exists, the permutation is the last permutation. 
+            * 2. Find the largest index l such that a[j] < a[l]. Since j + 1 is such an index, l is well defined and satisfies j < l. 
+            * 3. Swap a[j] with a[l]. 
+            * 4. Reverse the sequence from a[j + 1] up to and including the final element a[n]. 
+            */
+            var largestIndex = -1;
+            for (var i = numList.Length - 2; i >= 0; i--)
+            {
+                if (numList[i] < numList[i + 1])
+                {
+                    largestIndex = i;
+                    break;
+                }
+            }
+            if (largestIndex < 0)
+            {
+                return false;
+            }
+            var largestIndex2 = -1;
+            for (var i = numList.Length - 1; i >= 0; i--)
+            {
+                if (numList[largestIndex] < numList[i])
+                {
+                    largestIndex2 = i;
+                    break;
+                }
+            }
+            var tmp = numList[largestIndex];
+            numList[largestIndex] = numList[largestIndex2];
+            numList[largestIndex2] = tmp;
+            for (int i = largestIndex + 1, j = numList.Length - 1; i < j; i++, j--)
+            {
+                tmp = numList[i];
+                numList[i] = numList[j];
+                numList[j] = tmp;
+            }
+            return true;
         }
 
         public override Grafo matrizAGrafo(int[,] matriz)

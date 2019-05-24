@@ -613,11 +613,14 @@ namespace EditorDeGrafos
                 break;
                 case "Isomorfismo":
                     #region Isomorfismo
+                    Isomorfismo isomorfismo;
                     Grafo grafito;
                     GrafoSecundario sGrafo;
-                    List<Paso> pasos;
+                    List<int[,]> pasos;
+                    int[] cambios;
                     sGrafo = new GrafoSecundario(grafo);
-                    pasos = new List<Paso>();
+                    pasos = new List<int[,]>();
+                    cambios = new int[grafo.Count];
                     if (sGrafo.ShowDialog() == DialogResult.OK)
                     {
                         grafito = sGrafo.Grafo;
@@ -625,8 +628,12 @@ namespace EditorDeGrafos
                         {
                             if (grafo.Aristas == grafito.Aristas)
                             {
-                                if (grafo.isomorfismo(ref grafito, ref pasos))
+                                pasos.Add(grafito.matrizDeAdyacencia());
+                                if (grafo.isomorfismo(grafo.matrizDeAdyacencia(),grafito.matrizDeAdyacencia(),ref pasos, ref cambios))
                                 {
+                                    isomorfismo = new Isomorfismo(grafo, grafito, pasos, cambios);
+                                    isomorfismo.ShowDialog();
+                                    isomorfismo.Dispose();
                                 }
                                 else
                                 {
@@ -815,7 +822,7 @@ namespace EditorDeGrafos
                     }
                     aristas = grafo.Kruskal(ref componentes, aristas);//Invocacmos al metodo en el grafo
                     kruskal = new Kruskal(aristas);
-                    g.Clear(BackColor);
+                    //g.Clear(BackColor);
                     grafo.dibujaArbolCostoMinimo(this.g, aristas);
                     kruskal.ShowDialog();
                     kruskal.Dispose();
@@ -1197,7 +1204,7 @@ namespace EditorDeGrafos
             {
                 case 2://AristaNoDirigida
                     #region  Arista no Dirigida
-                    pesos = new PesosAristas(this.grafo.Ponderado);
+                    pesos = new PesosAristas(true);
                     if (grafo.BuscaNodo(ref p2) && bandArista && band)
                     {
                         if (pesos.ShowDialog().Equals(DialogResult.OK))
@@ -1248,7 +1255,7 @@ namespace EditorDeGrafos
                 break;
                 case 7://AristaDirigida
                     #region AristaDirigida
-                    pesos = new PesosAristas(this.grafo.Ponderado);
+                    pesos = new PesosAristas(true);
                     if (grafo.BuscaNodo(ref p2) && bandArista && band)
                     {
                         if (pesos.ShowDialog().Equals(DialogResult.OK))

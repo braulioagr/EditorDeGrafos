@@ -714,5 +714,19 @@ namespace EditorDeGrafos
         }
         #endregion
 
+
+        public static int[,] clonaMatriz(int[,] M2)
+        {
+            int[,] matrix;
+            matrix = new int[M2.GetLength(0), M2.GetLength(0)];
+            for (int i = 0; i < M2.GetLength(0); i++)
+            {
+                for (int j = 0; j < M2.GetLength(0); j++)
+                {
+                    matrix[i, j] = M2[i, j];
+                }
+            }
+            return matrix;
+        }
     }
 }

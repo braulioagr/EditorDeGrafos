@@ -151,6 +151,8 @@
             this.AciclicidadTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator57 = new System.Windows.Forms.ToolStripSeparator();
             this.BBATool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator58 = new System.Windows.Forms.ToolStripSeparator();
+            this.KruskalTool = new System.Windows.Forms.ToolStripButton();
             this.GradosTool = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.MatrizAdyacenciaTool = new System.Windows.Forms.ToolStripButton();
@@ -180,8 +182,6 @@
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
             this.relojCiclos = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator58 = new System.Windows.Forms.ToolStripSeparator();
-            this.KruskalTool = new System.Windows.Forms.ToolStripButton();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
@@ -1212,8 +1212,24 @@
             this.BBATool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.BBATool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BBATool.Name = "BBATool";
-            this.BBATool.Size = new System.Drawing.Size(23, 34);
+            this.BBATool.Size = new System.Drawing.Size(34, 34);
             this.BBATool.Text = "Bosque de Busaqueda Amplitud";
+            // 
+            // toolStripSeparator58
+            // 
+            this.toolStripSeparator58.Name = "toolStripSeparator58";
+            this.toolStripSeparator58.Size = new System.Drawing.Size(6, 37);
+            // 
+            // KruskalTool
+            // 
+            this.KruskalTool.AccessibleName = "Kruskal";
+            this.KruskalTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.KruskalTool.Image = ((System.Drawing.Image)(resources.GetObject("KruskalTool.Image")));
+            this.KruskalTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.KruskalTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.KruskalTool.Name = "KruskalTool";
+            this.KruskalTool.Size = new System.Drawing.Size(34, 34);
+            this.KruskalTool.Text = "Kruskal";
             // 
             // GradosTool
             // 
@@ -1478,21 +1494,6 @@
             // relojCiclos
             // 
             this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
-            // 
-            // toolStripSeparator58
-            // 
-            this.toolStripSeparator58.Name = "toolStripSeparator58";
-            this.toolStripSeparator58.Size = new System.Drawing.Size(6, 37);
-            // 
-            // KruskalTool
-            // 
-            this.KruskalTool.AccessibleName = "Kruskal";
-            this.KruskalTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.KruskalTool.Image = ((System.Drawing.Image)(resources.GetObject("KruskalTool.Image")));
-            this.KruskalTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.KruskalTool.Name = "KruskalTool";
-            this.KruskalTool.Size = new System.Drawing.Size(23, 34);
-            this.KruskalTool.Text = "toolStripButton1";
             // 
             // EditorDeGrafos
             // 

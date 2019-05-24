@@ -174,7 +174,6 @@
     <Compile Include="Partitas.Designer.cs">
       <DependentUpon>Partitas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Paso.cs" />
     <Compile Include="PendientesYAislados.cs">
       <SubType>Form</SubType>
     </Compile>
