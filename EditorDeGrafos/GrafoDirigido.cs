@@ -336,6 +336,10 @@ namespace EditorDeGrafos
                     }
                 }
             }
+            for (int i = 0; i < this.Count; i++)
+            {
+                costos[i, i] = 0;
+            }
             return costos;
         }
 
@@ -569,6 +573,7 @@ namespace EditorDeGrafos
         #endregion
         
         #region Bosque de Busqueda Profundidad
+
         public override void bosqueBusquedaProfunda(Nodo nodo, int erdoz, Stack<string> rama, ref List<List<string>> ramas)
         {
             List<string> aux;
@@ -627,6 +632,7 @@ namespace EditorDeGrafos
                     }
                 }
             }
+
             if (ciclos.Count == 0)
             {
                 band = true;

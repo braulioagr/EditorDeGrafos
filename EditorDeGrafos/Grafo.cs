@@ -107,114 +107,98 @@ namespace EditorDeGrafos
             }
         }
 
-        public string AristasArbol
+        public List<string> AristasArbol
         {
             get
             {
-                string aristasArbol;
-                aristasArbol = "";
+                List<string> aristasArbol;
+                aristasArbol = new List<string>();
                 foreach (Nodo nodo in this)
                 {
                     foreach (Arista arista in nodo.Aristas)
                     {
                         if (arista.Tipo.Equals("Arbol"))
                         {
-                            aristasArbol += ", e" + arista.Id;
+                            aristasArbol.Add("e" + arista.Id.ToString());
                         }
                     }
                 }
-                if (!string.IsNullOrEmpty(aristasArbol))
+                if (aristasArbol.Count == 0)
                 {
-                    aristasArbol = aristasArbol.Substring(1);
-                }
-                else
-                {
-                    aristasArbol = "No existen Aristas de Arbol";
+                    aristasArbol.Add("No existen Aristas de Arbol");
                 }
                 return aristasArbol;
 
             }
         }
 
-        public string AristasCruce
+        public List<string> AristasCruce
         {
             get
             {
-                string aristasCruce;
-                aristasCruce = "";
+                List<string> aristasCruce;
+                aristasCruce = new List<string>();
                 foreach (Nodo nodo in this)
                 {
                     foreach (Arista arista in nodo.Aristas)
                     {
                         if (arista.Tipo.Equals("Cruce"))
                         {
-                            aristasCruce += ", e" + arista.Id;
+                            aristasCruce.Add("e" + arista.Id);
                         }
                     }
                 }
-                if (!string.IsNullOrEmpty(aristasCruce))
+                if (aristasCruce.Count == 0)
                 {
-                    aristasCruce = aristasCruce.Substring(1);
-                }
-                else
-                {
-                    aristasCruce = "No existen Aristas de Cruce";
+                    aristasCruce.Add("No existen Aristas de Cruce");
                 }
                 return aristasCruce;
             }
         }
 
-        public string AristasAvance
+        public List<string> AristasAvance
         {
             get
             {
-                string aristasAvance;
-                aristasAvance = "";
+                List<string> aristasAvance;
+                aristasAvance = new List<string>();
                 foreach (Nodo nodo in this)
                 {
                     foreach (Arista arista in nodo.Aristas)
                     {
                         if (arista.Tipo.Equals("Avance"))
                         {
-                            aristasAvance += ", e" + arista.Id;
+                            aristasAvance.Add("e" + arista.Id.ToString());
                         }
                     }
                 }
-                if(!string.IsNullOrEmpty(aristasAvance))
+                if(aristasAvance.Count == 0)
                 {
-                    aristasAvance = aristasAvance.Substring(1);
-                }
-                else
-                {
-                    aristasAvance = "No existen Aristas de Avance";
+                    aristasAvance.Add("No existen Aristas de Avance");
                 }
                 return aristasAvance;
             }
         }
 
-        public string AristasRetroceso
+        public List<string> AristasRetroceso
         {
             get
             {
-                string aristasRetroceso;
-                aristasRetroceso = "";
+                List<string> aristasRetroceso;
+                aristasRetroceso = new List<string>();
                 foreach (Nodo nodo in this)
                 {
                     foreach (Arista arista in nodo.Aristas)
                     {
                         if (arista.Tipo.Equals("Retroceso"))
                         {
-                            aristasRetroceso += ", e" + arista.Id;
+                            aristasRetroceso.Add("e" + arista.Id.ToString());
                         }
                     }
                 }
-                if (!string.IsNullOrEmpty(aristasRetroceso))
+                if (aristasRetroceso.Count == 0)
                 {
-                    aristasRetroceso = aristasRetroceso.Substring(1);
-                }
-                else
-                {
-                    aristasRetroceso = "No existen Aristas de Retroceso";
+                    aristasRetroceso.Add("No existen Aristas de Retroceso");
                 }
                 return aristasRetroceso;
             }

@@ -175,6 +175,20 @@ namespace EditorDeGrafos
         #endregion
 
         #region Isomorfismo
+
+
+        public static string stringRamas(List<string> list)
+        {
+            string rama;
+            rama = "";
+            foreach (string cadena in list)
+            {
+                rama += "," + cadena;
+            }
+            rama = rama.Substring(1);
+            return rama;
+        }
+
         public static bool comparaMatrices(int[,] matriz1, int[,] matriz2)
         {
             bool bandera;
@@ -206,6 +220,55 @@ namespace EditorDeGrafos
                 }
             }
             return factorial;
+        }
+
+        public static int[,] clonaMatriz(int[,] M2)
+        {
+            int[,] matrix;
+            matrix = new int[M2.GetLength(0), M2.GetLength(0)];
+            for (int i = 0; i < M2.GetLength(0); i++)
+            {
+                for (int j = 0; j < M2.GetLength(0); j++)
+                {
+                    matrix[i, j] = M2[i, j];
+                }
+            }
+            return matrix;
+        }
+
+        public static int[,] cambioIsomorfico(int[,] grafo, int x, int y)
+        {            
+            int aux;
+            aux = 0;
+            for (int i = 0; i < grafo.GetLength(0); i++)
+            {
+                aux = grafo[x, i];
+                grafo[x, i] = grafo[y, i];
+                grafo[y, i] = aux;
+            }
+            for (int j = 0; j < grafo.GetLength(0); j++)
+            {
+                aux = grafo[j, x];
+                grafo[j, x] = grafo[j, y];
+                grafo[j, y] = aux;
+            }
+            return grafo;
+        }
+
+
+        public static bool seAhCambio(int j, List<int> cambiados)
+        {
+            bool band;
+            band = false;
+            foreach (int i in cambiados)
+            {
+                if(i.Equals(j))
+                {
+                    band = true;
+                    break;
+                }
+            }
+            return band;
         }
 
         #endregion
@@ -715,18 +778,6 @@ namespace EditorDeGrafos
         #endregion
 
 
-        public static int[,] clonaMatriz(int[,] M2)
-        {
-            int[,] matrix;
-            matrix = new int[M2.GetLength(0), M2.GetLength(0)];
-            for (int i = 0; i < M2.GetLength(0); i++)
-            {
-                for (int j = 0; j < M2.GetLength(0); j++)
-                {
-                    matrix[i, j] = M2[i, j];
-                }
-            }
-            return matrix;
-        }
+
     }
 }

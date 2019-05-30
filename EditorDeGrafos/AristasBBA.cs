@@ -28,6 +28,7 @@ namespace EditorDeGrafos
         {
             string aristas;
             aristas = "";
+            aristasArbol = aristasArbol.OrderBy(cadena=>cadena).ToList();
             for (int i = 0; i < aristasArbol.Count - 1; i++)
             {
                 aristas += aristasArbol[i] + ", ";
@@ -35,6 +36,7 @@ namespace EditorDeGrafos
             aristas += aristasArbol.Last();
             dataGridAristas.Rows.Add("Rojo", "Arbol", aristas);
             /**/
+            aristasCruce = aristasCruce.OrderBy(cadena => cadena).ToList();
             if (aristasCruce.Count > 0)
             {
                 aristas = "";
@@ -43,7 +45,7 @@ namespace EditorDeGrafos
                     aristas += aristasCruce[i] + ", ";
                 }
                 aristas += aristasCruce.Last();
-                dataGridAristas.Rows.Add("Verde", "Cruce", grafo.AristasCruce);
+                dataGridAristas.Rows.Add("Verde", "Cruce", aristas);
             }
             else
             {

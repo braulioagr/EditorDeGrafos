@@ -14,21 +14,25 @@ namespace EditorDeGrafos
     {
 
         #region Variables de Instancia
-        Grafo grafo;
+        private Grafo grafo;
         private Grafo grafito;
         private List<int[,]> pasos;
         private int[] cambios;
+        private bool band;
+        private int[,] resultante;
         #endregion
 
         #region Constructores
 
-        public Isomorfismo(Grafo grafo, Grafo grafito, List<int[,]> pasos1, int[] cambios)
+        public Isomorfismo(Grafo grafo, Grafo grafito, List<int[,]> pasos1, int[] cambios, bool band,int[,] resultante)
         {
             // TODO: Complete member initialization
             this.grafo = grafo;
             this.grafito = grafito;
             this.pasos = pasos1;
             this.cambios = cambios;
+            this.band = band;
+            this.resultante = resultante;
             InitializeComponent();
         }
 
@@ -66,6 +70,14 @@ namespace EditorDeGrafos
             {
                 dataGridIntecambios.Rows.Add(grafo[i].Nombre, grafito[this.cambios[i]].Nombre);
             }
+            if (band)
+            {
+                this.Text = "Los grafos SI son Isomorficos";
+            }
+            else
+            {
+                this.Text = "Los grafos NO son Isomorficos";
+            }
         }
         #endregion
         
@@ -98,10 +110,21 @@ namespace EditorDeGrafos
             }
             else if (comboPasos.Text.Equals("Final"))
             {
-                foreach (Nodo nodo in grafito)
+                if (band)
                 {
-                    vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafito.encuentraIndice(nodo), this.grafo.matrizDeAdyacencia());
-                    dataGridG2.Rows.Add(vector);
+                    foreach (Nodo nodo in grafito)
+                    {
+                        vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafito.encuentraIndice(nodo), this.grafo.matrizDeAdyacencia());
+                        dataGridG2.Rows.Add(vector);
+                    }
+                }
+                else
+                {
+                    foreach (Nodo nodo in grafito)
+                    {
+                        vector = MetodosAuxiliares.vectorNodo(nodo.Nombre, grafito.encuentraIndice(nodo), this.resultante);
+                        dataGridG2.Rows.Add(vector);
+                    }
                 }
             }
         }

@@ -446,6 +446,7 @@ namespace EditorDeGrafos
             if (MetodosAuxiliares.comparaMatrices(g1,g2))
             {
                 sep(ref p2, indexp);
+                cambios = indexp;
                 return true;
             }
             p = indexp;
@@ -459,6 +460,7 @@ namespace EditorDeGrafos
                     return true;
                 }
             }
+            cambios = indexp;
             return false;
         }
 

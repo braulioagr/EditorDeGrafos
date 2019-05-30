@@ -29,6 +29,7 @@ namespace EditorDeGrafos
         private string nombre;
         private string fuente;
         private bool bandFinal;
+        private bool bandChingSu;
         private bool bandNombre;
         #endregion
 
@@ -78,6 +79,7 @@ namespace EditorDeGrafos
             this.nombre = this.ConvierteNombre(numNodos);
             this.bandFinal = false;
             this.bandNombre = false;
+            this.bandChingSu = false;
             #endregion
 
             #region Estructuras
@@ -176,14 +178,25 @@ namespace EditorDeGrafos
                 this.opcion = 3;
                 break;
                 case "HomeomorfoK5":
-                    this.reporte = new ReporteKuratowski("K5", this.grafo);
+                    this.reporte = new ReporteKuratowski("K5", this.grafo,this.bandChingSu);
                     reporte.ShowDialog();
                     reporte.Dispose();
+                    if (bandChingSu)
+                    {
+                        MessageBox.Show("Para comprar nuevamente con Kuratowski favor deeliminar Arista o Agregar un Nodo Corte", "Atención");
+                    }
+                    this.bandChingSu = false;
+                    
                 break;
                 case "HomeomorfoK33":
-                    this.reporte = new ReporteKuratowski("K33", this.grafo);
+                    this.reporte = new ReporteKuratowski("K33", this.grafo,this.bandChingSu);
                     reporte.ShowDialog();
                     reporte.Dispose();
+                    if (bandChingSu)
+                    {
+                        MessageBox.Show("Para comprar nuevamente con Kuratowski favor deeliminar Arista o Agregar un Nodo Corte", "Atención");
+                    }
+                    this.bandChingSu = false;
                 break;
             }
         }
@@ -208,12 +221,15 @@ namespace EditorDeGrafos
                             bandNombre = true;
                             grafo.Tipo = true;
                         }                        
-                        bandFinal = grafo.AddKuratoswki(nodo, p1);
+                        this.bandChingSu = bandFinal = grafo.AddKuratoswki(nodo, p1);
                         #endregion
                     break;
                     case 2:
                         #region Borra Arista
-                        grafo.BorraArista(e.Location);
+                        if(grafo.BorraArista(e.Location) == 1)
+                        {
+                            this.bandChingSu = true;
+                        }
                         bandFinal = false;
                         #endregion
                     break;
@@ -223,6 +239,7 @@ namespace EditorDeGrafos
                         if (grafo.BuscaNodo(ref nodo, p1))
                         {
                             grafo.borraNodo(nodo);
+                            this.bandChingSu = true;
                             this.Kuratowski_Paint(this, null);
                         }
                     #endregion

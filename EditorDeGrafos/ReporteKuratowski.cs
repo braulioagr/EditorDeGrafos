@@ -18,9 +18,13 @@ namespace EditorDeGrafos
         #region Variables de Instancia
         private string texto;
         private Grafo grafo;
+        private bool bandChingSu;
         #endregion
-        public ReporteKuratowski(string texto, Grafo grafo)
+        public ReporteKuratowski(string texto, Grafo grafo, bool bandChingSu)
         {
+            // TODO: Complete member initialization
+            this.grafo = grafo;
+            this.bandChingSu = bandChingSu;
             this.texto = texto;
             this.grafo = grafo;
             InitializeComponent();
@@ -37,13 +41,20 @@ namespace EditorDeGrafos
                 stream = new FileStream(Environment.CurrentDirectory + @"..\Grafos\Especiales\K5.grafo",
                                                     FileMode.Open, FileAccess.Read, FileShare.None);
                 grafo2 = (Grafo)formater.Deserialize(stream);
-                if (grafo.homeomorficoK5())
+                if (bandChingSu)
                 {
-                    this.richTextBoxReporte.Text = "El grafo es homeomorfo a K5";
+                    if (grafo.homeomorficoK5())
+                    {
+                        this.richTextBoxReporte.Text = "El grafo es homeomorfo a K5";
+                    }
+                    else
+                    {
+                        this.richTextBoxReporte.Text = "No es Homeomorfico a K5";
+                    }
                 }
                 else
                 {
-                    this.richTextBoxReporte.Text = "No es Homeomorfico a K5";
+                    this.richTextBoxReporte.Text = "Por favor Modifique el grafo";
                 }
             }
             else
@@ -51,13 +62,20 @@ namespace EditorDeGrafos
                 stream = new FileStream(Environment.CurrentDirectory + @"..\Grafos\Especiales\K33.grafo",
                                                     FileMode.Open, FileAccess.Read, FileShare.None);
                 grafo2 = (Grafo)formater.Deserialize(stream);
-                if (grafo.homeomorficoK33())
+                if(bandChingSu)
                 {
-                    this.richTextBoxReporte.Text = "El grafo es homeomorfo a K5";
+                    if (grafo.homeomorficoK33())
+                    {
+                        this.richTextBoxReporte.Text = "El grafo es homeomorfo a K33";
+                    }
+                    else
+                    {
+                        this.richTextBoxReporte.Text = "No es Homeomorfico a K33";
+                    }
                 }
                 else
                 {
-                    this.richTextBoxReporte.Text = "No es Homeomorfico a K33";
+                    this.richTextBoxReporte.Text = "Por favor Modifique el grafo";
                 }
             }
             //Algoritmo para vaciar el grafo en datagird Original
@@ -103,9 +121,17 @@ namespace EditorDeGrafos
                 {
                     adyacencias += "," + arista.Arriba.Nombre;
                 }
-                adyacencias = adyacencias.Substring(1);
-                dataGridLista.Rows.Add(nodo.Nombre, adyacencias);
+                if (!string.IsNullOrEmpty(adyacencias))
+                {
+                    adyacencias = adyacencias.Substring(1);
+                    dataGridLista.Rows.Add(nodo.Nombre, adyacencias);
+                }
+                else
+                {
+                    dataGridLista.Rows.Add(nodo.Nombre, "Este grafo no Tiene Adyacencias");
+                }
             }
+            stream.Close();
             this.richTextBoxAdvertencia.Text = "En caso de no cumplir, si desea que el grafo sea homeomorfico a los grafos K5 y K3,3 cerrar el dialogo y modificar el grafo original y volver a abrir el dialogo para que se pueda hacer una prueba con el grafo modificado";
         }
 

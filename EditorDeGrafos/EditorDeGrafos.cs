@@ -500,12 +500,34 @@ namespace EditorDeGrafos
                     #region Prueba de  Aciclicidad
                     List<List<string>> bucles;
                     bucles = new List<List<string>>();
+                    List<string> arbol;
+                    List<string> cruce;
+                    List<string> avance;
+                    List<string> retroceso;
                     if (!grafo.pruebaDeAciclicidad(ref bucles))
                     {
                         if ((MessageBox.Show("Existen: "+bucles.Count.ToString() +" ciclos en el grafo \n ¿Desea ver la simulación de los ciclos?", bucles.Count.ToString() + " ciclos", MessageBoxButtons.YesNo).Equals(DialogResult.Yes)))
                         {
                             Ciclos ciclos;
-                            ciclos = new Ciclos(bucles, relojCiclos);
+                            grafo.eliminaBosque();
+                            List<List<string>> ramas2;
+                            Stack<string> rama2;
+                            rama2 = new Stack<string>();
+                            ramas2 = new List<List<string>>();
+                            grafo.bosqueBusquedaProfunda(grafo.First(), 0, rama2, ref ramas2);
+                            foreach (Nodo nodo in this.grafo)
+                            {
+                                if (nodo.Erdos == -1)
+                                {
+                                    rama = new Stack<string>();
+                                    grafo.bosqueBusquedaProfunda(nodo, 0, rama2, ref ramas2);
+                                }
+                            }
+                            arbol =  grafo.AristasArbol;
+                            cruce = grafo.AristasCruce;
+                            avance = grafo.AristasAvance;
+                            retroceso = grafo.AristasRetroceso;
+                            ciclos = new Ciclos(bucles, relojCiclos, arbol, cruce, avance, retroceso);
                             ciclos.ciclo += new Ciclos.EventoCiclos(this.actualizaCiclo);
                             ciclos.borraRecorrido += new Ciclos.BorraRecorrido(this.redibujaGrafo);
                             ciclos.Show();
@@ -617,10 +639,14 @@ namespace EditorDeGrafos
                     Grafo grafito;
                     GrafoSecundario sGrafo;
                     List<int[,]> pasos;
+                    List<int> cambiados;
                     int[] cambios;
+                    bool band;
+                    int[,] matrizCambio;
                     sGrafo = new GrafoSecundario(grafo);
                     pasos = new List<int[,]>();
                     cambios = new int[grafo.Count];
+                    cambiados = new List<int>();
                     if (sGrafo.ShowDialog() == DialogResult.OK)
                     {
                         grafito = sGrafo.Grafo;
@@ -629,16 +655,28 @@ namespace EditorDeGrafos
                             if (grafo.Aristas == grafito.Aristas)
                             {
                                 pasos.Add(grafito.matrizDeAdyacencia());
-                                if (grafo.isomorfismo(grafo.matrizDeAdyacencia(),grafito.matrizDeAdyacencia(),ref pasos, ref cambios))
+                                band = grafo.isomorfismo(grafo.matrizDeAdyacencia(), grafito.matrizDeAdyacencia(), ref pasos, ref cambios);
+                                matrizCambio = grafito.matrizDeAdyacencia();
+                                if (band)
                                 {
-                                    isomorfismo = new Isomorfismo(grafo, grafito, pasos, cambios);
-                                    isomorfismo.ShowDialog();
-                                    isomorfismo.Dispose();
+                                    MessageBox.Show("Los grafos SI son Isomorficos!! =)","Si Son Isomorficos");
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Los grafos no son isomorficos", "No son isomorficos");
+                                    MessageBox.Show("Los grafos No son Isomorficos!! =(", "No Son Isomorficos");
                                 }
+                                for (int i = 0; i < grafito.Count; i++ )
+                                {
+                                    if(!MetodosAuxiliares.seAhCambio(i,cambiados) && !MetodosAuxiliares.seAhCambio(cambios[i],cambiados))
+                                    {
+                                        matrizCambio = MetodosAuxiliares.cambioIsomorfico(matrizCambio, i, cambios[i]);
+                                        cambiados.Add(i);
+                                        cambiados.Add(cambios[i]);
+                                    }
+                                }
+                                isomorfismo = new Isomorfismo(grafo, grafito, pasos, cambios, band,  matrizCambio);
+                                isomorfismo.ShowDialog();
+                                isomorfismo.Dispose();
                             }
                             else
                             {
@@ -808,6 +846,7 @@ namespace EditorDeGrafos
                     #endregion
                 break;
                 case "Kruskal":
+                    #region Kruskal
                     Kruskal kruskal;
                     List<Arista> aristas;
                     List<string> componente;
@@ -828,6 +867,7 @@ namespace EditorDeGrafos
                     kruskal.Dispose();
                     g.Clear(BackColor);
                     grafo.DibujaGrafo(g);
+                    #endregion
                 break;
                 default:
                     #region Inexistente

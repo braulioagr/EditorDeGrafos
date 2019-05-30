@@ -15,6 +15,10 @@ namespace EditorDeGrafos
         #region Variables de Instancia
         List<List<string>> ciclos;
         Timer reloj;
+        List<string> arbol;
+        List<string> cruce;
+        List<string> avance;
+        List<string> retroceso;
         #endregion
 
         #region Declaracion de Delegados
@@ -28,10 +32,14 @@ namespace EditorDeGrafos
         #endregion
 
         #region Constructoeres
-        public Ciclos(List<List<string>>ciclos,Timer reloj)
+        public Ciclos(List<List<string>> ciclos, Timer reloj, List<string> arbol, List<string> cruce, List<string> avance, List<string> retroceso)
         {
             this.ciclos = ciclos;
             this.reloj = reloj;
+            this.arbol = arbol;
+            this.cruce = cruce;
+            this.avance = avance;
+            this.retroceso = retroceso;
             InitializeComponent();
         }
 
@@ -43,6 +51,11 @@ namespace EditorDeGrafos
                 comboCiclos.Items.Add((i+1).ToString());
             }
             comboCiclos.Text = "1";
+
+            dataGridAristas.Rows.Add("Rojo", "Arbol", MetodosAuxiliares.stringRamas(arbol));
+            dataGridAristas.Rows.Add("Verde", "Cruce", MetodosAuxiliares.stringRamas(cruce));
+            dataGridAristas.Rows.Add("Amarillo", "Retroceso", MetodosAuxiliares.stringRamas(retroceso));
+            dataGridAristas.Rows.Add("Azul", "Avance", MetodosAuxiliares.stringRamas(avance));
         }
         #endregion
 

@@ -20,10 +20,10 @@ namespace EditorDeGrafos
         }
         private void AristasBBP_Load(object sender, EventArgs e)
         {
-            dataGridAristas.Rows.Add("Rojo", "Arbol",grafo.AristasArbol);
-            dataGridAristas.Rows.Add("Verde", "Cruce",grafo.AristasCruce);
-            dataGridAristas.Rows.Add("Amarillo", "Retroceso",grafo.AristasRetroceso);
-            dataGridAristas.Rows.Add("Azul", "Avance",grafo.AristasAvance);
+            dataGridAristas.Rows.Add("Rojo", "Arbol", MetodosAuxiliares.stringRamas(grafo.AristasArbol));
+            dataGridAristas.Rows.Add("Verde", "Cruce",MetodosAuxiliares.stringRamas(grafo.AristasCruce));
+            dataGridAristas.Rows.Add("Amarillo", "Retroceso",MetodosAuxiliares.stringRamas(grafo.AristasRetroceso));
+            dataGridAristas.Rows.Add("Azul", "Avance",MetodosAuxiliares.stringRamas(grafo.AristasAvance));
         }
 
         private void Cerrar_Click(object sender, EventArgs e)
