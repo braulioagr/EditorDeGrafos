@@ -182,6 +182,9 @@
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
             this.relojCiclos = new System.Windows.Forms.Timer(this.components);
+            this.Kruskal = new System.Windows.Forms.ToolStripMenuItem();
+            this.Corolarios = new System.Windows.Forms.ToolStripMenuItem();
+            this.EulerDir = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
@@ -204,7 +207,6 @@
             this.MenuPrincipal.Size = new System.Drawing.Size(1047, 24);
             this.MenuPrincipal.TabIndex = 0;
             this.MenuPrincipal.Text = "menuPrincipal";
-            this.MenuPrincipal.Visible = false;
             // 
             // Archivo
             // 
@@ -403,7 +405,8 @@
             this.toolStripSeparator54,
             this.Floyd,
             this.toolStripSeparator53,
-            this.Aciclicidad});
+            this.Aciclicidad,
+            this.EulerDir});
             this.grafoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoDirigidoToolStripMenuItem.Name = "grafoDirigidoToolStripMenuItem";
             this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -559,7 +562,9 @@
             this.toolStripSeparator48,
             this.NumeroC,
             this.toolStripSeparator49,
-            this.BBA});
+            this.BBA,
+            this.Kruskal,
+            this.Corolarios});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
             this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
@@ -781,7 +786,7 @@
             this.toolStripSeparator36,
             this.EtiquetasNodoTool,
             this.pesosAristaTool});
-            this.ToolBar.Location = new System.Drawing.Point(0, 0);
+            this.ToolBar.Location = new System.Drawing.Point(0, 24);
             this.ToolBar.Name = "ToolBar";
             this.ToolBar.Size = new System.Drawing.Size(1047, 37);
             this.ToolBar.TabIndex = 1;
@@ -976,9 +981,9 @@
             this.GrafosWn,
             this.toolStripSeparator35,
             this.GrafoQ3});
-            this.EspecialesTool.Location = new System.Drawing.Point(1007, 37);
+            this.EspecialesTool.Location = new System.Drawing.Point(1007, 61);
             this.EspecialesTool.Name = "EspecialesTool";
-            this.EspecialesTool.Size = new System.Drawing.Size(40, 645);
+            this.EspecialesTool.Size = new System.Drawing.Size(40, 621);
             this.EspecialesTool.TabIndex = 3;
             this.EspecialesTool.Text = "toolStrip1";
             this.EspecialesTool.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Especiales_Clicked);
@@ -1483,10 +1488,10 @@
             this.Teorema4CTool,
             this.toolStripSeparator47,
             this.NumeroCTool});
-            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 37);
+            this.ToolBarMetodos.Location = new System.Drawing.Point(0, 61);
             this.ToolBarMetodos.Name = "ToolBarMetodos";
             this.ToolBarMetodos.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 645);
+            this.ToolBarMetodos.Size = new System.Drawing.Size(36, 621);
             this.ToolBarMetodos.TabIndex = 2;
             this.ToolBarMetodos.Text = "Metodos";
             this.ToolBarMetodos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MetodosTool_Clicked);
@@ -1494,6 +1499,27 @@
             // relojCiclos
             // 
             this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
+            // 
+            // Kruskal
+            // 
+            this.Kruskal.AccessibleName = "Kruskal";
+            this.Kruskal.Name = "Kruskal";
+            this.Kruskal.Size = new System.Drawing.Size(237, 22);
+            this.Kruskal.Text = "Kruskal";
+            // 
+            // Corolarios
+            // 
+            this.Corolarios.AccessibleName = "Corolarios";
+            this.Corolarios.Name = "Corolarios";
+            this.Corolarios.Size = new System.Drawing.Size(237, 22);
+            this.Corolarios.Text = "Corolarios";
+            // 
+            // EulerDir
+            // 
+            this.EulerDir.AccessibleDescription = "Euler";
+            this.EulerDir.Name = "EulerDir";
+            this.EulerDir.Size = new System.Drawing.Size(237, 22);
+            this.EulerDir.Text = "Euler";
             // 
             // EditorDeGrafos
             // 
@@ -1691,6 +1717,9 @@
         private System.Windows.Forms.ToolStripButton BBATool;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator58;
         private System.Windows.Forms.ToolStripButton KruskalTool;
+        private System.Windows.Forms.ToolStripMenuItem EulerDir;
+        private System.Windows.Forms.ToolStripMenuItem Kruskal;
+        private System.Windows.Forms.ToolStripMenuItem Corolarios;
 
     }
 }
