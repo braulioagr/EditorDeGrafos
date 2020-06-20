@@ -48,7 +48,7 @@
             // 
             // Cerrar
             // 
-            this.Cerrar.Location = new System.Drawing.Point(344, 250);
+            this.Cerrar.Location = new System.Drawing.Point(347, 230);
             this.Cerrar.Name = "Cerrar";
             this.Cerrar.Size = new System.Drawing.Size(75, 23);
             this.Cerrar.TabIndex = 1;
@@ -59,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(636, 30);
+            this.label1.Location = new System.Drawing.Point(639, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 7;
@@ -68,7 +68,7 @@
             // comboPasos
             // 
             this.comboPasos.FormattingEnabled = true;
-            this.comboPasos.Location = new System.Drawing.Point(689, 26);
+            this.comboPasos.Location = new System.Drawing.Point(692, 6);
             this.comboPasos.Name = "comboPasos";
             this.comboPasos.Size = new System.Drawing.Size(67, 21);
             this.comboPasos.TabIndex = 6;
@@ -79,7 +79,7 @@
             this.dataGridG2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridG2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridG2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridG2.Location = new System.Drawing.Point(469, 52);
+            this.dataGridG2.Location = new System.Drawing.Point(472, 32);
             this.dataGridG2.Name = "dataGridG2";
             this.dataGridG2.RowHeadersVisible = false;
             this.dataGridG2.Size = new System.Drawing.Size(287, 189);
@@ -90,7 +90,7 @@
             this.dataGridG1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridG1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridG1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridG1.Location = new System.Drawing.Point(12, 52);
+            this.dataGridG1.Location = new System.Drawing.Point(15, 32);
             this.dataGridG1.Name = "dataGridG1";
             this.dataGridG1.RowHeadersVisible = false;
             this.dataGridG1.Size = new System.Drawing.Size(287, 189);
@@ -99,7 +99,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 29);
+            this.label3.Location = new System.Drawing.Point(12, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 10;
@@ -111,7 +111,7 @@
             this.dataGridIntecambios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Original,
             this.Cambio});
-            this.dataGridIntecambios.Location = new System.Drawing.Point(305, 52);
+            this.dataGridIntecambios.Location = new System.Drawing.Point(308, 32);
             this.dataGridIntecambios.Name = "dataGridIntecambios";
             this.dataGridIntecambios.RowHeadersVisible = false;
             this.dataGridIntecambios.Size = new System.Drawing.Size(158, 189);
@@ -133,7 +133,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(302, 29);
+            this.label2.Location = new System.Drawing.Point(305, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 13);
             this.label2.TabIndex = 12;
@@ -142,7 +142,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(466, 30);
+            this.label4.Location = new System.Drawing.Point(469, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 13);
             this.label4.TabIndex = 13;
@@ -151,7 +151,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 248);
+            this.label5.Location = new System.Drawing.Point(15, 228);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 14;
@@ -160,7 +160,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(466, 248);
+            this.label6.Location = new System.Drawing.Point(469, 228);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 15;
@@ -170,7 +170,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 285);
+            this.ClientSize = new System.Drawing.Size(770, 262);
             this.ControlBox = false;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);

@@ -68,7 +68,6 @@ namespace EditorDeGrafos
 
         public GrafoSecundario(Grafo grafito)
         {
-            // TODO: Complete member initialization
             this.grafito = grafito;
             InitializeComponent();
         }

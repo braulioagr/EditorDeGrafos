@@ -1091,6 +1091,58 @@ namespace EditorDeGrafos
             }
             #endregion
         }
+        private void EspecialesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            int[,] matriz;
+            int aux;
+            Grafo grafito;
+            grafito = new GrafoNoDirigido(grafo,true);
+            aux = 0;
+            grafito.Clear();
+            switch (e.ClickedItem.AccessibleName)
+            {
+                case "Kn":
+                    grafito.CreaKn(this.ClientSize, this.grafo.Count, ref aux, this.tamNodo,
+                                      this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                    matriz = grafito.matrizDeAdyacencia();
+                    break;
+                case "Cn":
+                    grafito.CreaCn(this.ClientSize, this.grafo.Count, ref aux, this.tamNodo,
+                                      this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                    matriz = grafito.matrizDeAdyacencia();
+                    break;
+                case "Wn":
+                    grafito.CreaWn(this.ClientSize, this.grafo.Count, ref aux, this.tamNodo,
+                                      this.altoName, this.brushRelleno, this.brushName, this.penNodo, this.penArista, this.fuente);
+                    matriz = grafito.matrizDeAdyacencia();
+                    break;
+                default:
+                    return;
+                break;
+            }
+            this.verificaGrafo(matriz, e.ClickedItem.AccessibleName.First().ToString());
+        }
+
+        private void verificaGrafo(int[,] matriz, string verifica)
+        {
+            bool band;
+            List<int[,]> pasos;
+            int[] cambios;
+            int[,] matrix;
+            matrix = grafo.matrizDeAdyacencia();
+            pasos = new List<int[,]>();
+            cambios = new int[grafo.Count];
+            band = grafo.isomorfismo(matrix, matriz,ref pasos,ref cambios);
+            if (band)
+            {
+                verifica = "Si es un grafo" + verifica + grafo.Count.ToString();
+            }
+            else
+            {
+                verifica = "No es un grafo" + verifica + grafo.Count.ToString();
+            }
+            MessageBox.Show(verifica);
+        }
 
         #endregion
 
@@ -1882,7 +1934,7 @@ namespace EditorDeGrafos
 
         #endregion
 
-
         #endregion
+
     }
 }

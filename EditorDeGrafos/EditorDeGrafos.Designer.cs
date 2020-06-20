@@ -74,35 +74,24 @@
             this.Floyd = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator53 = new System.Windows.Forms.ToolStripSeparator();
             this.Aciclicidad = new System.Windows.Forms.ToolStripMenuItem();
+            this.EulerDir = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.grafoNoDirigidoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GradosNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.MatrizDeAdyacenciaNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.MatrizIncidenciaNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
-            this.ListaAdyacenciaNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.NodosPendienteNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
             this.tamañoYOrdenNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
             this.ComplementoNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator32 = new System.Windows.Forms.ToolStripSeparator();
             this.IsomorfismoNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator39 = new System.Windows.Forms.ToolStripSeparator();
             this.EulerNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator44 = new System.Windows.Forms.ToolStripSeparator();
             this.kuratowskiNoDir = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator46 = new System.Windows.Forms.ToolStripSeparator();
             this.Regiones = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator43 = new System.Windows.Forms.ToolStripSeparator();
             this.Teorema4C = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator48 = new System.Windows.Forms.ToolStripSeparator();
             this.NumeroC = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator49 = new System.Windows.Forms.ToolStripSeparator();
             this.BBA = new System.Windows.Forms.ToolStripMenuItem();
+            this.Kruskal = new System.Windows.Forms.ToolStripMenuItem();
+            this.Corolarios = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EtiquetasNodo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
@@ -182,9 +171,10 @@
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
             this.relojCiclos = new System.Windows.Forms.Timer(this.components);
-            this.Kruskal = new System.Windows.Forms.ToolStripMenuItem();
-            this.Corolarios = new System.Windows.Forms.ToolStripMenuItem();
-            this.EulerDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.especialesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuPrincipal.SuspendLayout();
             this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
@@ -379,7 +369,8 @@
             this.metodosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.grafoDirigidoToolStripMenuItem,
             this.toolStripSeparator2,
-            this.grafoNoDirigidoToolStripMenuItem});
+            this.grafoNoDirigidoToolStripMenuItem,
+            this.especialesToolStripMenuItem});
             this.metodosToolStripMenuItem.Name = "metodosToolStripMenuItem";
             this.metodosToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.metodosToolStripMenuItem.Text = "Metodos";
@@ -409,7 +400,7 @@
             this.EulerDir});
             this.grafoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoDirigidoToolStripMenuItem.Name = "grafoDirigidoToolStripMenuItem";
-            this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.grafoDirigidoToolStripMenuItem.Text = "Grafo Dirigido";
             this.grafoDirigidoToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Dirigido_Clicked);
             // 
@@ -528,46 +519,39 @@
             this.Aciclicidad.Size = new System.Drawing.Size(237, 22);
             this.Aciclicidad.Text = "Grafo Aciclico";
             // 
+            // EulerDir
+            // 
+            this.EulerDir.AccessibleDescription = "Euler";
+            this.EulerDir.Name = "EulerDir";
+            this.EulerDir.Size = new System.Drawing.Size(237, 22);
+            this.EulerDir.Text = "Euler";
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // grafoNoDirigidoToolStripMenuItem
             // 
             this.grafoNoDirigidoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GradosNoDir,
-            this.toolStripSeparator16,
             this.MatrizDeAdyacenciaNoDir,
-            this.toolStripSeparator17,
             this.MatrizIncidenciaNoDir,
-            this.toolStripSeparator18,
-            this.ListaAdyacenciaNoDir,
-            this.toolStripSeparator19,
             this.NodosPendienteNoDir,
-            this.toolStripSeparator24,
             this.tamañoYOrdenNoDir,
-            this.toolStripSeparator29,
             this.ComplementoNoDir,
-            this.toolStripSeparator32,
             this.IsomorfismoNoDir,
-            this.toolStripSeparator39,
             this.EulerNoDir,
-            this.toolStripSeparator44,
             this.kuratowskiNoDir,
-            this.toolStripSeparator46,
             this.Regiones,
-            this.toolStripSeparator43,
             this.Teorema4C,
-            this.toolStripSeparator48,
             this.NumeroC,
-            this.toolStripSeparator49,
             this.BBA,
             this.Kruskal,
             this.Corolarios});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
-            this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.grafoNoDirigidoToolStripMenuItem.Text = "Grafo No Dirigido";
             this.grafoNoDirigidoToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.NoDirigido_Clicked);
             // 
@@ -578,22 +562,12 @@
             this.GradosNoDir.Size = new System.Drawing.Size(237, 22);
             this.GradosNoDir.Text = "Grados";
             // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(234, 6);
-            // 
             // MatrizDeAdyacenciaNoDir
             // 
             this.MatrizDeAdyacenciaNoDir.AccessibleName = "MAdyacencia";
             this.MatrizDeAdyacenciaNoDir.Name = "MatrizDeAdyacenciaNoDir";
             this.MatrizDeAdyacenciaNoDir.Size = new System.Drawing.Size(237, 22);
             this.MatrizDeAdyacenciaNoDir.Text = "Matriz de Adyacencia";
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(234, 6);
             // 
             // MatrizIncidenciaNoDir
             // 
@@ -602,34 +576,12 @@
             this.MatrizIncidenciaNoDir.Size = new System.Drawing.Size(237, 22);
             this.MatrizIncidenciaNoDir.Text = "Matriz de Incidencia";
             // 
-            // toolStripSeparator18
-            // 
-            this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(234, 6);
-            // 
-            // ListaAdyacenciaNoDir
-            // 
-            this.ListaAdyacenciaNoDir.AccessibleName = "LAdyacencia";
-            this.ListaAdyacenciaNoDir.Name = "ListaAdyacenciaNoDir";
-            this.ListaAdyacenciaNoDir.Size = new System.Drawing.Size(237, 22);
-            this.ListaAdyacenciaNoDir.Text = "Lista de Adyacencia";
-            // 
-            // toolStripSeparator19
-            // 
-            this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(234, 6);
-            // 
             // NodosPendienteNoDir
             // 
             this.NodosPendienteNoDir.AccessibleName = "Pendientes";
             this.NodosPendienteNoDir.Name = "NodosPendienteNoDir";
             this.NodosPendienteNoDir.Size = new System.Drawing.Size(237, 22);
             this.NodosPendienteNoDir.Text = "Nodos Especiales";
-            // 
-            // toolStripSeparator24
-            // 
-            this.toolStripSeparator24.Name = "toolStripSeparator24";
-            this.toolStripSeparator24.Size = new System.Drawing.Size(234, 6);
             // 
             // tamañoYOrdenNoDir
             // 
@@ -638,22 +590,12 @@
             this.tamañoYOrdenNoDir.Size = new System.Drawing.Size(237, 22);
             this.tamañoYOrdenNoDir.Text = "Tamaño y Orden";
             // 
-            // toolStripSeparator29
-            // 
-            this.toolStripSeparator29.Name = "toolStripSeparator29";
-            this.toolStripSeparator29.Size = new System.Drawing.Size(234, 6);
-            // 
             // ComplementoNoDir
             // 
             this.ComplementoNoDir.AccessibleName = "Complemento";
             this.ComplementoNoDir.Name = "ComplementoNoDir";
             this.ComplementoNoDir.Size = new System.Drawing.Size(237, 22);
             this.ComplementoNoDir.Text = "Complemento";
-            // 
-            // toolStripSeparator32
-            // 
-            this.toolStripSeparator32.Name = "toolStripSeparator32";
-            this.toolStripSeparator32.Size = new System.Drawing.Size(234, 6);
             // 
             // IsomorfismoNoDir
             // 
@@ -662,22 +604,12 @@
             this.IsomorfismoNoDir.Size = new System.Drawing.Size(237, 22);
             this.IsomorfismoNoDir.Text = "Isomorfismo";
             // 
-            // toolStripSeparator39
-            // 
-            this.toolStripSeparator39.Name = "toolStripSeparator39";
-            this.toolStripSeparator39.Size = new System.Drawing.Size(234, 6);
-            // 
             // EulerNoDir
             // 
             this.EulerNoDir.AccessibleName = "Euler";
             this.EulerNoDir.Name = "EulerNoDir";
             this.EulerNoDir.Size = new System.Drawing.Size(237, 22);
             this.EulerNoDir.Text = "Euler";
-            // 
-            // toolStripSeparator44
-            // 
-            this.toolStripSeparator44.Name = "toolStripSeparator44";
-            this.toolStripSeparator44.Size = new System.Drawing.Size(234, 6);
             // 
             // kuratowskiNoDir
             // 
@@ -686,22 +618,12 @@
             this.kuratowskiNoDir.Size = new System.Drawing.Size(237, 22);
             this.kuratowskiNoDir.Text = "Kuratowski";
             // 
-            // toolStripSeparator46
-            // 
-            this.toolStripSeparator46.Name = "toolStripSeparator46";
-            this.toolStripSeparator46.Size = new System.Drawing.Size(234, 6);
-            // 
             // Regiones
             // 
             this.Regiones.AccessibleName = "Regiones";
             this.Regiones.Name = "Regiones";
             this.Regiones.Size = new System.Drawing.Size(237, 22);
             this.Regiones.Text = "Regiones";
-            // 
-            // toolStripSeparator43
-            // 
-            this.toolStripSeparator43.Name = "toolStripSeparator43";
-            this.toolStripSeparator43.Size = new System.Drawing.Size(234, 6);
             // 
             // Teorema4C
             // 
@@ -710,11 +632,6 @@
             this.Teorema4C.Size = new System.Drawing.Size(237, 22);
             this.Teorema4C.Text = "Teorema 4 Colores";
             // 
-            // toolStripSeparator48
-            // 
-            this.toolStripSeparator48.Name = "toolStripSeparator48";
-            this.toolStripSeparator48.Size = new System.Drawing.Size(234, 6);
-            // 
             // NumeroC
             // 
             this.NumeroC.AccessibleName = "NumeroC";
@@ -722,17 +639,26 @@
             this.NumeroC.Size = new System.Drawing.Size(237, 22);
             this.NumeroC.Text = "Numero Cromatico";
             // 
-            // toolStripSeparator49
-            // 
-            this.toolStripSeparator49.Name = "toolStripSeparator49";
-            this.toolStripSeparator49.Size = new System.Drawing.Size(234, 6);
-            // 
             // BBA
             // 
             this.BBA.AccessibleName = "BBA";
             this.BBA.Name = "BBA";
             this.BBA.Size = new System.Drawing.Size(237, 22);
             this.BBA.Text = "Bosque de Busqueda Amplitud";
+            // 
+            // Kruskal
+            // 
+            this.Kruskal.AccessibleName = "Kruskal";
+            this.Kruskal.Name = "Kruskal";
+            this.Kruskal.Size = new System.Drawing.Size(237, 22);
+            this.Kruskal.Text = "Kruskal";
+            // 
+            // Corolarios
+            // 
+            this.Corolarios.AccessibleName = "Corolarios";
+            this.Corolarios.Name = "Corolarios";
+            this.Corolarios.Size = new System.Drawing.Size(237, 22);
+            this.Corolarios.Text = "Corolarios";
             // 
             // configuraciónToolStripMenuItem
             // 
@@ -1500,26 +1426,37 @@
             // 
             this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
             // 
-            // Kruskal
+            // especialesToolStripMenuItem
             // 
-            this.Kruskal.AccessibleName = "Kruskal";
-            this.Kruskal.Name = "Kruskal";
-            this.Kruskal.Size = new System.Drawing.Size(237, 22);
-            this.Kruskal.Text = "Kruskal";
+            this.especialesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.knToolStripMenuItem,
+            this.cnToolStripMenuItem,
+            this.wnToolStripMenuItem});
+            this.especialesToolStripMenuItem.Name = "especialesToolStripMenuItem";
+            this.especialesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.especialesToolStripMenuItem.Text = "Especiales";
+            this.especialesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.EspecialesToolStripMenuItem_DropDownItemClicked);
             // 
-            // Corolarios
+            // knToolStripMenuItem
             // 
-            this.Corolarios.AccessibleName = "Corolarios";
-            this.Corolarios.Name = "Corolarios";
-            this.Corolarios.Size = new System.Drawing.Size(237, 22);
-            this.Corolarios.Text = "Corolarios";
+            this.knToolStripMenuItem.AccessibleName = "Kn";
+            this.knToolStripMenuItem.Name = "knToolStripMenuItem";
+            this.knToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.knToolStripMenuItem.Text = "Kn";
             // 
-            // EulerDir
+            // wnToolStripMenuItem
             // 
-            this.EulerDir.AccessibleDescription = "Euler";
-            this.EulerDir.Name = "EulerDir";
-            this.EulerDir.Size = new System.Drawing.Size(237, 22);
-            this.EulerDir.Text = "Euler";
+            this.wnToolStripMenuItem.AccessibleName = "Wn";
+            this.wnToolStripMenuItem.Name = "wnToolStripMenuItem";
+            this.wnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wnToolStripMenuItem.Text = "Wn";
+            // 
+            // cnToolStripMenuItem
+            // 
+            this.cnToolStripMenuItem.AccessibleName = "Cn";
+            this.cnToolStripMenuItem.Name = "cnToolStripMenuItem";
+            this.cnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cnToolStripMenuItem.Text = "Cn";
             // 
             // EditorDeGrafos
             // 
@@ -1613,24 +1550,16 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem ListaIncidencia;
         private System.Windows.Forms.ToolStripMenuItem GradosNoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem MatrizDeAdyacenciaNoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem MatrizIncidenciaNoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
-        private System.Windows.Forms.ToolStripMenuItem ListaAdyacenciaNoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripMenuItem NodosPendienteNoDir;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
         private System.Windows.Forms.ToolStripMenuItem tamañoYOrdenDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator24;
         private System.Windows.Forms.ToolStripMenuItem tamañoYOrdenNoDir;
         private System.Windows.Forms.OpenFileDialog openFileGrafo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
         private System.Windows.Forms.ToolStripMenuItem ComplementoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem ComplementoNoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator32;
         private System.Windows.Forms.ToolStripMenuItem IsomorfismoNoDir;
         private System.Windows.Forms.ToolStrip EspecialesTool;
         private System.Windows.Forms.ToolStripButton GrafosKn;
@@ -1654,19 +1583,13 @@
         private System.Windows.Forms.ToolStripMenuItem PonderaciónArista;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
         private System.Windows.Forms.Timer relojEuler;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
         private System.Windows.Forms.ToolStripMenuItem EulerNoDir;
         private System.Windows.Forms.Timer relojFloyd;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator43;
         private System.Windows.Forms.ToolStripMenuItem Teorema4C;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator44;
         private System.Windows.Forms.ToolStripMenuItem kuratowskiNoDir;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator46;
         private System.Windows.Forms.ToolStripMenuItem Regiones;
         private System.Windows.Forms.Timer relojDijkstra;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator48;
         private System.Windows.Forms.ToolStripMenuItem NumeroC;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator49;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator50;
         private System.Windows.Forms.ToolStripMenuItem BBP;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator51;
@@ -1720,7 +1643,10 @@
         private System.Windows.Forms.ToolStripMenuItem EulerDir;
         private System.Windows.Forms.ToolStripMenuItem Kruskal;
         private System.Windows.Forms.ToolStripMenuItem Corolarios;
-
+        private System.Windows.Forms.ToolStripMenuItem especialesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem knToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wnToolStripMenuItem;
     }
 }
 

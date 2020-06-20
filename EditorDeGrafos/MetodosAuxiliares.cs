@@ -176,6 +176,22 @@ namespace EditorDeGrafos
 
         #region Isomorfismo
 
+        public static int[,] matrizKn(int orden)
+        {
+            int[,] matriz;
+            matriz = new int[orden,orden];
+            for(int i = 0; i < orden ; i++)
+            {
+                for(int j = 0; j < orden ; j++)
+                {
+                    if(i!=j)
+                    {
+                        matriz[i,j]=1;
+                    }
+                }
+            }
+            return matriz;
+        }
 
         public static string stringRamas(List<string> list)
         {
@@ -626,6 +642,7 @@ namespace EditorDeGrafos
             }
             return vector;
         }
+        
         #endregion
 
         #region Floyd
