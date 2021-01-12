@@ -127,6 +127,47 @@ namespace EditorDeGrafos
 
         #region Menu
 
+        private void Tool_Clicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region ToolBar
+            band = false;
+            bandFinal = false;
+            bandArista = false;
+            switch (e.ClickedItem.AccessibleName)
+            {
+                /*Redireccion al Clicked de Grafo*/
+                #region Grafo
+                case "CrearNodo":
+                case "MoverNodo":
+                case "EliminarNodo":
+                case "AristaDirigida":
+                case "AristaNoDirigida":
+                case "Ponderación":
+                case "EliminarArista":
+                case "MoverGrafo":
+                case "EliminarGrafo":
+                    this.Grafo_Clicked(sender, e);
+                break;
+                #endregion
+                /*Redireccion al Clicked de Archivo*/
+                #region Archivo
+                case "Abrir":
+                case "Guardar":
+                    this.Archivo_Clicked(sender, e);
+                break;
+                #endregion
+                /*Redireccion al Cliked de Configuracion*/
+                #region Configuraciones
+                case "Preferencias":
+                case "EtiquetasNodo":
+                case "pesosArista":
+                    this.Configuracion_Clicked(sender, e);
+                break;
+                #endregion
+            }
+            #endregion
+        }
+
         private void Archivo_Clicked(object sender, ToolStripItemClickedEventArgs e)
         {
             #region Archivo
@@ -298,47 +339,6 @@ namespace EditorDeGrafos
                         this.EditorDeGrafos_Paint(this, null);
                     }
                 break;
-            }
-            #endregion
-        }
-
-        private void Tool_Clicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            #region ToolBar
-            band = false;
-            bandFinal = false;
-            bandArista = false;
-            switch (e.ClickedItem.AccessibleName)
-            {
-                /*Redireccion al Clicked de Grafo*/
-                #region Grafo
-                case "CrearNodo":
-                case "MoverNodo":
-                case "EliminarNodo":
-                case "AristaDirigida":
-                case "AristaNoDirigida":
-                case "Ponderación":
-                case "EliminarArista":
-                case "MoverGrafo":
-                case "EliminarGrafo":
-                    this.Grafo_Clicked(sender, e);
-                break;
-                #endregion
-                /*Redireccion al Clicked de Archivo*/
-                #region Archivo
-                case "Abrir":
-                case "Guardar":
-                    this.Archivo_Clicked(sender, e);
-                break;
-                #endregion
-                /*Redireccion al Cliked de Configuracion*/
-                #region Configuraciones
-                case "Preferencias":
-                case "EtiquetasNodo":
-                case "pesosArista":
-                    this.Configuracion_Clicked(sender, e);
-                break;
-                #endregion
             }
             #endregion
         }
@@ -1091,6 +1091,8 @@ namespace EditorDeGrafos
             }
             #endregion
         }
+
+
         private void EspecialesToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             int[,] matriz;
@@ -1936,5 +1938,9 @@ namespace EditorDeGrafos
 
         #endregion
 
+        private void MenuPrincipal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

@@ -92,28 +92,14 @@
             this.BBA = new System.Windows.Forms.ToolStripMenuItem();
             this.Kruskal = new System.Windows.Forms.ToolStripMenuItem();
             this.Corolarios = new System.Windows.Forms.ToolStripMenuItem();
+            this.especialesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EtiquetasNodo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
             this.pesosArista = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolBar = new System.Windows.Forms.ToolStrip();
-            this.AbrirTool = new System.Windows.Forms.ToolStripButton();
-            this.GuardarTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.CrearNodoTool = new System.Windows.Forms.ToolStripButton();
-            this.MoverNodoTool = new System.Windows.Forms.ToolStripButton();
-            this.EliminarNodoTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.AristaNoDirigidaTool = new System.Windows.Forms.ToolStripButton();
-            this.AristaDirigidaTool = new System.Windows.Forms.ToolStripButton();
-            this.PonderaciónAristaTool = new System.Windows.Forms.ToolStripButton();
-            this.EliminarAristaTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.MoverGrafoTool = new System.Windows.Forms.ToolStripButton();
-            this.EliminarGrafoTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
-            this.EtiquetasNodoTool = new System.Windows.Forms.ToolStripButton();
-            this.pesosAristaTool = new System.Windows.Forms.ToolStripButton();
             this.saveFileGrafo = new System.Windows.Forms.SaveFileDialog();
             this.openFileGrafo = new System.Windows.Forms.OpenFileDialog();
             this.EspecialesTool = new System.Windows.Forms.ToolStrip();
@@ -171,18 +157,32 @@
             this.NumeroCTool = new System.Windows.Forms.ToolStripButton();
             this.ToolBarMetodos = new System.Windows.Forms.ToolStrip();
             this.relojCiclos = new System.Windows.Forms.Timer(this.components);
-            this.especialesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.knToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AbrirTool = new System.Windows.Forms.ToolStripButton();
+            this.GuardarTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.CrearNodoTool = new System.Windows.Forms.ToolStripButton();
+            this.MoverNodoTool = new System.Windows.Forms.ToolStripButton();
+            this.EliminarNodoTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.AristaNoDirigidaTool = new System.Windows.Forms.ToolStripButton();
+            this.AristaDirigidaTool = new System.Windows.Forms.ToolStripButton();
+            this.PonderaciónAristaTool = new System.Windows.Forms.ToolStripButton();
+            this.EliminarAristaTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.MoverGrafoTool = new System.Windows.Forms.ToolStripButton();
+            this.EliminarGrafoTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
+            this.EtiquetasNodoTool = new System.Windows.Forms.ToolStripButton();
+            this.pesosAristaTool = new System.Windows.Forms.ToolStripButton();
+            this.ToolBar = new System.Windows.Forms.ToolStrip();
             this.MenuPrincipal.SuspendLayout();
-            this.ToolBar.SuspendLayout();
             this.EspecialesTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericKn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericWn)).BeginInit();
             this.ToolBarMetodos2.SuspendLayout();
             this.ToolBarMetodos.SuspendLayout();
+            this.ToolBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuPrincipal
@@ -197,6 +197,7 @@
             this.MenuPrincipal.Size = new System.Drawing.Size(1047, 24);
             this.MenuPrincipal.TabIndex = 0;
             this.MenuPrincipal.Text = "menuPrincipal";
+            this.MenuPrincipal.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuPrincipal_ItemClicked);
             // 
             // Archivo
             // 
@@ -400,7 +401,7 @@
             this.EulerDir});
             this.grafoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoDirigidoToolStripMenuItem.Name = "grafoDirigidoToolStripMenuItem";
-            this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grafoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.grafoDirigidoToolStripMenuItem.Text = "Grafo Dirigido";
             this.grafoDirigidoToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Dirigido_Clicked);
             // 
@@ -529,7 +530,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
             // 
             // grafoNoDirigidoToolStripMenuItem
             // 
@@ -551,7 +552,7 @@
             this.Corolarios});
             this.grafoNoDirigidoToolStripMenuItem.Enabled = false;
             this.grafoNoDirigidoToolStripMenuItem.Name = "grafoNoDirigidoToolStripMenuItem";
-            this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grafoNoDirigidoToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.grafoNoDirigidoToolStripMenuItem.Text = "Grafo No Dirigido";
             this.grafoNoDirigidoToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.NoDirigido_Clicked);
             // 
@@ -660,6 +661,38 @@
             this.Corolarios.Size = new System.Drawing.Size(237, 22);
             this.Corolarios.Text = "Corolarios";
             // 
+            // especialesToolStripMenuItem
+            // 
+            this.especialesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.knToolStripMenuItem,
+            this.cnToolStripMenuItem,
+            this.wnToolStripMenuItem});
+            this.especialesToolStripMenuItem.Name = "especialesToolStripMenuItem";
+            this.especialesToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.especialesToolStripMenuItem.Text = "Especiales";
+            this.especialesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.EspecialesToolStripMenuItem_DropDownItemClicked);
+            // 
+            // knToolStripMenuItem
+            // 
+            this.knToolStripMenuItem.AccessibleName = "Kn";
+            this.knToolStripMenuItem.Name = "knToolStripMenuItem";
+            this.knToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.knToolStripMenuItem.Text = "Kn";
+            // 
+            // cnToolStripMenuItem
+            // 
+            this.cnToolStripMenuItem.AccessibleName = "Cn";
+            this.cnToolStripMenuItem.Name = "cnToolStripMenuItem";
+            this.cnToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.cnToolStripMenuItem.Text = "Cn";
+            // 
+            // wnToolStripMenuItem
+            // 
+            this.wnToolStripMenuItem.AccessibleName = "Wn";
+            this.wnToolStripMenuItem.Name = "wnToolStripMenuItem";
+            this.wnToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.wnToolStripMenuItem.Text = "Wn";
+            // 
             // configuraciónToolStripMenuItem
             // 
             this.configuraciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -689,206 +722,6 @@
             this.pesosArista.Name = "pesosArista";
             this.pesosArista.Size = new System.Drawing.Size(155, 22);
             this.pesosArista.Text = "Pesos Arista";
-            // 
-            // ToolBar
-            // 
-            this.ToolBar.AutoSize = false;
-            this.ToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AbrirTool,
-            this.GuardarTool,
-            this.toolStripSeparator3,
-            this.CrearNodoTool,
-            this.MoverNodoTool,
-            this.EliminarNodoTool,
-            this.toolStripSeparator4,
-            this.AristaNoDirigidaTool,
-            this.AristaDirigidaTool,
-            this.PonderaciónAristaTool,
-            this.EliminarAristaTool,
-            this.toolStripSeparator5,
-            this.MoverGrafoTool,
-            this.EliminarGrafoTool,
-            this.toolStripSeparator36,
-            this.EtiquetasNodoTool,
-            this.pesosAristaTool});
-            this.ToolBar.Location = new System.Drawing.Point(0, 24);
-            this.ToolBar.Name = "ToolBar";
-            this.ToolBar.Size = new System.Drawing.Size(1047, 37);
-            this.ToolBar.TabIndex = 1;
-            this.ToolBar.Text = "toolStrip1";
-            this.ToolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Tool_Clicked);
-            // 
-            // AbrirTool
-            // 
-            this.AbrirTool.AccessibleName = "Abrir";
-            this.AbrirTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.AbrirTool.Image = ((System.Drawing.Image)(resources.GetObject("AbrirTool.Image")));
-            this.AbrirTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.AbrirTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AbrirTool.Name = "AbrirTool";
-            this.AbrirTool.Size = new System.Drawing.Size(34, 34);
-            this.AbrirTool.Text = "Abrir Grafo";
-            // 
-            // GuardarTool
-            // 
-            this.GuardarTool.AccessibleName = "Guardar";
-            this.GuardarTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.GuardarTool.Image = ((System.Drawing.Image)(resources.GetObject("GuardarTool.Image")));
-            this.GuardarTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.GuardarTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.GuardarTool.Name = "GuardarTool";
-            this.GuardarTool.Size = new System.Drawing.Size(34, 34);
-            this.GuardarTool.Text = "Guardar Grafo";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 37);
-            // 
-            // CrearNodoTool
-            // 
-            this.CrearNodoTool.AccessibleName = "CrearNodo";
-            this.CrearNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.CrearNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("CrearNodoTool.Image")));
-            this.CrearNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.CrearNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.CrearNodoTool.Name = "CrearNodoTool";
-            this.CrearNodoTool.Size = new System.Drawing.Size(34, 34);
-            this.CrearNodoTool.Text = "Insertar Nodo";
-            // 
-            // MoverNodoTool
-            // 
-            this.MoverNodoTool.AccessibleName = "MoverNodo";
-            this.MoverNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MoverNodoTool.Enabled = false;
-            this.MoverNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("MoverNodoTool.Image")));
-            this.MoverNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MoverNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.MoverNodoTool.Name = "MoverNodoTool";
-            this.MoverNodoTool.Size = new System.Drawing.Size(34, 34);
-            this.MoverNodoTool.Text = "Mover Nodo";
-            // 
-            // EliminarNodoTool
-            // 
-            this.EliminarNodoTool.AccessibleName = "EliminarNodo";
-            this.EliminarNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EliminarNodoTool.Enabled = false;
-            this.EliminarNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("EliminarNodoTool.Image")));
-            this.EliminarNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.EliminarNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EliminarNodoTool.Name = "EliminarNodoTool";
-            this.EliminarNodoTool.Size = new System.Drawing.Size(34, 34);
-            this.EliminarNodoTool.Text = "Borrar Nodo";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 37);
-            // 
-            // AristaNoDirigidaTool
-            // 
-            this.AristaNoDirigidaTool.AccessibleName = "AristaNoDirigida";
-            this.AristaNoDirigidaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.AristaNoDirigidaTool.Enabled = false;
-            this.AristaNoDirigidaTool.Image = ((System.Drawing.Image)(resources.GetObject("AristaNoDirigidaTool.Image")));
-            this.AristaNoDirigidaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.AristaNoDirigidaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AristaNoDirigidaTool.Name = "AristaNoDirigidaTool";
-            this.AristaNoDirigidaTool.Size = new System.Drawing.Size(34, 34);
-            this.AristaNoDirigidaTool.Text = "Arista No Dirigida";
-            // 
-            // AristaDirigidaTool
-            // 
-            this.AristaDirigidaTool.AccessibleName = "AristaDirigida";
-            this.AristaDirigidaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.AristaDirigidaTool.Enabled = false;
-            this.AristaDirigidaTool.Image = ((System.Drawing.Image)(resources.GetObject("AristaDirigidaTool.Image")));
-            this.AristaDirigidaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.AristaDirigidaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.AristaDirigidaTool.Name = "AristaDirigidaTool";
-            this.AristaDirigidaTool.Size = new System.Drawing.Size(34, 34);
-            this.AristaDirigidaTool.Text = "Arista Dirigida";
-            // 
-            // PonderaciónAristaTool
-            // 
-            this.PonderaciónAristaTool.AccessibleName = "Ponderación";
-            this.PonderaciónAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.PonderaciónAristaTool.Enabled = false;
-            this.PonderaciónAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("PonderaciónAristaTool.Image")));
-            this.PonderaciónAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.PonderaciónAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.PonderaciónAristaTool.Name = "PonderaciónAristaTool";
-            this.PonderaciónAristaTool.Size = new System.Drawing.Size(34, 34);
-            this.PonderaciónAristaTool.Text = "Pondera Aristastas";
-            // 
-            // EliminarAristaTool
-            // 
-            this.EliminarAristaTool.AccessibleName = "EliminarArista";
-            this.EliminarAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EliminarAristaTool.Enabled = false;
-            this.EliminarAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("EliminarAristaTool.Image")));
-            this.EliminarAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.EliminarAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EliminarAristaTool.Name = "EliminarAristaTool";
-            this.EliminarAristaTool.Size = new System.Drawing.Size(34, 34);
-            this.EliminarAristaTool.Text = "Eliminar Arista";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 37);
-            // 
-            // MoverGrafoTool
-            // 
-            this.MoverGrafoTool.AccessibleName = "MoverGrafo";
-            this.MoverGrafoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.MoverGrafoTool.Enabled = false;
-            this.MoverGrafoTool.Image = ((System.Drawing.Image)(resources.GetObject("MoverGrafoTool.Image")));
-            this.MoverGrafoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.MoverGrafoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.MoverGrafoTool.Name = "MoverGrafoTool";
-            this.MoverGrafoTool.Size = new System.Drawing.Size(34, 34);
-            this.MoverGrafoTool.Text = "Mover Nodo";
-            // 
-            // EliminarGrafoTool
-            // 
-            this.EliminarGrafoTool.AccessibleName = "EliminarGrafo";
-            this.EliminarGrafoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EliminarGrafoTool.Enabled = false;
-            this.EliminarGrafoTool.Image = ((System.Drawing.Image)(resources.GetObject("EliminarGrafoTool.Image")));
-            this.EliminarGrafoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.EliminarGrafoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EliminarGrafoTool.Name = "EliminarGrafoTool";
-            this.EliminarGrafoTool.Size = new System.Drawing.Size(34, 34);
-            this.EliminarGrafoTool.Text = "Eliminar Grafo";
-            // 
-            // toolStripSeparator36
-            // 
-            this.toolStripSeparator36.Name = "toolStripSeparator36";
-            this.toolStripSeparator36.Size = new System.Drawing.Size(6, 37);
-            // 
-            // EtiquetasNodoTool
-            // 
-            this.EtiquetasNodoTool.AccessibleName = "EtiquetasNodo";
-            this.EtiquetasNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.EtiquetasNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("EtiquetasNodoTool.Image")));
-            this.EtiquetasNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.EtiquetasNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.EtiquetasNodoTool.Name = "EtiquetasNodoTool";
-            this.EtiquetasNodoTool.Size = new System.Drawing.Size(34, 34);
-            this.EtiquetasNodoTool.Text = "toolStripButton1";
-            // 
-            // pesosAristaTool
-            // 
-            this.pesosAristaTool.AccessibleName = "pesosArista";
-            this.pesosAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pesosAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("pesosAristaTool.Image")));
-            this.pesosAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.pesosAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pesosAristaTool.Name = "pesosAristaTool";
-            this.pesosAristaTool.Size = new System.Drawing.Size(34, 34);
-            this.pesosAristaTool.Text = "Pesos de las Aristas";
             // 
             // openFileGrafo
             // 
@@ -975,7 +808,7 @@
             // 
             // numericKn
             // 
-            this.numericKn.Location = new System.Drawing.Point(963, 46);
+            this.numericKn.Location = new System.Drawing.Point(963, 74);
             this.numericKn.Minimum = new decimal(new int[] {
             1,
             0,
@@ -996,7 +829,7 @@
             // numericCn
             // 
             this.numericCn.AccessibleName = "Cn";
-            this.numericCn.Location = new System.Drawing.Point(963, 85);
+            this.numericCn.Location = new System.Drawing.Point(963, 113);
             this.numericCn.Minimum = new decimal(new int[] {
             3,
             0,
@@ -1017,7 +850,7 @@
             // numericWn
             // 
             this.numericWn.AccessibleName = "Wn";
-            this.numericWn.Location = new System.Drawing.Point(963, 125);
+            this.numericWn.Location = new System.Drawing.Point(963, 153);
             this.numericWn.Minimum = new decimal(new int[] {
             3,
             0,
@@ -1426,37 +1259,205 @@
             // 
             this.relojCiclos.Tick += new System.EventHandler(this.relojCiclos_Tick);
             // 
-            // especialesToolStripMenuItem
+            // AbrirTool
             // 
-            this.especialesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.knToolStripMenuItem,
-            this.cnToolStripMenuItem,
-            this.wnToolStripMenuItem});
-            this.especialesToolStripMenuItem.Name = "especialesToolStripMenuItem";
-            this.especialesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.especialesToolStripMenuItem.Text = "Especiales";
-            this.especialesToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.EspecialesToolStripMenuItem_DropDownItemClicked);
+            this.AbrirTool.AccessibleName = "Abrir";
+            this.AbrirTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AbrirTool.Image = ((System.Drawing.Image)(resources.GetObject("AbrirTool.Image")));
+            this.AbrirTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.AbrirTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AbrirTool.Name = "AbrirTool";
+            this.AbrirTool.Size = new System.Drawing.Size(34, 34);
+            this.AbrirTool.Text = "Abrir Grafo";
             // 
-            // knToolStripMenuItem
+            // GuardarTool
             // 
-            this.knToolStripMenuItem.AccessibleName = "Kn";
-            this.knToolStripMenuItem.Name = "knToolStripMenuItem";
-            this.knToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.knToolStripMenuItem.Text = "Kn";
+            this.GuardarTool.AccessibleName = "Guardar";
+            this.GuardarTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.GuardarTool.Image = ((System.Drawing.Image)(resources.GetObject("GuardarTool.Image")));
+            this.GuardarTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.GuardarTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.GuardarTool.Name = "GuardarTool";
+            this.GuardarTool.Size = new System.Drawing.Size(34, 34);
+            this.GuardarTool.Text = "Guardar Grafo";
             // 
-            // wnToolStripMenuItem
+            // toolStripSeparator3
             // 
-            this.wnToolStripMenuItem.AccessibleName = "Wn";
-            this.wnToolStripMenuItem.Name = "wnToolStripMenuItem";
-            this.wnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.wnToolStripMenuItem.Text = "Wn";
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 37);
             // 
-            // cnToolStripMenuItem
+            // CrearNodoTool
             // 
-            this.cnToolStripMenuItem.AccessibleName = "Cn";
-            this.cnToolStripMenuItem.Name = "cnToolStripMenuItem";
-            this.cnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.cnToolStripMenuItem.Text = "Cn";
+            this.CrearNodoTool.AccessibleName = "CrearNodo";
+            this.CrearNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.CrearNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("CrearNodoTool.Image")));
+            this.CrearNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.CrearNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.CrearNodoTool.Name = "CrearNodoTool";
+            this.CrearNodoTool.Size = new System.Drawing.Size(34, 34);
+            this.CrearNodoTool.Text = "Insertar Nodo";
+            // 
+            // MoverNodoTool
+            // 
+            this.MoverNodoTool.AccessibleName = "MoverNodo";
+            this.MoverNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MoverNodoTool.Enabled = false;
+            this.MoverNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("MoverNodoTool.Image")));
+            this.MoverNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MoverNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MoverNodoTool.Name = "MoverNodoTool";
+            this.MoverNodoTool.Size = new System.Drawing.Size(34, 34);
+            this.MoverNodoTool.Text = "Mover Nodo";
+            // 
+            // EliminarNodoTool
+            // 
+            this.EliminarNodoTool.AccessibleName = "EliminarNodo";
+            this.EliminarNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EliminarNodoTool.Enabled = false;
+            this.EliminarNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("EliminarNodoTool.Image")));
+            this.EliminarNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.EliminarNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EliminarNodoTool.Name = "EliminarNodoTool";
+            this.EliminarNodoTool.Size = new System.Drawing.Size(34, 34);
+            this.EliminarNodoTool.Text = "Borrar Nodo";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 37);
+            // 
+            // AristaNoDirigidaTool
+            // 
+            this.AristaNoDirigidaTool.AccessibleName = "AristaNoDirigida";
+            this.AristaNoDirigidaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AristaNoDirigidaTool.Enabled = false;
+            this.AristaNoDirigidaTool.Image = ((System.Drawing.Image)(resources.GetObject("AristaNoDirigidaTool.Image")));
+            this.AristaNoDirigidaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.AristaNoDirigidaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AristaNoDirigidaTool.Name = "AristaNoDirigidaTool";
+            this.AristaNoDirigidaTool.Size = new System.Drawing.Size(34, 34);
+            this.AristaNoDirigidaTool.Text = "Arista No Dirigida";
+            // 
+            // AristaDirigidaTool
+            // 
+            this.AristaDirigidaTool.AccessibleName = "AristaDirigida";
+            this.AristaDirigidaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.AristaDirigidaTool.Enabled = false;
+            this.AristaDirigidaTool.Image = ((System.Drawing.Image)(resources.GetObject("AristaDirigidaTool.Image")));
+            this.AristaDirigidaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.AristaDirigidaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.AristaDirigidaTool.Name = "AristaDirigidaTool";
+            this.AristaDirigidaTool.Size = new System.Drawing.Size(34, 34);
+            this.AristaDirigidaTool.Text = "Arista Dirigida";
+            // 
+            // PonderaciónAristaTool
+            // 
+            this.PonderaciónAristaTool.AccessibleName = "Ponderación";
+            this.PonderaciónAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.PonderaciónAristaTool.Enabled = false;
+            this.PonderaciónAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("PonderaciónAristaTool.Image")));
+            this.PonderaciónAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.PonderaciónAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.PonderaciónAristaTool.Name = "PonderaciónAristaTool";
+            this.PonderaciónAristaTool.Size = new System.Drawing.Size(34, 34);
+            this.PonderaciónAristaTool.Text = "Pondera Aristastas";
+            // 
+            // EliminarAristaTool
+            // 
+            this.EliminarAristaTool.AccessibleName = "EliminarArista";
+            this.EliminarAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EliminarAristaTool.Enabled = false;
+            this.EliminarAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("EliminarAristaTool.Image")));
+            this.EliminarAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.EliminarAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EliminarAristaTool.Name = "EliminarAristaTool";
+            this.EliminarAristaTool.Size = new System.Drawing.Size(34, 34);
+            this.EliminarAristaTool.Text = "Eliminar Arista";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 37);
+            // 
+            // MoverGrafoTool
+            // 
+            this.MoverGrafoTool.AccessibleName = "MoverGrafo";
+            this.MoverGrafoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.MoverGrafoTool.Enabled = false;
+            this.MoverGrafoTool.Image = ((System.Drawing.Image)(resources.GetObject("MoverGrafoTool.Image")));
+            this.MoverGrafoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.MoverGrafoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.MoverGrafoTool.Name = "MoverGrafoTool";
+            this.MoverGrafoTool.Size = new System.Drawing.Size(34, 34);
+            this.MoverGrafoTool.Text = "Mover Nodo";
+            // 
+            // EliminarGrafoTool
+            // 
+            this.EliminarGrafoTool.AccessibleName = "EliminarGrafo";
+            this.EliminarGrafoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EliminarGrafoTool.Enabled = false;
+            this.EliminarGrafoTool.Image = ((System.Drawing.Image)(resources.GetObject("EliminarGrafoTool.Image")));
+            this.EliminarGrafoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.EliminarGrafoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EliminarGrafoTool.Name = "EliminarGrafoTool";
+            this.EliminarGrafoTool.Size = new System.Drawing.Size(34, 34);
+            this.EliminarGrafoTool.Text = "Eliminar Grafo";
+            // 
+            // toolStripSeparator36
+            // 
+            this.toolStripSeparator36.Name = "toolStripSeparator36";
+            this.toolStripSeparator36.Size = new System.Drawing.Size(6, 37);
+            // 
+            // EtiquetasNodoTool
+            // 
+            this.EtiquetasNodoTool.AccessibleName = "EtiquetasNodo";
+            this.EtiquetasNodoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.EtiquetasNodoTool.Image = ((System.Drawing.Image)(resources.GetObject("EtiquetasNodoTool.Image")));
+            this.EtiquetasNodoTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.EtiquetasNodoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.EtiquetasNodoTool.Name = "EtiquetasNodoTool";
+            this.EtiquetasNodoTool.Size = new System.Drawing.Size(34, 34);
+            this.EtiquetasNodoTool.Text = "toolStripButton1";
+            // 
+            // pesosAristaTool
+            // 
+            this.pesosAristaTool.AccessibleName = "pesosArista";
+            this.pesosAristaTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pesosAristaTool.Image = ((System.Drawing.Image)(resources.GetObject("pesosAristaTool.Image")));
+            this.pesosAristaTool.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.pesosAristaTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pesosAristaTool.Name = "pesosAristaTool";
+            this.pesosAristaTool.Size = new System.Drawing.Size(34, 34);
+            this.pesosAristaTool.Text = "Pesos de las Aristas";
+            // 
+            // ToolBar
+            // 
+            this.ToolBar.AutoSize = false;
+            this.ToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AbrirTool,
+            this.GuardarTool,
+            this.toolStripSeparator3,
+            this.CrearNodoTool,
+            this.MoverNodoTool,
+            this.EliminarNodoTool,
+            this.toolStripSeparator4,
+            this.AristaNoDirigidaTool,
+            this.AristaDirigidaTool,
+            this.PonderaciónAristaTool,
+            this.EliminarAristaTool,
+            this.toolStripSeparator5,
+            this.MoverGrafoTool,
+            this.EliminarGrafoTool,
+            this.toolStripSeparator36,
+            this.EtiquetasNodoTool,
+            this.pesosAristaTool});
+            this.ToolBar.Location = new System.Drawing.Point(0, 24);
+            this.ToolBar.Name = "ToolBar";
+            this.ToolBar.Size = new System.Drawing.Size(1047, 37);
+            this.ToolBar.TabIndex = 1;
+            this.ToolBar.Text = "toolStrip1";
+            this.ToolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Tool_Clicked);
             // 
             // EditorDeGrafos
             // 
@@ -1484,8 +1485,6 @@
             this.Resize += new System.EventHandler(this.EditorDeGrafos_Resize);
             this.MenuPrincipal.ResumeLayout(false);
             this.MenuPrincipal.PerformLayout();
-            this.ToolBar.ResumeLayout(false);
-            this.ToolBar.PerformLayout();
             this.EspecialesTool.ResumeLayout(false);
             this.EspecialesTool.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericKn)).EndInit();
@@ -1495,6 +1494,8 @@
             this.ToolBarMetodos2.PerformLayout();
             this.ToolBarMetodos.ResumeLayout(false);
             this.ToolBarMetodos.PerformLayout();
+            this.ToolBar.ResumeLayout(false);
+            this.ToolBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1512,19 +1513,6 @@
         private System.Windows.Forms.ToolStripMenuItem grafoDirigidoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem grafoNoDirigidoToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip ToolBar;
-        private System.Windows.Forms.ToolStripButton AbrirTool;
-        private System.Windows.Forms.ToolStripButton GuardarTool;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton CrearNodoTool;
-        private System.Windows.Forms.ToolStripButton EliminarNodoTool;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton AristaDirigidaTool;
-        private System.Windows.Forms.ToolStripButton AristaNoDirigidaTool;
-        private System.Windows.Forms.ToolStripButton EliminarAristaTool;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton MoverGrafoTool;
-        private System.Windows.Forms.ToolStripButton EliminarGrafoTool;
         private System.Windows.Forms.ToolStripMenuItem CrearNodo;
         private System.Windows.Forms.ToolStripMenuItem EliminarNodo;
         private System.Windows.Forms.ToolStripMenuItem AristaNoDirigida;
@@ -1540,7 +1528,6 @@
         private System.Windows.Forms.ToolStripMenuItem MoverGrafo;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem EliminarGrafo;
-        private System.Windows.Forms.ToolStripButton MoverNodoTool;
         private System.Windows.Forms.SaveFileDialog saveFileGrafo;
         private System.Windows.Forms.ToolStripMenuItem gradosDir;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
@@ -1574,12 +1561,8 @@
         private System.Windows.Forms.ToolStripMenuItem configuraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem EtiquetasNodo;
         private System.Windows.Forms.ToolStripButton GrafoQ3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
-        private System.Windows.Forms.ToolStripButton EtiquetasNodoTool;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator37;
         private System.Windows.Forms.ToolStripMenuItem pesosArista;
-        private System.Windows.Forms.ToolStripButton pesosAristaTool;
-        private System.Windows.Forms.ToolStripButton PonderaciónAristaTool;
         private System.Windows.Forms.ToolStripMenuItem PonderaciónArista;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
         private System.Windows.Forms.Timer relojEuler;
@@ -1647,6 +1630,24 @@
         private System.Windows.Forms.ToolStripMenuItem knToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton AbrirTool;
+        private System.Windows.Forms.ToolStripButton GuardarTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton CrearNodoTool;
+        private System.Windows.Forms.ToolStripButton MoverNodoTool;
+        private System.Windows.Forms.ToolStripButton EliminarNodoTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton AristaNoDirigidaTool;
+        private System.Windows.Forms.ToolStripButton AristaDirigidaTool;
+        private System.Windows.Forms.ToolStripButton PonderaciónAristaTool;
+        private System.Windows.Forms.ToolStripButton EliminarAristaTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton MoverGrafoTool;
+        private System.Windows.Forms.ToolStripButton EliminarGrafoTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
+        private System.Windows.Forms.ToolStripButton EtiquetasNodoTool;
+        private System.Windows.Forms.ToolStripButton pesosAristaTool;
+        private System.Windows.Forms.ToolStrip ToolBar;
     }
 }
 

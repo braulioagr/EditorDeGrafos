@@ -76,3 +76,38 @@ C:\Users\Braulio García\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debu
 C:\Users\Braulio García\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.CoreCompileInputs.cache
 C:\Users\Braulio García\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe
 C:\Users\Braulio García\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe.config
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.exe
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\bin\Debug\EditorDeGrafos.pdb
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csprojAssemblyReference.cache
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.AristasBBA.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.AristasBBP.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.CambiaPesoArista.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Ciclos.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Corolarios.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Dijkstra.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.EditorDeGrafos.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Euler.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Floyd.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosDir.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GradosNoDir.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.GrafoSecundario.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Hamilton.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Isomorfismo.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Kruskal.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Kuratowski.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.ListaDeAdyacencia.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.MatrizDeAdyacencia.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.MatrizDeIncidencia.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Partitas.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.PendientesYAislados.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.PesosAristas.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Properties.Resources.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.Regiones.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.ReporteKuratowski.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.SeleccionRaiz.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.TamañoYOrden.resources
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.GenerateResource.cache
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.csproj.CoreCompileInputs.cache
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.exe
+C:\Users\Braulio García R\Documents\GitHub\EditorDeGrafos\EditorDeGrafos\obj\Debug\EditorDeGrafos.pdb
